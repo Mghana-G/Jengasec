@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JengaSec 2026 | Kenya's Enterprise Cyber Simulation</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --g:#007A3D;--gd:#004D26;--gl:#00C853;
+  --red:#B3000C;--gold:#C9960A;--gold2:#E8B020;
+  --black:#080C08;--white:#F8FAF8;--off:#EFF2EF;
+  --muted:#5A6A5A;--border:#D4DDD4;--card:#FFFFFF;
+}
+html{scroll-behavior:smooth}
+body{background:var(--white);color:var(--black);font-family:'DM Sans',sans-serif;overflow-x:hidden}
+
+.shuka{height:5px;width:100%;position:fixed;top:0;z-index:300;
+  background:repeating-linear-gradient(90deg,var(--red) 0,var(--red) 18px,#111 18px,#111 36px,var(--g) 36px,var(--g) 54px,#111 54px,#111 72px)}
+
+nav{position:fixed;top:5px;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0.9rem 5%;background:rgba(248,250,248,0.97);
+  backdrop-filter:blur(24px);border-bottom:1px solid var(--border)}
+.nl{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:0.1em;
+  color:var(--black);display:flex;align-items:center;gap:0.6rem;text-decoration:none}
+.nl-diamond{width:10px;height:10px;background:var(--g);
+  clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%);
+  animation:spin 4s linear infinite;flex-shrink:0}
+@keyframes spin{to{transform:rotate(360deg)}}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-size:13px;font-weight:500;letter-spacing:0.04em;
+  color:var(--muted);text-decoration:none;transition:color 0.2s}
+.nav-links a:hover{color:var(--g)}
+.nav-cta{padding:0.5rem 1.3rem;background:var(--g);color:var(--white);
+  font-size:12px;font-weight:600;letter-spacing:0.06em;
+  text-decoration:none;border:2px solid var(--g);transition:all 0.2s;
+  font-family:'Space Mono',monospace}
+.nav-cta:hover{background:transparent;color:var(--g)}
+
+/* ============================================================
+   HERO BACKGROUND IMAGE
+   ------------------------------------------------------------
+   HOW TO ADD YOUR IMAGE:
+   1. Put your image file in the SAME FOLDER as this index.html
+   2. Replace Jengasec.jpg below with your exact filename
+   3. Save and open in browser
+
+   DEPLOYING TO VERCEL:
+   Upload BOTH index.html AND your image file together.
+   Vercel needs both files in the same project folder.
+   ============================================================ */
+.hero{min-height:100vh;display:flex;flex-direction:column;
+  justify-content:flex-end;padding:0 5% 5rem;
+  position:relative;overflow:hidden}
+.hero-img{
+  position:absolute;inset:0;
+  background-image:url('Jengasec.jpg');
+  background-size:cover;background-position:center center;
+  background-repeat:no-repeat;background-color:#0A1F10;
+}
+.hero-overlay{position:absolute;inset:0;
+  background:linear-gradient(160deg,rgba(0,50,20,0.88) 0%,rgba(0,80,35,0.75) 40%,rgba(0,30,12,0.92) 100%)}
+.hero-fade{position:absolute;bottom:0;left:0;right:0;height:65%;
+  background:linear-gradient(to top,rgba(0,20,8,0.97) 0%,transparent 100%)}
+.hero-scan{position:absolute;inset:0;pointer-events:none;z-index:1;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,200,80,0.015) 2px,rgba(0,200,80,0.015) 4px)}
+.hero-grid-overlay{position:absolute;inset:0;pointer-events:none;z-index:1;
+  background-image:linear-gradient(rgba(0,200,80,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,200,80,0.04) 1px,transparent 1px);
+  background-size:50px 50px}
+
+.hero-content{position:relative;z-index:2;max-width:900px}
+.hero-badge{display:inline-flex;align-items:center;gap:0.5rem;
+  padding:0.3rem 0.85rem;margin-bottom:1.25rem;
+  border:1px solid rgba(0,200,80,0.25);background:rgba(0,200,80,0.06);
+  font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.15em;
+  text-transform:uppercase;color:rgba(255,255,255,0.6)}
+.badge-dot{width:5px;height:5px;border-radius:50%;background:var(--gl);animation:pulse 2s ease infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.3;transform:scale(1.6)}}
+
+.hero h1{font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(5rem,14vw,12rem);line-height:0.85;letter-spacing:0.02em;color:var(--white)}
+
+/* GLITCH EFFECT on "Sec" */
+.glitch{
+  color:rgba(255,255,255,0.45);display:block;
+  position:relative;
+}
+.glitch::before,
+.glitch::after{
+  content:attr(data-text);
+  position:absolute;top:0;left:0;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1em;line-height:1;
+  color:rgba(255,255,255,0.45);
+  overflow:hidden;
+}
+.glitch::before{
+  left:2px;
+  text-shadow:-1px 0 var(--red);
+  clip-path:polygon(0 30%,100% 30%,100% 50%,0 50%);
+  animation:glitch-top 4s infinite linear;
+}
+.glitch::after{
+  left:-2px;
+  text-shadow:1px 0 var(--gl);
+  clip-path:polygon(0 60%,100% 60%,100% 80%,0 80%);
+  animation:glitch-bot 4s infinite linear;
+}
+@keyframes glitch-top{
+  0%,85%,100%{transform:translateX(0);opacity:0}
+  86%{transform:translateX(-3px);opacity:1}
+  88%{transform:translateX(3px);opacity:1}
+  90%{transform:translateX(0);opacity:0}
+  92%{transform:translateX(-2px);opacity:1}
+  94%{transform:translateX(0);opacity:0}
+}
+@keyframes glitch-bot{
+  0%,85%,100%{transform:translateX(0);opacity:0}
+  87%{transform:translateX(3px);opacity:1}
+  89%{transform:translateX(-3px);opacity:1}
+  91%{transform:translateX(0);opacity:0}
+  93%{transform:translateX(2px);opacity:1}
+  95%{transform:translateX(0);opacity:0}
+}
+
+.hero h1 .gold{color:var(--gold);display:block;font-size:0.38em;
+  letter-spacing:0.12em;font-family:'Space Mono',monospace;font-weight:400}
+
+/* TYPEWRITER tagline */
+.hero-tagline{
+  margin-top:1.25rem;font-size:15px;font-weight:300;
+  line-height:1.85;color:rgba(255,255,255,0.65);max-width:480px;
+  border-left:2px solid var(--gold);padding-left:1rem;
+  min-height:5rem;
+}
+.typewriter-cursor{
+  display:inline-block;width:2px;height:1em;
+  background:var(--gl);margin-left:2px;
+  vertical-align:middle;
+  animation:blink 0.8s step-end infinite;
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+.hero-decode{margin-top:1rem;font-family:'Space Mono',monospace;
+  font-size:clamp(0.75rem,1.5vw,1rem);letter-spacing:0.12em;color:var(--gl);min-height:1.5rem}
+.hero-ctas{display:flex;gap:1rem;margin-top:1.75rem;flex-wrap:wrap}
+.btn-red{padding:0.8rem 2rem;background:var(--red);color:var(--white);
+  font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;
+  text-decoration:none;border:2px solid var(--red);font-family:'Space Mono',monospace;transition:all 0.2s}
+.btn-red:hover{background:transparent;color:var(--white);border-color:var(--white)}
+.btn-ghost{padding:0.8rem 2rem;border:2px solid rgba(255,255,255,0.25);
+  color:rgba(255,255,255,0.7);font-size:12px;font-weight:500;letter-spacing:0.08em;
+  text-transform:uppercase;text-decoration:none;font-family:'Space Mono',monospace;transition:all 0.2s}
+.btn-ghost:hover{border-color:var(--white);color:var(--white)}
+
+.fp{background:var(--black);padding:0.85rem 5%;
+  display:flex;align-items:center;justify-content:center;
+  gap:2.5rem;flex-wrap:wrap;border-bottom:1px solid rgba(255,255,255,0.05)}
+.fp-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.2em;
+  text-transform:uppercase;color:rgba(255,255,255,0.2);flex-shrink:0}
+.fp-logos{display:flex;align-items:center;gap:2rem;flex-wrap:wrap;justify-content:center}
+.fp-logo{height:28px;display:flex;align-items:center;
+  opacity:0.4;transition:opacity 0.2s;filter:brightness(0) invert(1)}
+.fp-logo:hover{opacity:0.8}
+.fp-logo img{height:100%;max-width:110px;object-fit:contain}
+.fp-logo-text{font-family:'Space Mono',monospace;font-size:10px;
+  color:rgba(255,255,255,0.35);letter-spacing:0.06em;white-space:nowrap}
+
+.ticker{background:var(--black);padding:0.55rem 0;overflow:hidden;
+  border-top:1px solid rgba(0,200,80,0.1);border-bottom:1px solid rgba(0,200,80,0.1)}
+.ticker-track{display:flex;animation:tick 30s linear infinite;white-space:nowrap}
+.ti{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.08em;
+  color:rgba(255,255,255,0.25);padding:0 1.2rem;flex-shrink:0;
+  border-right:1px solid rgba(255,255,255,0.05)}
+.ti.g{color:rgba(0,200,80,0.6)}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+.prob{background:var(--g);padding:2rem 5%;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:2rem;flex-wrap:wrap;position:relative;overflow:hidden}
+.prob::before{content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(90deg,rgba(255,255,255,0.03) 0,rgba(255,255,255,0.03) 1px,transparent 1px,transparent 40px)}
+.prob-text{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.4rem,3vw,2.2rem);
+  letter-spacing:0.04em;color:var(--white);position:relative;z-index:1}
+.prob-text em{color:var(--gold2);font-style:normal}
+.prob-sub{font-size:14px;color:rgba(255,255,255,0.65);max-width:480px;line-height:1.7;position:relative;z-index:1}
+
+.sec{padding:5rem 5%}
+.sec-alt{background:var(--off)}
+.sec-dark{background:var(--black);color:var(--white)}
+
+.sh{margin-bottom:3rem}
+.sh-eye{display:flex;align-items:center;gap:0.6rem;margin-bottom:0.5rem}
+.sh-line{width:16px;height:2px;background:var(--g)}
+.sec-dark .sh-line{background:var(--gold)}
+.sh-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.18em;
+  text-transform:uppercase;color:var(--g)}
+.sec-dark .sh-label{color:var(--gold)}
+.sh-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,4vw,3.2rem);line-height:1;letter-spacing:0.03em}
+.outline-g{color:var(--g)}
+.sec-dark .sh-title{color:var(--white)}
+.sec-dark .outline-g{color:var(--gold)}
+
+.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.how-card{background:var(--card);border:1px solid var(--border);
+  padding:2.5rem 2rem;position:relative;overflow:hidden;
+  transition:transform 0.35s,box-shadow 0.35s;opacity:0;transform:translateY(28px)}
+.how-card.visible{opacity:1;transform:translateY(0)}
+.how-card::before{content:'';position:absolute;top:0;right:0;width:60px;height:60px;
+  background:linear-gradient(225deg,rgba(0,122,61,0.06) 0%,transparent 60%);
+  border-left:1px solid rgba(0,122,61,0.1);border-bottom:1px solid rgba(0,122,61,0.1)}
+.how-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;
+  background:var(--g);transform:scaleX(0);transform-origin:left;transition:transform 0.3s}
+.how-card:hover{transform:translateY(-8px);box-shadow:0 24px 48px rgba(0,122,61,0.1)}
+.how-card:hover::after{transform:scaleX(1)}
+.how-bg-num{font-family:'Bebas Neue',sans-serif;font-size:7rem;
+  color:rgba(0,122,61,0.04);position:absolute;top:-1rem;right:0.75rem;line-height:1;pointer-events:none}
+.how-tag{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.18em;
+  text-transform:uppercase;color:var(--g);margin-bottom:0.75rem}
+.how-icon{width:42px;height:42px;margin-bottom:1rem;color:var(--black);transition:color 0.3s}
+.how-card:hover .how-icon{color:var(--g)}
+.how-name{font-family:'Bebas Neue',sans-serif;font-size:1.55rem;letter-spacing:0.03em;margin-bottom:0.2rem}
+.how-swahili{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;
+  text-transform:uppercase;color:var(--gl);margin-bottom:0.75rem}
+.how-desc{font-size:13px;line-height:1.75;color:var(--muted)}
+
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);
+  gap:1px;background:rgba(255,255,255,0.06);margin-top:2rem}
+.stat-card{background:var(--black);padding:2rem 1.5rem;border-top:3px solid transparent;
+  transition:border-color 0.3s,background 0.3s;opacity:0;transform:translateY(16px);
+  position:relative;overflow:hidden}
+.stat-card::before{content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(45deg,transparent,transparent 10px,rgba(0,200,80,0.015) 10px,rgba(0,200,80,0.015) 11px);
+  opacity:0;transition:opacity 0.3s}
+.stat-card:hover::before{opacity:1}
+.stat-card.visible{opacity:1;transform:translateY(0)}
+.stat-card:hover{border-color:var(--gold);background:#0D150D}
+.stat-n{font-family:'Bebas Neue',sans-serif;font-size:3rem;line-height:1;color:var(--white)}
+.stat-n em{color:var(--gold);font-style:normal}
+.stat-l{font-size:12px;line-height:1.5;color:rgba(255,255,255,0.3);margin-top:0.4rem}
+
+.contact-wrap{max-width:620px;margin:0 auto;text-align:center}
+.contact-intro{font-size:15px;line-height:1.85;color:var(--muted);margin-bottom:2.5rem}
+.contact-box{background:var(--off);border:1px solid var(--border);
+  padding:2.5rem;display:flex;flex-direction:column;
+  align-items:center;gap:1.25rem;position:relative;overflow:hidden}
+.contact-box::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:repeating-linear-gradient(90deg,var(--red) 0,var(--red) 15px,var(--gold) 15px,var(--gold) 30px,var(--g) 30px,var(--g) 45px)}
+.contact-email{font-family:'Space Mono',monospace;font-size:clamp(0.85rem,2vw,1.1rem);
+  letter-spacing:0.06em;color:var(--g);text-decoration:none;transition:color 0.2s;word-break:break-all}
+.contact-email:hover{color:var(--gd)}
+.contact-divider{width:32px;height:1px;background:var(--border)}
+.contact-sub{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.04em;color:var(--muted);line-height:1.7}
+.btn-green{padding:0.85rem 2.5rem;background:var(--g);color:var(--white);
+  font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;
+  text-decoration:none;border:2px solid var(--g);font-family:'Space Mono',monospace;transition:all 0.2s}
+.btn-green:hover{background:transparent;color:var(--g)}
+
+.logos-sec{background:var(--off);padding:3rem 5%;border-top:1px solid var(--border)}
+.logos-label{text-align:center;font-family:'Space Mono',monospace;font-size:10px;
+  letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);margin-bottom:2rem}
+.logos-grid{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:1.5rem}
+.logo-slot{width:156px;height:62px;border:1.5px dashed var(--border);
+  display:flex;align-items:center;justify-content:center;
+  transition:border-color 0.2s;position:relative;overflow:hidden}
+.logo-slot::before{content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,transparent 40%,rgba(0,122,61,0.03) 100%)}
+.logo-slot:hover{border-color:var(--g)}
+.logo-slot span{font-family:'Space Mono',monospace;font-size:9px;
+  letter-spacing:0.1em;text-transform:uppercase;color:var(--border)}
+.logo-slot img{max-width:120px;max-height:40px;opacity:0.5;filter:grayscale(1);transition:all 0.2s}
+.logo-slot img:hover{opacity:1;filter:grayscale(0)}
+
+footer{background:var(--black);border-top:4px solid var(--g);
+  padding:2.5rem 5%;display:flex;justify-content:space-between;
+  align-items:center;flex-wrap:wrap;gap:1.5rem}
+.ft-brand{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:0.1em;color:var(--white)}
+.ft-brand em{color:var(--gold);font-style:normal}
+.ft-sub{font-family:'Space Mono',monospace;font-size:10px;color:rgba(255,255,255,0.25);margin-top:0.3rem;letter-spacing:0.04em}
+.ft-right{text-align:right}
+.ft-right a{font-family:'Space Mono',monospace;font-size:12px;color:var(--gl);text-decoration:none}
+.ft-right p{font-family:'Space Mono',monospace;font-size:10px;color:rgba(255,255,255,0.18);margin-top:0.3rem;letter-spacing:0.04em}
+
+.fade-up{opacity:0;transform:translateY(24px);transition:opacity 0.6s,transform 0.6s}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+
+@media(max-width:900px){
+  nav{padding:1rem 4%}
+  .nav-links{display:none}
+  .sec,.logos-sec,footer,.fp,.prob{padding-left:4%;padding-right:4%}
+  .hero{padding:8rem 4% 4rem}
+  .how-grid,.stats-grid{grid-template-columns:1fr}
+  footer{text-align:center}
+  .ft-right{text-align:center}
+  .prob{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<div class="shuka"></div>
+
+<nav>
+  <a class="nl" href="#home">
+    <div class="nl-diamond"></div>JengaSec
+  </a>
+  <ul class="nav-links">
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#numbers">Numbers</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Partner With Us</a>
+</nav>
+
+<section class="hero" id="home">
+  <div class="hero-img"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-scan"></div>
+  <div class="hero-grid-overlay"></div>
+  <div class="hero-fade"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      // STRATHMORE_UNIVERSITY :: NAIROBI :: SEP_2026
+    </div>
+    <h1>
+      Jenga
+      <!-- GLITCH EFFECT — data-text must match the text content -->
+      <span class="glitch" data-text="Sec">Sec</span>
+      <span class="gold">// September 2026</span>
+    </h1>
+    <!-- TYPEWRITER — text is typed by JS on load -->
+    <p class="hero-tagline" id="typewriter"></p>
+    <div class="hero-decode" id="decode" data-value="> CTFs AND HACKATHONS DON'T CUT IT ANYMORE.">> CTFs AND HACKATHONS DON'T CUT IT ANYMORE.</div>
+    <div class="hero-ctas">
+      <a href="#contact" class="btn-red">Partner With Us</a>
+      <a href="#how" class="btn-ghost">How It Works</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDING PARTNERS — replace fp-logo-text spans with img tags when logos are ready -->
+<div class="fp">
+  <span class="fp-label">// Backed by</span>
+  <div class="fp-logos">
+    <div class="fp-logo"><span class="fp-logo-text">ISACA Kenya</span></div>
+    <div class="fp-logo"><span class="fp-logo-text">Huawei ICT Academy</span></div>
+    <div class="fp-logo"><span class="fp-logo-text">iLab Africa</span></div>
+    <div class="fp-logo"><span class="fp-logo-text">Strathmore University</span></div>
+  </div>
+</div>
+
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="ti g">APT_SIMULATION</span><span class="ti">CLOUD_SECURITY</span><span class="ti g">RED_VS_BLUE</span><span class="ti">SOCIAL_ENGINEERING</span><span class="ti g">VAPT_DOCUMENTATION</span><span class="ti">KIKAO_PANEL</span><span class="ti g">MAARIFA_SESSIONS</span><span class="ti">MORANI_HUNTING_GROUNDS</span><span class="ti g">JENGABANK</span><span class="ti">INSIDER_THREAT</span><span class="ti g">500+_PARTICIPANTS</span><span class="ti">FREE_ENTRY</span><span class="ti g">KENYA_PROVING_GROUND</span>
+    <span class="ti g">APT_SIMULATION</span><span class="ti">CLOUD_SECURITY</span><span class="ti g">RED_VS_BLUE</span><span class="ti">SOCIAL_ENGINEERING</span><span class="ti g">VAPT_DOCUMENTATION</span><span class="ti">KIKAO_PANEL</span><span class="ti g">MAARIFA_SESSIONS</span><span class="ti">MORANI_HUNTING_GROUNDS</span><span class="ti g">JENGABANK</span><span class="ti">INSIDER_THREAT</span><span class="ti g">500+_PARTICIPANTS</span><span class="ti">FREE_ENTRY</span><span class="ti g">KENYA_PROVING_GROUND</span>
+  </div>
+</div>
+
+<div class="prob">
+  <div class="prob-text fade-up">CTFs develop tools. <em>JengaSec develops judgment.</em></div>
+  <p class="prob-sub fade-up">Most talent pipelines produce professionals assessed individually, within their discipline, under controlled conditions. JengaSec produces something different.</p>
+</div>
+
+<section class="sec sec-alt" id="how">
+  <div class="sh fade-up">
+    <div class="sh-eye"><div class="sh-line"></div><span class="sh-label">// How It Works</span></div>
+    <h2 class="sh-title">Three phases.<br><span class="outline-g">One complete lifecycle.</span></h2>
+  </div>
+  <div class="how-grid">
+    <div class="how-card fade-up">
+      <div class="how-bg-num">01</div>
+      <div class="how-tag">// Phase_01 — Pre-Event</div>
+      <svg class="how-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5">
+        <rect x="6" y="6" width="32" height="32" rx="3"/>
+        <circle cx="22" cy="22" r="8" stroke="var(--g)" stroke-width="1.5"/>
+        <line x1="22" y1="6" x2="22" y2="14"/><line x1="22" y1="30" x2="22" y2="38"/>
+        <line x1="6" y1="22" x2="14" y2="22"/><line x1="30" y1="22" x2="38" y2="22"/>
+        <circle cx="6" cy="6" r="2" fill="var(--g)"/><circle cx="38" cy="6" r="2" fill="var(--g)"/>
+        <circle cx="6" cy="38" r="2" fill="var(--g)"/><circle cx="38" cy="38" r="2" fill="var(--g)"/>
+        <circle cx="22" cy="22" r="2.5" fill="var(--g)"/>
+      </svg>
+      <div class="how-name">Maarifa</div>
+      <div class="how-swahili">// Knowledge</div>
+      <p class="how-desc">Industry-led talks followed immediately by hands-on disruption exercises. What is learned in the morning directly shapes what is attacked and defended that afternoon.</p>
+    </div>
+    <div class="how-card fade-up" style="transition-delay:0.12s">
+      <div class="how-bg-num">02</div>
+      <div class="how-tag">// Phase_02 — Live Simulation</div>
+      <svg class="how-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M22 3C32 3 38 12 38 22C38 35 27 41 22 43C17 41 6 35 6 22C6 12 12 3 22 3Z"/>
+        <line x1="7" y1="7" x2="37" y2="37" stroke-width="1"/><line x1="37" y1="7" x2="7" y2="37" stroke-width="1"/>
+        <circle cx="22" cy="22" r="6" stroke="var(--red)" stroke-width="1.5"/>
+        <circle cx="22" cy="22" r="2" fill="var(--red)"/>
+        <circle cx="7" cy="7" r="1.5" fill="var(--red)"/><circle cx="37" cy="7" r="1.5" fill="var(--red)"/>
+      </svg>
+      <div class="how-name">Morani Hunting Grounds</div>
+      <div class="how-swahili">// Mastery_Under_Pressure</div>
+      <p class="how-desc">Red teams execute full APT-style attacks on enterprise systems built by blue teams. Social engineering, cloud exploitation, insider threat mechanics. Depth of compromise measured — not binary.</p>
+    </div>
+    <div class="how-card fade-up" style="transition-delay:0.24s">
+      <div class="how-bg-num">03</div>
+      <div class="how-tag">// Phase_03 — Executive Review</div>
+      <svg class="how-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="22" cy="22" r="17" stroke-dasharray="5 3"/>
+        <circle cx="22" cy="22" r="10" stroke="var(--g)" stroke-width="1.5"/>
+        <circle cx="22" cy="22" r="3.5" fill="var(--g)"/>
+        <line x1="22" y1="5" x2="22" y2="12"/><line x1="22" y1="32" x2="22" y2="39"/>
+        <line x1="5" y1="22" x2="12" y2="22"/><line x1="32" y1="22" x2="39" y2="22"/>
+        <circle cx="22" cy="5" r="1.5" fill="var(--g)"/><circle cx="22" cy="39" r="1.5" fill="var(--g)"/>
+      </svg>
+      <div class="how-name">Kikao</div>
+      <div class="how-swahili">// Dialogue_&_Reflection</div>
+      <p class="how-desc">Industry leaders — CISOs, architects, technology executives — forensically review what actually happened. Real decisions, real attack chains. Followed by open Q&A on entering the industry.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-dark" id="numbers">
+  <div class="sh fade-up">
+    <div class="sh-eye"><div class="sh-line"></div><span class="sh-label">// The Numbers</span></div>
+    <h2 class="sh-title">Built at<br><span class="outline-g">real scale.</span></h2>
+  </div>
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-n">500<em>+</em></div>
+      <div class="stat-l">Participants from universities and tech communities across Kenya</div>
+    </div>
+    <div class="stat-card" style="transition-delay:0.08s">
+      <div class="stat-n">~167</div>
+      <div class="stat-l">Teams of three — Red and Blue roles assigned before the event</div>
+    </div>
+    <div class="stat-card" style="transition-delay:0.16s">
+      <div class="stat-n">3<em>–4</em></div>
+      <div class="stat-l">Days of full-spectrum simulation spanning Maarifa, Morani, and Kikao</div>
+    </div>
+    <div class="stat-card" style="transition-delay:0.24s">
+      <div class="stat-n"><em>Free</em></div>
+      <div class="stat-l">Entry for all participants — open to students and tech community members</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="contact">
+  <div class="sh fade-up">
+    <div class="sh-eye"><div class="sh-line"></div><span class="sh-label">// Partner With Us</span></div>
+    <h2 class="sh-title">Ready to be<br><span class="outline-g">in the room?</span></h2>
+  </div>
+  <div class="contact-wrap fade-up">
+    <p class="contact-intro">We are actively seeking founding partners for JengaSec 2026. If your organisation wants direct access to Kenya's strongest emerging technical talent — before the rest of the industry knows their names — reach out.</p>
+    <div class="contact-box">
+      <a href="mailto:sucybersec@strathmore.edu" class="contact-email">sucybersec@strathmore.edu</a>
+      <div class="contact-divider"></div>
+      <p class="contact-sub">Strathmore Cybersecurity Club // Strathmore University, Nairobi, Kenya</p>
+      <a href="mailto:sucybersec@strathmore.edu" class="btn-green">Send Us a Message</a>
+    </div>
+  </div>
+</section>
+
+<!-- SPONSOR LOGO SLOTS — replace span with img tag when logos confirmed -->
+<div class="logos-sec">
+  <div class="logos-label">// 2026 Partners & Sponsors</div>
+  <div class="logos-grid">
+    <div class="logo-slot"><span>Your_Logo</span></div>
+    <div class="logo-slot"><span>Your_Logo</span></div>
+    <div class="logo-slot"><span>Your_Logo</span></div>
+    <div class="logo-slot"><span>Your_Logo</span></div>
+  </div>
+</div>
+
+<footer>
+  <div>
+    <div class="ft-brand">Jenga<em>Sec</em> 2026</div>
+    <div class="ft-sub">// Strathmore Cybersecurity Club · Nairobi, Kenya</div>
+  </div>
+  <div class="ft-right">
+    <a href="mailto:sucybersec@strathmore.edu">sucybersec@strathmore.edu</a>
+    <p>// Kenya's proving ground for enterprise-ready technologists</p>
+  </div>
+</footer>
+
+<script>
+// ── DECODE EFFECT ─────────────────────────────────────────
+const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789./\\[]{}><_#@!";
+const decodeEl = document.getElementById('decode');
+let iv = null;
+function decode() {
+  let i = 0; clearInterval(iv);
+  iv = setInterval(() => {
+    decodeEl.textContent = decodeEl.dataset.value.split('').map((c, idx) => {
+      if (c === ' ') return ' ';
+      if (idx < i) return decodeEl.dataset.value[idx];
+      return chars[Math.floor(Math.random() * chars.length)];
+    }).join('');
+    if (i >= decodeEl.dataset.value.length) clearInterval(iv);
+    i += 0.7;
+  }, 22);
+}
+decodeEl.addEventListener('mouseover', decode);
+
+// ── TYPEWRITER EFFECT ─────────────────────────────────────
+const typewriterEl = document.getElementById('typewriter');
+const typeText = "Kenya's first full-spectrum enterprise cybersecurity simulation. Build it. Secure it. Attack it. Document it.";
+let tIdx = 0;
+let cursorEl = null;
+
+function startTypewriter() {
+  cursorEl = document.createElement('span');
+  cursorEl.className = 'typewriter-cursor';
+  typewriterEl.appendChild(cursorEl);
+
+  function type() {
+    if (tIdx < typeText.length) {
+      const char = document.createTextNode(typeText[tIdx]);
+      typewriterEl.insertBefore(char, cursorEl);
+      tIdx++;
+      // vary speed slightly for natural feel
+      const delay = typeText[tIdx - 1] === '.' ? 300 : 38 + Math.random() * 20;
+      setTimeout(type, delay);
+    }
+    // cursor keeps blinking after done
+  }
+  type();
+}
+
+// ── INIT ON LOAD ──────────────────────────────────────────
+window.addEventListener('load', () => {
+  // start decode after short delay
+  setTimeout(decode, 800);
+  // start typewriter after hero has settled
+  setTimeout(startTypewriter, 600);
+});
+
+// ── SCROLL ANIMATIONS ─────────────────────────────────────
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+  });
+}, { threshold: 0.07 });
+document.querySelectorAll('.fade-up,.how-card,.stat-card').forEach(e => obs.observe(e));
+
+// ── COUNTER ANIMATION ─────────────────────────────────────
+function animateCounters() {
+  document.querySelectorAll('.stat-n').forEach(el => {
+    const text = el.textContent;
+    const num = parseInt(text.replace(/[^0-9]/g, ''));
+    if (!num) return;
+    const suffix = text.replace(/[0-9~]/g, '').trim();
+    let start = 0;
+    const timer = setInterval(() => {
+      start += Math.ceil(num / 40);
+      if (start >= num) { start = num; clearInterval(timer); }
+      el.innerHTML = start + '<em>' + suffix + '</em>';
+    }, 30);
+  });
+}
+const statsObs = new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting) { animateCounters(); statsObs.disconnect(); }
+}, { threshold: 0.3 });
+const statsSection = document.getElementById('numbers');
+if (statsSection) statsObs.observe(statsSection);
+</script>
+</body>
+</html>
