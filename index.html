@@ -16,10 +16,13 @@
 <meta property="og:description" content="Kenya's first full-spectrum enterprise cybersecurity simulation. 350+ participants. Nairobi, September 2026.">
 <meta property="og:image" content="https://jengasec.com/Jengasec.jpg">
 <meta property="og:site_name" content="JengaSec">
+<meta property="og:locale" content="en_KE">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@sucybersec">
+<meta name="twitter:title" content="JengaSec 2026 | Kenya's Enterprise Cyber Simulation">
+<meta name="twitter:description" content="Kenya's first full-spectrum enterprise cybersecurity simulation. 350+ participants. Nairobi, September 2026.">
 <meta name="twitter:image" content="https://jengasec.com/Jengasec.jpg">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Event","name":"JengaSec 2026","startDate":"2026-09","eventStatus":"https://schema.org/EventScheduled","location":{"@type":"Place","name":"Strathmore University","address":{"@type":"PostalAddress","addressLocality":"Nairobi","addressCountry":"KE"}},"organizer":{"@type":"Organization","name":"Strathmore Cybersecurity Club","url":"https://jengasec.com"},"url":"https://jengasec.com","isAccessibleForFree":true}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Event","name":"JengaSec 2026","startDate":"2026-09","eventStatus":"https://schema.org/EventScheduled","location":{"@type":"Place","name":"Strathmore University","address":{"@type":"PostalAddress","addressLocality":"Nairobi","addressCountry":"KE"}},"organizer":{"@type":"Organization","name":"Strathmore Cybersecurity Club","url":"https://jengasec.com","email":"sucybersec@strathmore.edu"},"url":"https://jengasec.com","isAccessibleForFree":true}</script>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -33,41 +36,30 @@
 html{scroll-behavior:smooth}
 body{background:var(--white);color:var(--black);font-family:'DM Sans',sans-serif;overflow-x:hidden}
 
-/* ── SCROLL PROGRESS ─────────────────────────────────────── */
 #prog{position:fixed;top:0;left:0;height:2px;width:0%;z-index:9999;
   background:linear-gradient(90deg,var(--red) 0%,var(--gold) 40%,var(--g) 100%);
   transition:width 0.08s linear;pointer-events:none}
 
-/* ── NAV ─────────────────────────────────────────────────── */
 nav{position:fixed;top:2px;left:0;right:0;z-index:200;
   display:flex;align-items:center;justify-content:space-between;
   padding:0.85rem 5%;background:rgba(248,250,248,0.97);
   backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
-
-/* Logo — crossed spears image replaces rotating diamond */
 .nl{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:0.1em;
   color:var(--black);display:flex;align-items:center;gap:0.7rem;text-decoration:none}
 .nl-spear{width:22px;height:22px;object-fit:contain;flex-shrink:0}
-
 .nav-links{display:flex;gap:2rem;list-style:none}
 .nav-links a{font-size:13px;font-weight:500;letter-spacing:0.04em;
   color:var(--muted);text-decoration:none;transition:color 0.2s}
 .nav-links a:hover{color:var(--g)}
-
-/* Partner With Us CTA — hidden on mobile when hamburger shows */
 .nav-cta{padding:0.5rem 1.4rem;background:var(--g);color:var(--white);
   font-size:12px;font-weight:600;letter-spacing:0.06em;
   text-decoration:none;border:2px solid var(--g);transition:all 0.2s;
   font-family:'Space Mono',monospace}
 .nav-cta:hover{background:transparent;color:var(--g)}
-
-/* Hamburger — desktop hidden, mobile visible */
 .hamburger{display:none;flex-direction:column;gap:5px;
   cursor:pointer;padding:4px;background:none;border:none}
-.hamburger span{display:block;width:22px;height:2px;
-  background:var(--black);transition:all 0.3s}
+.hamburger span{display:block;width:22px;height:2px;background:var(--black);transition:all 0.3s}
 
-/* ── MOBILE MENU ─────────────────────────────────────────── */
 .mmenu{display:none;position:fixed;inset:0;z-index:190;
   background:rgba(8,12,8,0.98);flex-direction:column;
   align-items:center;justify-content:center;gap:2.5rem}
@@ -79,7 +71,6 @@ nav{position:fixed;top:2px;left:0;right:0;z-index:200;
   cursor:pointer;background:none;border:none;
   font-family:'Space Mono',monospace;color:rgba(255,255,255,0.35);letter-spacing:0.1em}
 
-/* ── HERO ────────────────────────────────────────────────── */
 .hero{min-height:100vh;display:flex;flex-direction:column;
   justify-content:flex-end;padding:0 5% 5rem;position:relative;overflow:hidden}
 .hero-img{position:absolute;inset:0;
@@ -143,7 +134,6 @@ nav{position:fixed;top:2px;left:0;right:0;z-index:200;
   text-transform:uppercase;text-decoration:none;font-family:'Space Mono',monospace;transition:all 0.2s}
 .btn-ghost:hover{border-color:rgba(255,255,255,0.6);color:var(--white)}
 
-/* ── PARTNERS — no shuka strip before, flows from hero ───── */
 .partners{background:var(--dg);padding:2.5rem 5%}
 .partners-inner{display:flex;align-items:center;justify-content:center;
   flex-wrap:wrap;max-width:1200px;margin:0 auto}
@@ -152,21 +142,15 @@ nav{position:fixed;top:2px;left:0;right:0;z-index:200;
   color:rgba(255,255,255,0.22);flex-shrink:0;
   padding-right:2.5rem;margin-right:2.5rem;
   border-right:1px solid rgba(255,255,255,0.07);white-space:nowrap}
-.partners-logos{display:flex;align-items:center;justify-content:center;gap:4rem;flex-wrap:wrap}
+.partners-logos{display:flex;align-items:center;justify-content:center;gap:3rem;flex-wrap:wrap}
 .plogo{display:flex;align-items:center;justify-content:center;
   height:72px;opacity:0.75;transition:opacity 0.25s,transform 0.25s}
 .plogo:hover{opacity:1;transform:scale(1.05)}
-.plogo img{
-  height:100%;max-height:72px;max-width:180px;width:auto;object-fit:contain;
-  /* Blend logos into dark background — removes coloured frames/backgrounds */
-  mix-blend-mode:luminosity;
-  filter:brightness(1.3) contrast(0.9);
+.plogo img{height:100%;max-height:72px;max-width:160px;width:auto;object-fit:contain;
+  mix-blend-mode:luminosity;filter:brightness(1.3) contrast(0.9);
   transition:filter 0.25s,mix-blend-mode 0.25s}
-.plogo:hover img{
-  mix-blend-mode:normal;
-  filter:none}
+.plogo:hover img{mix-blend-mode:normal;filter:none}
 
-/* ── TICKER ──────────────────────────────────────────────── */
 .ticker{background:var(--black);padding:0.6rem 0;overflow:hidden;
   border-top:1px solid rgba(0,200,80,0.07);border-bottom:1px solid rgba(0,200,80,0.07)}
 .ticker-track{display:flex;animation:tick 26s linear infinite;white-space:nowrap}
@@ -176,7 +160,6 @@ nav{position:fixed;top:2px;left:0;right:0;z-index:200;
 .ti.g{color:rgba(0,200,80,0.5)}
 @keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-/* ── PROBLEM STRIP ───────────────────────────────────────── */
 .prob{background:var(--g);padding:3.5rem 5%;position:relative;overflow:hidden}
 .prob::before{content:'';position:absolute;inset:0;pointer-events:none;
   background-image:url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M40 5L75 40L40 75L5 40Z' stroke='white' stroke-width='0.5' stroke-opacity='0.07' fill='none'/%3E%3Cpath d='M40 22L58 40L40 58L22 40Z' stroke='white' stroke-width='0.4' stroke-opacity='0.05' fill='none'/%3E%3C/svg%3E");
@@ -192,10 +175,8 @@ nav{position:fixed;top:2px;left:0;right:0;z-index:200;
   max-width:360px;line-height:1.85;
   border-left:2px solid rgba(255,255,255,0.18);padding-left:1.25rem}
 
-/* ── SECTION BASE ────────────────────────────────────────── */
 .sec{padding:5rem 5%}
 .sec-dark{background:var(--black);color:var(--white)}
-
 .sh{margin-bottom:3rem;position:relative;z-index:1}
 .sh-eye{display:flex;align-items:center;gap:0.6rem;margin-bottom:0.5rem}
 .sh-line{width:16px;height:2px;background:var(--g)}
@@ -207,52 +188,40 @@ nav{position:fixed;top:2px;left:0;right:0;z-index:200;
 .sec-dark .sh-title{color:var(--white)}
 .sec-dark .outline-g{color:var(--g)}
 
-/* ── HOW IT WORKS ────────────────────────────────────────── */
 .sec-how{padding:5rem 5%;background:var(--off);position:relative;overflow:hidden}
 .sec-how::after{content:'';position:absolute;inset:0;pointer-events:none;
   background-image:url("data:image/svg+xml,%3Csvg width='56' height='56' viewBox='0 0 56 56' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M28 3L53 28L28 53L3 28Z' stroke='%23007A3D' stroke-width='0.5' stroke-opacity='0.055' fill='none'/%3E%3Cpath d='M28 16L40 28L28 40L16 28Z' stroke='%23C9960A' stroke-width='0.4' stroke-opacity='0.04' fill='none'/%3E%3C/svg%3E");
   background-size:56px 56px}
-.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;position:relative;z-index:1}
+.how-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;position:relative;z-index:1}
 
-/* ── CARDS — reverted to clean screenshot style ──────────── */
-.how-card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-top:3px solid var(--g);   /* single green top border for all cards */
-  padding:2rem;
+.how-card{background:var(--card);border:1px solid var(--border);
+  border-top:3px solid var(--g);padding:2rem;
   position:relative;overflow:hidden;
   transition:transform 0.35s,box-shadow 0.35s;
   opacity:0;transform:translateY(30px)}
-/* African diamond watermark */
 .how-card::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
   background-image:url("data:image/svg+xml,%3Csvg width='36' height='36' viewBox='0 0 36 36' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M18 2L34 18L18 34L2 18Z' stroke='%23007A3D' stroke-width='0.5' stroke-opacity='0.06' fill='none'/%3E%3C/svg%3E");
   background-size:36px 36px;background-position:bottom right;opacity:0.7}
 .how-card.visible{opacity:1;transform:translateY(0)}
 .how-card:hover{transform:translateY(-6px);box-shadow:0 24px 56px rgba(0,80,40,0.12)}
-
-/* Phase tag — larger than before */
 .how-tag{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.15em;
   text-transform:uppercase;color:var(--g);margin-bottom:1rem;
   position:relative;z-index:1;display:block}
-
 .how-bg-num{font-family:'Bebas Neue',sans-serif;font-size:7rem;
   color:rgba(0,122,61,0.04);position:absolute;top:-1rem;right:0.5rem;
   line-height:1;pointer-events:none;z-index:0}
 .how-icon{width:60px;height:60px;margin-bottom:1.25rem;
   object-fit:contain;display:block;position:relative;z-index:1}
 .how-name{font-family:'Bebas Neue',sans-serif;font-size:1.7rem;
-  letter-spacing:0.03em;margin-bottom:0.15rem;color:var(--black);
-  position:relative;z-index:1}
+  letter-spacing:0.03em;margin-bottom:0.15rem;color:var(--black);position:relative;z-index:1}
 .how-swahili{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;
-  text-transform:uppercase;color:var(--gl);margin-bottom:0.85rem;
-  position:relative;z-index:1}
+  text-transform:uppercase;color:var(--gl);margin-bottom:0.85rem;position:relative;z-index:1}
 .how-desc{font-size:13px;line-height:1.8;color:var(--muted);position:relative;z-index:1}
 
-/* ── STATS — single consistent colour ───────────────────── */
 .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);
   gap:1px;background:rgba(255,255,255,0.04);margin-top:2rem}
 .stat-card{background:var(--black);padding:2.25rem 1.75rem;
-  border-top:3px solid var(--g);  /* all green, consistent */
+  border-top:3px solid var(--g);
   transition:background 0.3s;opacity:0;transform:translateY(16px);
   position:relative;overflow:hidden}
 .stat-card::before{content:'';position:absolute;inset:0;
@@ -261,10 +230,9 @@ nav{position:fixed;top:2px;left:0;right:0;z-index:200;
 .stat-card.visible{opacity:1;transform:translateY(0)}
 .stat-card:hover{background:#0A180A}
 .stat-n{font-family:'Bebas Neue',sans-serif;font-size:3.2rem;line-height:1;color:var(--white)}
-.stat-n em{color:var(--g);font-style:normal}  /* single green accent */
+.stat-n em{color:var(--g);font-style:normal}
 .stat-l{font-size:12px;line-height:1.5;color:rgba(255,255,255,0.26);margin-top:0.5rem}
 
-/* ── CONTACT ─────────────────────────────────────────────── */
 .sec-contact{background:var(--dg);padding:6rem 5%;position:relative;overflow:hidden}
 .sec-contact::before{content:'';position:absolute;inset:0;pointer-events:none;
   background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 4L56 30L30 56L4 30Z' stroke='%2300C853' stroke-width='0.4' stroke-opacity='0.05' fill='none'/%3E%3C/svg%3E");
@@ -299,7 +267,7 @@ nav{position:fixed;top:2px;left:0;right:0;z-index:200;
   text-decoration:none;border:2px solid var(--g);font-family:'Space Mono',monospace;transition:all 0.25s}
 .btn-green:hover{background:transparent;color:var(--gl);border-color:var(--gl)}
 
-/* SPONSOR SLOTS — uncomment when confirmed
+/* SPONSOR SLOTS — uncomment when sponsors confirmed
 .logos-sec{background:var(--mg);padding:3rem 5%;border-top:1px solid rgba(255,255,255,0.04)}
 .logos-label{text-align:center;font-family:'Space Mono',monospace;font-size:10px;
   letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.2);margin-bottom:2rem}
@@ -311,7 +279,6 @@ nav{position:fixed;top:2px;left:0;right:0;z-index:200;
   letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.1)}
 */
 
-/* ── FOOTER ──────────────────────────────────────────────── */
 footer{background:var(--black);border-top:1px solid rgba(255,255,255,0.04);
   padding:2.5rem 5%;display:flex;justify-content:space-between;
   align-items:center;flex-wrap:wrap;gap:1.5rem}
@@ -328,11 +295,12 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,0.04);
 .fade-up{opacity:0;transform:translateY(24px);transition:opacity 0.65s,transform 0.65s}
 .fade-up.visible{opacity:1;transform:translateY(0)}
 
-/* ── RESPONSIVE ──────────────────────────────────────────── */
+@media(max-width:1100px) and (min-width:901px){
+  .how-grid{grid-template-columns:repeat(2,1fr)}
+}
 @media(max-width:900px){
   nav{padding:1rem 4%}
   .nav-links{display:none}
-  /* Hide Partner With Us CTA when hamburger is showing */
   .nav-cta{display:none}
   .hamburger{display:flex}
   .sec,.sec-how,.sec-dark,.sec-contact,footer,.partners,.prob{padding-left:4%;padding-right:4%}
@@ -351,10 +319,8 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,0.04);
 </head>
 <body>
 
-<!-- SCROLL PROGRESS -->
 <div id="prog"></div>
 
-<!-- MOBILE MENU -->
 <div class="mmenu" id="mm">
   <button class="mclose" id="mc">CLOSE ✕</button>
   <a href="#how" onclick="cm()">How It Works</a>
@@ -363,8 +329,6 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,0.04);
   <a href="#contact" onclick="cm()" style="color:var(--gold)">Partner With Us →</a>
 </div>
 
-<!-- NAV -->
-<!-- Spear logo: logo.png is the crossed spears image you uploaded -->
 <nav>
   <a class="nl" href="#home">
     <img src="logo.png" alt="JengaSec" class="nl-spear">
@@ -381,7 +345,6 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,0.04);
   </button>
 </nav>
 
-<!-- HERO -->
 <section class="hero" id="home">
   <div class="hero-img"></div>
   <div class="hero-overlay"></div>
@@ -404,9 +367,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,0.04);
   </div>
 </section>
 
-<!-- PARTNERS — flows directly from hero, no strip between -->
-<!-- All logos in /logo/ folder. Natural colour, no filter.
-     To add a partner: <div class="plogo"><img src="logo/file.png" alt="Name"></div> -->
+<!-- PARTNERS — /logo/ folder, natural colour, mix-blend on dark bg -->
 <div class="partners">
   <div class="partners-inner">
     <span class="partners-label">// In partnership with</span>
@@ -415,12 +376,11 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,0.04);
       <div class="plogo"><img src="logo/Strath.png" alt="Strathmore University"></div>
       <div class="plogo"><img src="logo/KCA.png" alt="KCA Cybersecurity Club"></div>
       <div class="plogo"><img src="logo/SheLeadsTech_Logo.png" alt="She Leads Tech"></div>
-      <div class="plogo"><img src="logo/ISG Strath.png" alt="Isaca Student chapter Strathmore"></div>
+      <div class="plogo"><img src="logo/ISG Strath.png" alt="ISACA Student Chapter Strathmore"></div>
     </div>
   </div>
 </div>
 
-<!-- TICKER -->
 <div class="ticker">
   <div class="ticker-track">
     <span class="ti g">APT_SIMULATION</span><span class="ti">CLOUD_SECURITY</span><span class="ti g">RED_VS_BLUE</span><span class="ti">SOCIAL_ENGINEERING</span><span class="ti g">VAPT_DOCUMENTATION</span><span class="ti">KIKAO_PANEL</span><span class="ti g">MAARIFA_SESSIONS</span><span class="ti">MORANI_HUNTING_GROUNDS</span><span class="ti g">JENGABANK</span><span class="ti">INSIDER_THREAT</span><span class="ti g">350+_PARTICIPANTS</span><span class="ti">FREE_ENTRY</span><span class="ti g">KENYA_PROVING_GROUND</span>
@@ -428,7 +388,6 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,0.04);
   </div>
 </div>
 
-<!-- PROBLEM STRIP -->
 <div class="prob">
   <div class="prob-inner">
     <div class="prob-text fade-up">CTFs develop tools.<br><em>JengaSec develops judgment.</em></div>
@@ -436,45 +395,58 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,0.04);
   </div>
 </div>
 
-<!-- HOW IT WORKS -->
+<!-- HOW IT WORKS — four phases -->
 <section class="sec-how" id="how">
   <div class="sh fade-up">
     <div class="sh-eye"><div class="sh-line"></div><span class="sh-label">// How It Works</span></div>
-    <h2 class="sh-title">Three phases.<br><span class="outline-g">One complete lifecycle.</span></h2>
+    <h2 class="sh-title">Four phases.<br><span class="outline-g">One complete lifecycle.</span></h2>
   </div>
   <div class="how-grid">
 
+    <!-- Phase 01 — Build (Pre-Event) -->
+    <!-- Icon: icons/build.png — place in /icons/ folder -->
     <div class="how-card fade-up">
       <div class="how-bg-num">01</div>
       <span class="how-tag">// Phase_01 — Pre-Event</span>
+      <img src="icons/build.png" alt="Build" class="how-icon">
+      <div class="how-name">Build</div>
+      <div class="how-swahili">// Construction</div>
+      <p class="how-desc">Student teams architect and construct JengaBank, a fictional fintech enterprise, under real constraints. Organic vulnerabilities emerge from genuine architectural decisions, not planted traps.</p>
+    </div>
+
+    <!-- Phase 02 — Maarifa (During Event) -->
+    <div class="how-card fade-up" style="transition-delay:0.08s">
+      <div class="how-bg-num">02</div>
+      <span class="how-tag">// Phase_02 — During Event</span>
       <img src="icons/Maarifa.png" alt="Maarifa" class="how-icon">
       <div class="how-name">Maarifa</div>
       <div class="how-swahili">// Knowledge</div>
-      <p class="how-desc">Industry-led talks followed immediately by hands-on disruption exercises. What is learned in the morning directly shapes what is attacked and defended that afternoon.</p>
+      <p class="how-desc">Industry-led talks that directly shape what is attacked and defended. Morning sessions unlock attack vectors and defensive capabilities participants carry into the afternoon simulation.</p>
     </div>
 
-    <div class="how-card fade-up" style="transition-delay:0.12s">
-      <div class="how-bg-num">02</div>
-      <span class="how-tag">// Phase_02 — Live Simulation</span>
+    <!-- Phase 03 — Morani Hunting Grounds (During Event) -->
+    <div class="how-card fade-up" style="transition-delay:0.16s">
+      <div class="how-bg-num">03</div>
+      <span class="how-tag">// Phase_03 — During Event</span>
       <img src="icons/Morani hunting.png" alt="Morani Hunting Grounds" class="how-icon">
       <div class="how-name">Morani Hunting Grounds</div>
       <div class="how-swahili">// Mastery_Under_Pressure</div>
-      <p class="how-desc">Red teams execute full APT-style attacks on enterprise systems built by blue teams. Social engineering, cloud exploitation, insider threat mechanics. Depth of compromise measured — not binary.</p>
+      <p class="how-desc">Red teams execute full APT-style attacks on enterprise systems built by blue teams. Social engineering, cloud exploitation, insider threat mechanics. Depth of compromise measured, not binary.</p>
     </div>
 
+    <!-- Phase 04 — Kikao (During Event) -->
     <div class="how-card fade-up" style="transition-delay:0.24s">
-      <div class="how-bg-num">03</div>
-      <span class="how-tag">// Phase_03 — Executive Review</span>
+      <div class="how-bg-num">04</div>
+      <span class="how-tag">// Phase_04 — During Event</span>
       <img src="icons/Kikao.png" alt="Kikao" class="how-icon">
       <div class="how-name">Kikao</div>
       <div class="how-swahili">// Dialogue_&_Reflection</div>
-      <p class="how-desc">Industry leaders — CISOs, architects, technology executives — forensically review what actually happened. Real decisions, real attack chains. Followed by open Q&A on entering the industry.</p>
+      <p class="how-desc">Industry leaders (CISOs, architects, technology executives) forensically review what actually happened. Real decisions, real attack chains. Followed by open Q&A on entering the industry.</p>
     </div>
 
   </div>
 </section>
 
-<!-- NUMBERS -->
 <section class="sec sec-dark" id="numbers">
   <div class="sh fade-up">
     <div class="sh-eye"><div class="sh-line"></div><span class="sh-label">// The Numbers</span></div>
@@ -487,20 +459,19 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,0.04);
     </div>
     <div class="stat-card" style="transition-delay:0.08s">
       <div class="stat-n">~117</div>
-      <div class="stat-l">Teams of three — Red and Blue roles assigned before the event</div>
+      <div class="stat-l">Teams of three. Red and Blue roles assigned before the event</div>
     </div>
     <div class="stat-card no-count" style="transition-delay:0.16s">
       <div class="stat-n">3<em>–4</em></div>
-      <div class="stat-l">Days of full-spectrum simulation spanning Maarifa, Morani, and Kikao</div>
+      <div class="stat-l">Days of full-spectrum simulation spanning Build, Maarifa, Morani, and Kikao</div>
     </div>
     <div class="stat-card" style="transition-delay:0.24s">
       <div class="stat-n"><em>Free</em></div>
-      <div class="stat-l">Entry for all participants — open to students and tech community members</div>
+      <div class="stat-l">Entry for all participants, open to all students and tech community members</div>
     </div>
   </div>
 </section>
 
-<!-- CONTACT -->
 <section class="sec-contact" id="contact">
   <div class="contact-grid">
     <div class="contact-left fade-up">
@@ -513,7 +484,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,0.04);
           Ready to be<br><span style="color:var(--gold)">in the room?</span>
         </h2>
       </div>
-      <p class="contact-pitch">We are actively seeking founding partners for JengaSec 2026. Direct access to Kenya's strongest emerging technical talent — before the rest of the industry knows their names.</p>
+      <p class="contact-pitch">We are actively seeking founding partners for JengaSec 2026. Direct access to Kenya's strongest emerging technical talent, before the rest of the industry knows their names.</p>
     </div>
     <div class="contact-right fade-up" style="transition-delay:0.15s">
       <a href="mailto:sucybersec@strathmore.edu" class="contact-email">sucybersec@strathmore.edu</a>
@@ -548,19 +519,16 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,0.04);
 </footer>
 
 <script>
-// SCROLL PROGRESS
 const prog=document.getElementById('prog');
 window.addEventListener('scroll',()=>{
   const h=document.documentElement;
   prog.style.width=((h.scrollTop/(h.scrollHeight-h.clientHeight))*100)+'%';
 },{passive:true});
 
-// MOBILE MENU
 document.getElementById('mb').onclick=()=>document.getElementById('mm').classList.add('open');
 document.getElementById('mc').onclick=()=>document.getElementById('mm').classList.remove('open');
 function cm(){document.getElementById('mm').classList.remove('open')}
 
-// DECODE
 const CH="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789./\\[]{}><_#@!";
 const dec=document.getElementById('dec');
 let iv=null;
@@ -578,7 +546,6 @@ function decode(){
 }
 dec.addEventListener('mouseover',decode);
 
-// TYPEWRITER
 const twEl=document.getElementById('tw');
 const twTxt="Kenya's first full-spectrum enterprise cybersecurity simulation. Build it. Secure it. Attack it. Document it.";
 let ti=0;
@@ -593,13 +560,11 @@ function startTW(){
 }
 window.addEventListener('load',()=>{setTimeout(decode,800);setTimeout(startTW,600);});
 
-// SCROLL ANIMATIONS
 const obs=new IntersectionObserver(entries=>{
   entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});
 },{threshold:0.07});
 document.querySelectorAll('.fade-up,.how-card,.stat-card').forEach(e=>obs.observe(e));
 
-// COUNTERS
 function animateCounters(){
   document.querySelectorAll('.stat-card:not(.no-count) .stat-n').forEach(el=>{
     const txt=el.textContent,num=parseInt(txt.replace(/[^0-9]/g,''));
