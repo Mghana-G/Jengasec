@@ -37,8 +37,13 @@
   --dg:#0A2416;--mg:#0D3020;
 }
 html{scroll-behavior:smooth}
+/* FIX: horizontal overflow and max width */
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
 body{background:var(--white);color:var(--black);font-family:'DM Sans',sans-serif;overflow-x:hidden}
-img{max-width:100%}
+img{max-width:100%;height:auto}
 @media(pointer:fine){
   body.cursor-on,body.cursor-on a,body.cursor-on button{cursor:none}
 }
@@ -115,7 +120,7 @@ body.cursor-on #cur-dot,body.cursor-on #cur-ring{display:block}
   box-shadow:0 0 10px rgba(0,200,80,0.5)}
 
 /* ============ NAV ============ */
-nav{position:fixed;top:2px;left:0;right:0;z-index:200;
+nav{position:fixed;top:2px;left:0;right:0;z-index:9999;
   display:flex;align-items:center;justify-content:space-between;
   padding:1.1rem 5%;background:transparent;border-bottom:1px solid transparent;
   transition:background 0.35s,border-color 0.35s,padding 0.35s,backdrop-filter 0.35s}
@@ -460,6 +465,11 @@ nav.scrolled .hamburger span{background:var(--black)}
 
 .ticker{background:var(--black);padding:0.55rem 0;overflow:hidden;
   border-top:1px solid rgba(0,200,80,0.07);border-bottom:1px solid rgba(0,200,80,0.07)}
+/* FIX: ensure ticker doesn't cause horizontal overflow */
+.ticker {
+  overflow: hidden;
+  width: 100%;
+}
 .ticker+.ticker{border-top:none;padding-top:0}
 .ticker-track{display:flex;white-space:nowrap;width:max-content;will-change:transform;
   animation:tick 24s linear infinite}
@@ -699,7 +709,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,0.04);
 /* ============ SPEAKERS — classified dossiers, Maasai craft ============ */
 .sec-speak{background:var(--dg);color:var(--white);padding:6rem 5%;position:relative;overflow:hidden;isolation:isolate}
 .speak-bg{position:absolute;inset:0;z-index:-2;
-  background-image:url('speakers-bg.jpg');background-size:cover;background-position:center;
+  background-image:url('speakers-bg.jpg');background-size:cover;background-position:center;background-attachment: fixed; 
   background-color:var(--dg)}
 .speak-overlay{position:absolute;inset:0;z-index:-1;
   background:linear-gradient(160deg,rgba(6,26,15,0.94) 0%,rgba(8,32,18,0.82) 45%,rgba(4,16,9,0.96) 100%)}
@@ -828,6 +838,9 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,0.04);
   .slide-l.visible,.slide-r.visible{transform:translateY(0)}
   #rain{display:none}
   .orb{display:none}
+  /* ensure images stay within container on mobile */
+  .how-icon{width:48px;height:48px}
+  .sp-logo-frame img{max-width:120px;height:auto}
 }
 </style>
 </head>
