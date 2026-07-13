@@ -164,7 +164,7 @@ nav.scrolled .nav-cta:hover{color:var(--g)}
 nav.scrolled .hamburger span{background:var(--black)}
 
 /* ============ MOBILE MENU ============ */
-.mmenu{display:none;position:fixed;inset:0;z-index:290;
+.mmenu{display:none;position:fixed;inset:0;z-index:10000;
   background:rgba(8,12,8,0.98);flex-direction:column;
   align-items:center;justify-content:center;gap:2.2rem;overflow:hidden}
 .mmenu::before{content:'';position:absolute;inset:0;pointer-events:none;
@@ -873,7 +873,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,0.04);
   <a href="#numbers" onclick="cm()">Numbers</a>
   <a href="#faq" onclick="cm()">FAQ</a>
   <a href="#contact" onclick="cm()">Contact</a>
-  <a href="#contact" onclick="cm()" style="color:var(--gold)">Partner With Us →</a>
+  <a href="partner.html" onclick="cm()" style="color:var(--gold)">Partner With Us →</a>
 </div>
 
 <nav id="nav" aria-label="Main navigation">
@@ -889,7 +889,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,0.04);
     <li><a href="#faq" data-txt="FAQ">FAQ</a></li>
     <li><a href="#contact" data-txt="Contact">Contact</a></li>
   </ul>
-  <a href="#contact" class="nav-cta magnetic">Partner With Us</a>
+  <a href="partner.html" class="nav-cta magnetic">Partner With Us</a>
   <button class="hamburger" id="mb" aria-label="Open menu">
     <span></span><span></span><span></span>
   </button>
@@ -928,7 +928,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,0.04);
     <p class="hero-tagline" id="tw"></p>
     <div class="hero-decode" id="dec" data-value="> CTFs AND HACKATHONS DON'T CUT IT ANYMORE.">&gt; CTFs AND HACKATHONS DON'T CUT IT ANYMORE.</div>
     <div class="hero-ctas">
-      <a href="#contact" class="btn-red magnetic">Partner With Us</a>
+      <a href="partner.html" class="btn-red magnetic">Partner With Us</a>
       <a href="#how" class="btn-ghost magnetic">How It Works</a>
     </div>
     <div class="hero-count" id="countdown" role="timer" aria-label="Countdown to JengaSec 2026">
@@ -944,26 +944,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,0.04);
   </div>
 </section>
 
-<!-- PARTNERS — /logo/ folder, natural colour, mix-blend on dark bg -->
-<div class="partners">
-  <div class="partners-inner">
-    <span class="partners-label">// In partnership with</span>
-    <div class="partners-logos">
-      <div class="plogo"><img src="logo/SCSC LOGO.png" alt="Strathmore Cybersecurity Club"></div>
-      <div class="plogo"><img src="logo/Strath.png" alt="Strathmore University"></div>
-      <div class="plogo"><img src="logo/KCA.png" alt="KCA Cybersecurity Club"></div>
-      <div class="plogo"><img src="logo/SheLeadsTech_Logo.png" alt="She Leads Tech"></div>
-      <div class="plogo"><img src="logo/ISG Strath.png" alt="ISACA Student Chapter Strathmore"></div>
-    </div>
-  </div>
-</div>
-
-<!-- ============================================================
-     SPONSORS — uncomment when confirmed. Currently showing 3.
-     To add more: duplicate .sp-logo-wrap blocks.
-     When you reach 6+, add class "marquee" to .sp-logos and
-     wrap all .sp-logo-wrap in &lt;div class="sp-logos-track"&gt;×2
-     ============================================================ -->
+<!-- ============ SPONSORS — "Powered by" section — now FIRST ============ -->
 <div class="sec-sponsors fade-up">
   <div class="sp-hd">
     <div class="sp-eyebrow">// 2026_CORE_PARTNERS</div>
@@ -1008,6 +989,20 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,0.04);
 
   <div class="sp-more">
     <p>// More core partners to be announced &mdash; <a href="mailto:sucybersec@strathmore.edu?subject=JengaSec%202026%20Sponsorship">enquire about a seat</a></p>
+  </div>
+</div>
+
+<!-- ============ PARTNERS — "In partnership with" section — now SECOND ============ -->
+<div class="partners">
+  <div class="partners-inner">
+    <span class="partners-label">// In partnership with</span>
+    <div class="partners-logos">
+      <div class="plogo"><img src="logo/SCSC LOGO.png" alt="Strathmore Cybersecurity Club"></div>
+      <div class="plogo"><img src="logo/Strath.png" alt="Strathmore University"></div>
+      <div class="plogo"><img src="logo/KCA.png" alt="KCA Cybersecurity Club"></div>
+      <div class="plogo"><img src="logo/SheLeadsTech_Logo.png" alt="She Leads Tech"></div>
+      <div class="plogo"><img src="logo/ISG Strath.png" alt="ISACA Student Chapter Strathmore"></div>
+    </div>
   </div>
 </div>
 

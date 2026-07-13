@@ -726,24 +726,23 @@ window.addEventListener('scroll',()=>{
 if(document.documentElement.scrollTop>40)nav.classList.add('scrolled');
 
 /* ---------- nav link scramble on hover (motion-safe) ---------- */
-if(!reduce){
-  document.querySelectorAll('#navlinks a').forEach(a=>{
-    let siv=null;
-    a.addEventListener('mouseenter',()=>{
-      const txt=a.dataset.txt;let i=0;clearInterval(siv);
-      siv=setInterval(()=>{
-        a.textContent=txt.split('').map((c,idx)=>{
-          if(c===' ')return ' ';
-          if(idx<i)return txt[idx];
-          return CH[Math.floor(Math.random()*CH.length)];
-        }).join('');
-        if(i>=txt.length){clearInterval(siv);a.textContent=txt;}
-        i+=0.9;
-      },24);
-    });
-    a.addEventListener('mouseleave',()=>{clearInterval(siv);a.textContent=a.dataset.txt;});
+// Removed reduce check to match index.html behaviour
+document.querySelectorAll('#navlinks a').forEach(a=>{
+  let siv=null;
+  a.addEventListener('mouseenter',()=>{
+    const txt=a.dataset.txt;let i=0;clearInterval(siv);
+    siv=setInterval(()=>{
+      a.textContent=txt.split('').map((c,idx)=>{
+        if(c===' ')return ' ';
+        if(idx<i)return txt[idx];
+        return CH[Math.floor(Math.random()*CH.length)];
+      }).join('');
+      if(i>=txt.length){clearInterval(siv);a.textContent=txt;}
+      i+=0.9;
+    },24);
   });
-}
+  a.addEventListener('mouseleave',()=>{clearInterval(siv);a.textContent=a.dataset.txt;});
+});
 
 /* ---------- mobile menu ---------- */
 const mm=document.getElementById('mm');
@@ -753,7 +752,7 @@ function cm(){mm.classList.remove('open');mm.setAttribute('aria-hidden','true')}
 
 /* ---------- nav wordmark "Sec" glitch on hover ---------- */
 const wmsec=document.getElementById('wmsec');
-if(wmsec && !reduce){
+if(wmsec){
   document.getElementById('wordmark').addEventListener('mouseenter',()=>{
     wmsec.classList.remove('wm-glitch');
     void wmsec.offsetWidth;
@@ -777,7 +776,6 @@ function syncOpts(){
   optInputs.forEach(inp=>{
     const row=inp.closest('.opt');
     if(inp.type==='radio'){
-      // clear all in the group first when this group changes
       if(inp.checked){
         document.querySelectorAll('input[name="'+inp.name+'"]').forEach(r=>{
           r.closest('.opt').classList.toggle('sel',r.checked);
@@ -807,12 +805,10 @@ function checkedGoals(){return [...form.querySelectorAll('input[name="goals"]:ch
 function hideError(){errBox.hidden=true;}
 
 function validate(){
-  // native required fields (text/email/tel/radios) first
   if(!form.checkValidity()){
     form.reportValidity();
     return false;
   }
-  // custom: at least one goal
   if(checkedGoals().length===0){
     goalErr.hidden=false;
     document.getElementById('goals-list').querySelectorAll('.opt')[0]
@@ -836,7 +832,6 @@ function setLoading(on){
 function showSuccess(){
   form.hidden=true;
   successBox.hidden=false;
-  // trigger one-time scan-line
   if(!reduce){
     void successBox.offsetWidth;
     successBox.classList.add('go');
@@ -855,8 +850,6 @@ form.addEventListener('submit',async e=>{
     subject:'JengaSec 2026 — New Partnership Enquiry',
     from_name:'JengaSec Partnership Form',
     botcheck:document.getElementById('botcheck').value,
-    /* Web3Forms special keys — `email` sets Reply-To so replying in your
-       inbox goes straight to the prospect */
     name:val('contact'),
     email:val('email'),
     phone:val('phone'),
