@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Partner With JengaSec 2026 | Partnership Intake</title>
-<meta name="description" content="Partner with JengaSec 2026 — Kenya's first full-spectrum enterprise cybersecurity simulation. Submit your details and we'll come back within 48 hours with the full deck and a proposed slot.">
+<meta name="description" content="Partner with JengaSec 2026: Kenya's first full-spectrum enterprise cybersecurity simulation. Submit your details and we'll come back within 48 hours with the full deck and a proposed slot.">
 <meta name="author" content="Strathmore Cybersecurity Club">
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#007A3D">
@@ -160,19 +160,63 @@ nav.scrolled .hamburger span{background:var(--black)}
 .mclose{position:absolute;top:1.5rem;right:5%;font-size:1.1rem;cursor:pointer;background:none;border:none;z-index:1;
   font-family:'Space Mono',monospace;color:rgba(255,255,255,0.35);letter-spacing:0.1em}
 
-/* ============ COMPACT HERO ============ */
-.phero{background:var(--dg);color:var(--white);position:relative;overflow:hidden;
+/* ============ COMPACT HERO (background stack matches index/prepare) ============ */
+.phero{background:linear-gradient(160deg,#04140A 0%,#0A2416 55%,#071A0F 100%);
+  color:var(--white);position:relative;overflow:hidden;
   padding:11rem 5% 4.5rem}
-.phero-scan{position:absolute;inset:0;pointer-events:none;z-index:1;
+.phero-img{position:absolute;inset:-4%;
+  background-image:url('speakers-bg.jpg');
+  background-size:cover;background-position:center 35%;
+  background-repeat:no-repeat;background-color:transparent}
+.phero-overlay{position:absolute;inset:0;
+  background:linear-gradient(160deg,rgba(4,14,7,0.94) 0%,rgba(4,20,10,0.86) 45%,rgba(0,20,8,0.9) 100%)}
+.phero-tint{position:absolute;inset:0;background:rgba(0,77,38,0.35);mix-blend-mode:multiply}
+.phero-scan{position:absolute;inset:0;pointer-events:none;z-index:2;
   background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,200,80,0.02) 2px,rgba(0,200,80,0.02) 4px)}
-.phero-inner{position:relative;z-index:2;max-width:1180px;margin:0 auto}
-.phero-eye{display:flex;align-items:center;gap:0.6rem;margin-bottom:1.1rem}
-.phero-eye i{width:16px;height:2px;background:var(--gold);display:inline-block;flex-shrink:0}
-.phero-eye span{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.2em;
-  text-transform:uppercase;color:var(--gl)}
+.phero-beam{position:absolute;left:0;right:0;height:120px;z-index:2;pointer-events:none;
+  background:linear-gradient(to bottom,transparent,rgba(0,200,80,0.05),transparent);
+  animation:beam 9s cubic-bezier(0.45,0,0.55,1) infinite}
+@keyframes beam{0%{top:-15%}55%{top:105%}100%{top:105%}}
+.phero-rain{position:absolute;inset:0;pointer-events:none;z-index:1}
+.phero-inner{position:relative;z-index:3;max-width:1180px;margin:0 auto}
+@media(prefers-reduced-motion:reduce){.phero-beam{animation:none;opacity:0}}
 .phero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.6rem,6.5vw,5rem);
   line-height:0.98;letter-spacing:0.02em;color:var(--white)}
 .phero h1 em{color:var(--gold);font-style:normal}
+.phero h1 em.glitch,.phero h1 em.glitch:hover{color:var(--gold)}
+
+/* ============ GLITCH (identical to index.html) ============ */
+.glitch{color:rgba(255,255,255,0.42);display:block;position:relative;cursor:default}
+.glitch::before,.glitch::after{content:attr(data-text);position:absolute;top:0;left:0;
+  font-family:'Bebas Neue',sans-serif;font-size:1em;line-height:0.85;
+  color:rgba(255,255,255,0.42);overflow:hidden;opacity:0;pointer-events:none}
+.glitch::before{text-shadow:-2px 0 var(--red);
+  clip-path:polygon(0 25%,100% 25%,100% 52%,0 52%)}
+.glitch::after{text-shadow:2px 0 var(--gl);
+  clip-path:polygon(0 58%,100% 58%,100% 84%,0 84%)}
+.glitch.glitching::before{animation:gt 0.55s steps(3) 1}
+.glitch.glitching::after{animation:gb 0.55s steps(3) 1}
+@keyframes gt{
+  0%{transform:translateX(0);opacity:0}
+  15%{transform:translateX(-5px) skewX(-3deg);opacity:1}
+  35%{transform:translateX(5px);opacity:1}
+  55%{transform:translateX(-3px) skewX(2deg);opacity:1}
+  75%{transform:translateX(2px);opacity:1}
+  100%{transform:translateX(0);opacity:0}
+}
+@keyframes gb{
+  0%{transform:translateX(0);opacity:0}
+  18%{transform:translateX(5px) skewX(3deg);opacity:1}
+  38%{transform:translateX(-5px);opacity:1}
+  58%{transform:translateX(3px) skewX(-2deg);opacity:1}
+  78%{transform:translateX(-2px);opacity:1}
+  100%{transform:translateX(0);opacity:0}
+}
+.glitch:hover{color:rgba(255,255,255,0.5)}
+.glitch:hover::before{opacity:1;animation:rgbT 0.28s steps(2) infinite}
+.glitch:hover::after{opacity:1;animation:rgbB 0.28s steps(2) infinite}
+@keyframes rgbT{0%,100%{transform:translateX(-4px)}50%{transform:translateX(3px)}}
+@keyframes rgbB{0%,100%{transform:translateX(4px)}50%{transform:translateX(-3px)}}
 .phero-sub{margin-top:1.4rem;font-size:15px;font-weight:300;line-height:1.85;
   color:rgba(255,255,255,0.62);max-width:560px;border-left:2px solid var(--gold);padding-left:1.1rem}
 .phero-meta{margin-top:1.6rem;display:inline-flex;align-items:center;gap:0.55rem;
@@ -187,11 +231,18 @@ nav.scrolled .hamburger span{background:var(--black)}
 .form-wrap{position:relative;z-index:1;max-width:1180px;margin:0 auto;
   display:grid;grid-template-columns:1.55fr 1fr;gap:3rem;align-items:start}
 
-/* column eyebrow header (reuses index .sh-eye idiom, gold accent) */
-.col-eye{display:flex;align-items:center;gap:0.6rem;margin-bottom:1.5rem}
-.col-eye i{width:16px;height:2px;background:var(--gold);display:inline-block;flex-shrink:0}
-.col-eye span{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.18em;
+/* column eyebrow header: identical to index.html's .sh/.sh-eye/.sh-line/.sh-label */
+.sh{margin-bottom:3rem;position:relative;z-index:1}
+.sh-eye{display:flex;align-items:center;gap:0.6rem;margin-bottom:0.5rem}
+.sh-line{width:0;height:2px;background:var(--g);transition:width 0.6s cubic-bezier(0.22,1,0.36,1) 0.15s}
+.sh.visible .sh-line{width:16px}
+.sh-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.18em;
   text-transform:uppercase;color:var(--g)}
+.sh::after{content:'';position:absolute;top:0;bottom:0;width:3px;left:0;
+  background:linear-gradient(to bottom,transparent,var(--gl),transparent);
+  opacity:0;pointer-events:none}
+.sh.visible::after{animation:shsweep 0.85s cubic-bezier(0.22,1,0.36,1) 0.1s 1}
+@keyframes shsweep{0%{left:0;opacity:1}90%{opacity:1}100%{left:min(100%,560px);opacity:0}}
 
 /* --- form card --- */
 .form-card{background:var(--card);border:1px solid var(--border);border-top:3px solid var(--g);
@@ -230,10 +281,16 @@ legend{display:block;font-family:'Space Mono',monospace;font-size:11px;letter-sp
 /* option row */
 .opt{position:relative;display:flex;align-items:center;gap:0.8rem;cursor:pointer;
   padding:0.7rem 0.9rem;min-height:48px;background:var(--white);border:1px solid var(--border);
-  transition:border-color 0.2s,background 0.2s,box-shadow 0.2s}
+  overflow:hidden;transition:border-color 0.2s,background 0.2s,box-shadow 0.2s}
+/* idle breathing on the top border, only for tier cards carrying a data-status (identical mechanism to index's .how-card::after) */
+.opt[data-status]::after{content:'';position:absolute;top:-3px;left:0;right:0;height:3px;z-index:3;
+  background:linear-gradient(90deg,transparent,rgba(0,200,80,0.9),transparent);
+  background-size:200% 100%;opacity:0.55;animation:borderflow 4.5s linear infinite}
+@keyframes borderflow{from{background-position:200% 0}to{background-position:-200% 0}}
 .opt:hover{border-color:var(--muted)}
 .opt.sel{border-color:var(--g);background:rgba(0,122,61,0.045)}
 .opt input{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.opt-mark,.opt-txt{position:relative;z-index:1}
 .opt-mark{flex-shrink:0;width:20px;height:20px;border:1.6px solid var(--muted);
   background:var(--white);position:relative;transition:all 0.18s;display:block}
 /* checkbox tick */
@@ -256,6 +313,114 @@ legend{display:block;font-family:'Space Mono',monospace;font-size:11px;letter-sp
 .opt-txt{font-size:14px;line-height:1.5;color:var(--black)}
 .opt-sub{display:block;font-size:12px;color:var(--muted);margin-top:0.15rem;
   font-family:'Space Mono',monospace;letter-spacing:0.02em}
+
+/* ============ CORNER BRACKETS (identical to index.html) ============ */
+.cnr{position:absolute;width:22px;height:22px;pointer-events:none;z-index:2;opacity:0;
+  transition:opacity 0.3s,transform 0.35s cubic-bezier(0.22,1,0.36,1)}
+.cnr-tl{top:8px;left:8px;border-top:2px solid var(--gl);border-left:2px solid var(--gl);
+  transform:translate(6px,6px)}
+.cnr-br{bottom:8px;right:8px;border-bottom:2px solid var(--gl);border-right:2px solid var(--gl);
+  transform:translate(-6px,-6px)}
+.opt:hover .cnr{opacity:1;transform:translate(0,0)}
+
+/* ============ NEON STATUS CARDS (shared identically across index/prepare/partner) ============ */
+/* Ember dot + status line: unchanged mechanism, no beadwork, no fire-glow overlay. */
+[data-status]{position:relative}
+.fire-status{display:flex;align-items:center;gap:0.5rem;font-family:'Space Mono',monospace;
+  font-size:10px;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.85rem;
+  position:relative;z-index:2}
+.fire-status::before{content:'';width:8px;height:8px;border-radius:50%;flex-shrink:0;display:inline-block;
+  border:1px solid var(--muted);background:transparent;box-sizing:border-box}
+.fire-status::after{content:'// STATUS :: DORMANT';color:var(--muted)}
+[data-status="lit"] .fire-status::before,[data-status="arming"] .fire-status::before{
+  border:none;
+  background:radial-gradient(circle at 35% 30%,#fff,rgba(var(--neon),1) 45%,transparent 78%);
+  box-shadow:0 0 6px rgba(var(--neon),.9),0 0 14px rgba(var(--neon),.5);
+  animation:fireFlicker 3.2s ease-in-out infinite}
+[data-status="arming"] .fire-status::before{animation-duration:4.5s}
+[data-status="lit"] .fire-status::after{content:'// STATUS :: LIT';color:var(--gl)}
+[data-status="arming"] .fire-status::after{content:'// STATUS :: ARMING';color:var(--red);opacity:.8}
+@keyframes fireFlicker{
+  0%{opacity:1;transform:scale(1)}9%{opacity:.78;transform:scale(.97)}
+  14%{opacity:.95;transform:scale(1.04)}31%{opacity:.62;transform:scale(.94)}
+  38%{opacity:1;transform:scale(1.08)}57%{opacity:.68;transform:scale(.92)}
+  66%{opacity:.9;transform:scale(1.02)}84%{opacity:.55;transform:scale(.96)}
+  100%{opacity:1;transform:scale(1)}
+}
+
+/* Permanently-raised neon treatment for lit/arming cards */
+[data-status="lit"],[data-status="arming"]{
+  --neon-mul:1;
+  transform:translateY(-10px);
+  border-top-width:3px;border-top-style:solid;
+  animation:neonBreathe 3.4s ease-in-out infinite;
+}
+[data-status="lit"]{--neon:0,200,83;border-top-color:var(--gl)}
+[data-status="arming"]{--neon:179,0,12;border-top-color:var(--red);--neon-mul:.85;animation-duration:4.2s}
+@keyframes neonBreathe{
+  0%,100%{box-shadow:0 24px 56px rgba(0,60,30,0.16),
+    0 0 0 1px rgba(var(--neon),calc(var(--neon-mul,1)*.45)),
+    0 0 22px rgba(var(--neon),calc(var(--neon-mul,1)*.245)),
+    0 0 64px rgba(var(--neon),calc(var(--neon-mul,1)*.126))}
+  50%{box-shadow:0 24px 56px rgba(0,60,30,0.16),
+    0 0 0 1px rgba(var(--neon),calc(var(--neon-mul,1)*.45)),
+    0 0 22px rgba(var(--neon),calc(var(--neon-mul,1)*.35)),
+    0 0 64px rgba(var(--neon),calc(var(--neon-mul,1)*.18))}
+}
+[data-status="lit"]:hover,[data-status="arming"]:hover{
+  transform:translateY(-16px);
+  animation:none;
+  box-shadow:0 24px 56px rgba(0,60,30,0.16),
+    0 0 0 1px rgba(var(--neon),calc(var(--neon-mul,1)*.54)),
+    0 0 22px rgba(var(--neon),calc(var(--neon-mul,1)*.42)),
+    0 0 64px rgba(var(--neon),calc(var(--neon-mul,1)*.216))}
+
+/* .spot fixed (not mouse-tracked) and permanently on for lit/arming; cnr always visible; bg-num at hover state */
+[data-status="lit"] .spot,[data-status="arming"] .spot{opacity:1;--mx:50%;--my:35%}
+[data-status="lit"] .spot{background:radial-gradient(240px circle at var(--mx) var(--my),rgba(0,200,80,0.10),transparent 65%)}
+[data-status="arming"] .spot{background:radial-gradient(240px circle at var(--mx) var(--my),rgba(179,0,12,0.08),transparent 65%)}
+[data-status="lit"] .cnr,[data-status="arming"] .cnr{opacity:1;transform:translate(0,0)}
+[data-status="arming"] .cnr-tl,[data-status="arming"] .cnr-br{border-color:var(--red)}
+[data-status="lit"] .how-bg-num,[data-status="arming"] .how-bg-num,
+[data-status="lit"] .pp-track-bgnum,[data-status="arming"] .pp-track-bgnum{transform:translateY(-4px)}
+[data-status="lit"] .how-bg-num{color:rgba(0,122,61,0.09)}
+[data-status="arming"] .how-bg-num{color:rgba(179,0,12,0.1)}
+[data-status="lit"] .pp-track-bgnum{color:rgba(0,200,80,0.1)}
+[data-status="arming"] .pp-track-bgnum{color:rgba(255,60,70,0.12)}
+/* borderflow idle shimmer (existing ::after on card classes) recolored to state */
+[data-status="arming"]::after{background:linear-gradient(90deg,transparent,rgba(179,0,12,0.9),transparent);
+  background-size:200% 100%}
+
+@media(prefers-reduced-motion:reduce){
+  [data-status] .fire-status::before{animation:none}
+  [data-status="lit"] .fire-status::before{opacity:.9}
+  [data-status="arming"] .fire-status::before{opacity:.7}
+  [data-status="lit"],[data-status="arming"]{animation:none}
+  [data-status="lit"]{box-shadow:0 24px 56px rgba(0,60,30,0.16),0 0 0 1px rgba(var(--neon),.45),
+    0 0 22px rgba(var(--neon),.3),0 0 64px rgba(var(--neon),.15)}
+  [data-status="arming"]{box-shadow:0 24px 56px rgba(0,60,30,0.16),0 0 0 1px rgba(var(--neon),calc(.85*.45)),
+    0 0 22px rgba(var(--neon),calc(.85*.3)),0 0 64px rgba(var(--neon),calc(.85*.15))}
+}
+@media(max-width:768px){
+  [data-status="lit"],[data-status="arming"]{transform:translateY(-4px)}
+  [data-status="lit"]:hover,[data-status="arming"]:hover{transform:translateY(-8px)}
+  [data-status="lit"],[data-status="arming"]{
+    box-shadow:0 12px 28px rgba(0,60,30,0.12),
+      0 0 0 1px rgba(var(--neon),calc(var(--neon-mul,1)*.4)),
+      0 0 11px rgba(var(--neon),calc(var(--neon-mul,1)*.2)),
+      0 0 32px rgba(var(--neon),calc(var(--neon-mul,1)*.1))}
+  .fire-status,.how-prep-tag,.pp-badge,.pp-stamp{font-size:10px;white-space:nowrap}
+}
+
+/* ---- shared terminal scanline sweep (extracted from hero-beam, used on every terminal panel) ---- */
+.term-sweep{position:absolute;left:0;right:0;height:1px;z-index:2;pointer-events:none;
+  background:var(--gl);opacity:0.08;box-shadow:0 0 6px rgba(0,200,83,0.3);
+  animation:termSweepMove 7s linear infinite}
+@keyframes termSweepMove{0%{top:0%}100%{top:100%}}
+@media(prefers-reduced-motion:reduce){.term-sweep{animation:none;display:none}}
+
+/* ---- shared digital rain canvas (inside terminal panels only) ---- */
+.term-rain{position:absolute;inset:0;z-index:0;pointer-events:none}
 
 /* inline group error */
 .g-err{display:flex;align-items:center;gap:0.5rem;margin-top:0.7rem;
@@ -394,12 +559,8 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,0.04);
 
 /* ============ REDUCED MOTION ============ */
 @media(prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto}
-  #grain{display:none}
-  .apat::before{animation:none}
-  .orb{animation:none}
-  .form-card::before,.side-panel::before{animation:none}
-  .fade-up,.slide-l,.slide-r{opacity:1;transform:none;transition:none}
+  .fade-up,.slide-l,.slide-r,.sh-title,.sh-line{transition:none}
+  .slide-l,.slide-r{transform:translateY(0)}
   .blink{animation:none}
   .success-box.go .sb-scan{animation:none;display:none}
   .opt-mark,.opt-mark::after,.f-input,.f-textarea,.opt{transition:none}
@@ -452,12 +613,19 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,0.04);
 
 <!-- ============ COMPACT HERO ============ -->
 <section class="phero apat apat-dark" id="top">
+  <div class="phero-img" aria-hidden="true"></div>
+  <div class="phero-overlay" aria-hidden="true"></div>
+  <div class="phero-tint" aria-hidden="true"></div>
+  <canvas class="phero-rain" id="pheroRain" aria-hidden="true"></canvas>
   <div class="orb orb-g orb1" aria-hidden="true"></div>
   <div class="orb orb-au orb2" aria-hidden="true"></div>
   <div class="phero-scan" aria-hidden="true"></div>
+  <div class="phero-beam" aria-hidden="true"></div>
   <div class="phero-inner">
-    <div class="phero-eye fade-up"><i></i><span>// PARTNERSHIP_INTAKE :: 2026</span></div>
-    <h1 class="fade-up">Let's put you <em>in the room.</em></h1>
+    <div class="sh fade-up" style="margin-bottom:1.1rem">
+      <div class="sh-eye"><div class="sh-line" style="background:var(--gold)"></div><span class="sh-label" style="color:var(--gl)">// PARTNERSHIP_INTAKE :: 2026</span></div>
+    </div>
+    <h1 class="fade-up">Let's put you <em class="glitch" id="pglitch" data-text="in the room." style="display:inline-block">in the room.</em></h1>
     <p class="phero-sub fade-up">Two minutes. We come back to you within 48 hours with the full deck and a proposed slot.</p>
     <p class="phero-meta fade-up"><i></i>OCT_2026 :: STRATHMORE_UNIVERSITY :: NAIROBI</p>
   </div>
@@ -469,7 +637,9 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,0.04);
 
     <!-- LEFT: FORM -->
     <div class="form-col slide-l">
-      <div class="col-eye"><i></i><span>// APPLICANT_DETAILS</span></div>
+      <div class="sh" style="margin-bottom:1.5rem">
+        <div class="sh-eye"><div class="sh-line" style="background:var(--gold)"></div><span class="sh-label">// APPLICANT_DETAILS</span></div>
+      </div>
 
       <form id="pform" class="form-card" novalidate>
         <!-- honeypot: off-screen, must stay empty -->
@@ -492,7 +662,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,0.04);
 
         <div class="field">
           <label class="f-label" for="role">Role / Title
-            <span class="f-hint">Optional — helps us tailor the deck to the right desk</span>
+            <span class="f-hint">Optional, helps us tailor the deck to the right desk</span>
           </label>
           <input class="f-input" type="text" id="role" name="role" autocomplete="organization-title"
                  placeholder="e.g. CISO, Head of Talent, Brand Manager">
@@ -546,32 +716,40 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,0.04);
           <fieldset>
             <legend>Sponsorship Package of Interest<span class="req" aria-hidden="true">*</span></legend>
             <div class="opt-list">
-              <label class="opt">
+              <label class="opt" data-status="lit">
+                <span class="cnr cnr-tl"></span><span class="cnr cnr-br"></span>
                 <input type="radio" name="package" value="Gold Sponsor" aria-required="true" required>
                 <span class="opt-mark diamond" aria-hidden="true"></span>
                 <span class="opt-txt">Gold Sponsor
                   <span class="opt-sub">Co-host billing · Maarifa speaking slot · Kikao panel seat · branded prize category</span>
+                  <span class="fire-status" aria-hidden="true"></span>
                 </span>
               </label>
-              <label class="opt">
+              <label class="opt" data-status="lit">
+                <span class="cnr cnr-tl"></span><span class="cnr cnr-br"></span>
                 <input type="radio" name="package" value="Silver Sponsor">
                 <span class="opt-mark diamond" aria-hidden="true"></span>
                 <span class="opt-txt">Silver Sponsor
                   <span class="opt-sub">Kikao panel seat · headhunter seats · event-wide branding</span>
+                  <span class="fire-status" aria-hidden="true"></span>
                 </span>
               </label>
-              <label class="opt">
+              <label class="opt" data-status="lit">
+                <span class="cnr cnr-tl"></span><span class="cnr cnr-br"></span>
                 <input type="radio" name="package" value="Bronze Sponsor">
                 <span class="opt-mark diamond" aria-hidden="true"></span>
                 <span class="opt-txt">Bronze Sponsor
                   <span class="opt-sub">Headhunter seats · participant performance reports · venue recognition</span>
+                  <span class="fire-status" aria-hidden="true"></span>
                 </span>
               </label>
-              <label class="opt">
+              <label class="opt" data-status="lit">
+                <span class="cnr cnr-tl"></span><span class="cnr cnr-br"></span>
                 <input type="radio" name="package" value="Custom Partnership">
                 <span class="opt-mark diamond" aria-hidden="true"></span>
                 <span class="opt-txt">Custom Partnership
                   <span class="opt-sub">We'll shape a package around your objectives</span>
+                  <span class="fire-status" aria-hidden="true"></span>
                 </span>
               </label>
             </div>
@@ -581,7 +759,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,0.04);
         <div class="field">
           <label class="f-label" for="notes">Anything else we should know?</label>
           <textarea class="f-textarea" id="notes" name="notes"
-                    placeholder="Priorities, timelines, specific teams you'd like to reach — optional."></textarea>
+                    placeholder="Priorities, timelines, specific teams you'd like to reach, optional."></textarea>
         </div>
 
         <div class="field">
@@ -611,6 +789,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,0.04);
 
         <!-- error state -->
         <div class="term-msg err" id="err" role="alert" aria-live="polite" hidden>
+          <div class="term-sweep" aria-hidden="true"></div>
           &gt; TRANSMISSION_FAILED :: Please try again or email us directly at
           <a href="mailto:sucybersec@strathmore.edu">sucybersec@strathmore.edu</a>
         </div>
@@ -619,12 +798,14 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,0.04);
           <button type="submit" class="btn-green" id="submit-btn">
             <span id="btn-label">&gt; Submit Partnership Interest</span>
           </button>
-          <p class="form-fineprint">// Your details are handled in line with the Kenya Data Protection Act, 2019 — used solely to respond to this enquiry.</p>
+          <p class="form-fineprint">// Your details are handled in line with the Kenya Data Protection Act, 2019, used solely to respond to this enquiry.</p>
         </div>
       </form>
 
       <!-- success state (revealed in place of the form) -->
       <div class="success-box" id="success" role="status" aria-live="polite" tabindex="-1" hidden>
+        <canvas class="term-rain" id="successRain" aria-hidden="true"></canvas>
+        <div class="term-sweep" aria-hidden="true"></div>
         <div class="sb-scan" aria-hidden="true"></div>
         <p class="sb-head">&gt; TRANSMISSION_RECEIVED :: <b>We'll be in touch within 48 hours.</b></p>
         <p class="sb-sub">
@@ -637,7 +818,9 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,0.04);
 
     <!-- RIGHT: WHAT HAPPENS NEXT -->
     <aside class="side-col slide-r">
-      <div class="col-eye"><i></i><span>// WHAT_HAPPENS_NEXT</span></div>
+      <div class="sh" style="margin-bottom:1.5rem">
+        <div class="sh-eye"><div class="sh-line" style="background:var(--gold)"></div><span class="sh-label">// WHAT_HAPPENS_NEXT</span></div>
+      </div>
       <div class="side-panel">
         <h2 class="side-title">Here's the flow</h2>
 
@@ -691,11 +874,70 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,0.04);
 'use strict';
 const finePointer=window.matchMedia('(pointer: fine)').matches;
 const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const reduceMotion=reduce; /* alias so the shared functions below stay byte-identical to index.html/prepare.html */
 const CH="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789./\\[]{}><_#@!";
 
 /* ---------- consistent load position ---------- */
 if('scrollRestoration' in history)history.scrollRestoration='manual';
 if(!location.hash)window.scrollTo(0,0);
+
+/* ---------- shared: initRain(canvas) — subtle digital rain inside terminal panels only ---------- */
+/* Duplicated identically in index.html, prepare.html and partner.html. */
+function initRain(canvas){
+  if(!canvas)return;
+  const ctx=canvas.getContext('2d');
+  const RCH='01JENGASEC';
+  const TRAIL=5;
+  let rw,rh,cols,drops,raf=null,running=false;
+  function size(){
+    const box=canvas.parentElement;
+    rw=canvas.width=box.clientWidth||1;
+    rh=canvas.height=box.clientHeight||1;
+    const spacing=18+Math.random()*4;
+    cols=Math.max(1,Math.floor(rw/spacing));
+    drops=Array.from({length:cols},(_,i)=>({
+      x:Math.round((i+0.5)*(rw/cols)),
+      y:Math.random()*-40,
+      speed:2+Math.random()*2,
+      chars:[]
+    }));
+  }
+  size();
+  canvas.style.opacity='0.18';
+  function drawFrame(){
+    ctx.clearRect(0,0,rw,rh);
+    ctx.font='11px "Space Mono",monospace';
+    for(const d of drops){
+      d.chars.unshift(RCH[Math.floor(Math.random()*RCH.length)]);
+      if(d.chars.length>TRAIL)d.chars.pop();
+      for(let t=0;t<d.chars.length;t++){
+        ctx.fillStyle=t===0?'rgba(0,200,83,0.9)':'rgba(0,122,61,'+(0.5*(1-t/TRAIL))+')';
+        ctx.fillText(d.chars[t],d.x,d.y-t*13);
+      }
+      d.y+=d.speed;
+      if(d.y-TRAIL*13>rh&&Math.random()>0.96){d.y=Math.random()*-30;d.chars=[];d.speed=2+Math.random()*2;}
+    }
+  }
+  function loop(){if(!running)return;drawFrame();raf=requestAnimationFrame(loop);}
+  if(reduceMotion){
+    ctx.clearRect(0,0,rw,rh);
+    ctx.font='11px "Space Mono",monospace';
+    drops.forEach(d=>{
+      ctx.fillStyle='rgba(0,122,61,0.4)';
+      ctx.fillText(RCH[Math.floor(Math.random()*RCH.length)],d.x,Math.random()*rh);
+    });
+    return;
+  }
+  function start(){if(!running){size();running=true;loop();}}
+  function stop(){running=false;if(raf)cancelAnimationFrame(raf);}
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{e.isIntersecting?start():stop();});
+  },{threshold:0});
+  io.observe(canvas);
+  window.addEventListener('resize',size,{passive:true});
+}
+initRain(document.getElementById('successRain'));
+initRain(document.getElementById('pheroRain'));
 
 /* ---------- custom cursor (nav/links/buttons — NOT form inputs) ---------- */
 if(finePointer && !reduce){
@@ -760,15 +1002,23 @@ if(wmsec){
   });
 }
 
+/* ---------- hero heading glitch auto-fire (matches index.html's fireGlitch) ---------- */
+(function(){
+  const el=document.getElementById('pglitch');
+  if(!el||reduce)return;
+  function burst(){
+    el.classList.remove('glitching');void el.offsetWidth;el.classList.add('glitching');
+    setTimeout(()=>el.classList.remove('glitching'),600);
+    setTimeout(burst,4600+Math.random()*1400);
+  }
+  setTimeout(burst,2000);
+})();
+
 /* ---------- entrance reveals ---------- */
-if(reduce){
-  document.querySelectorAll('.fade-up,.slide-l,.slide-r').forEach(e=>e.classList.add('visible'));
-}else{
-  const obs=new IntersectionObserver(entries=>{
-    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});
-  },{threshold:0.07});
-  document.querySelectorAll('.fade-up,.slide-l,.slide-r').forEach(e=>obs.observe(e));
-}
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});
+},{threshold:0.07});
+document.querySelectorAll('.fade-up,.slide-l,.slide-r,.sh').forEach(e=>obs.observe(e));
 
 /* ---------- option-row selected-state highlight ---------- */
 const optInputs=[...document.querySelectorAll('.opt input')];
@@ -847,18 +1097,18 @@ form.addEventListener('submit',async e=>{
 
   const payload={
     access_key:ACCESS_KEY,
-    subject:'JengaSec 2026 — New Partnership Enquiry',
+    subject:'JengaSec 2026: New Partnership Enquiry',
     from_name:'JengaSec Partnership Form',
     botcheck:document.getElementById('botcheck').value,
     name:val('contact'),
     email:val('email'),
     phone:val('phone'),
     'Organization':val('org'),
-    'Role / Title':val('role')||'—',
+    'Role / Title':val('role')||'N/A',
     'Partnership Goals':checkedGoals().join(', '),
     'Sponsorship Package':radioVal('package'),
     'Preferred Next Step':radioVal('next'),
-    'Additional Notes':val('notes')||'—'
+    'Additional Notes':val('notes')||'N/A'
   };
 
   setLoading(true);
