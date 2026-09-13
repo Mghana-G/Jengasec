@@ -470,25 +470,25 @@ nav.scrolled .hamburger span{background:var(--black)}
 [data-status="arming"]{--neon:179,0,12;border-top-color:var(--red);animation-duration:2.4s !important}
 @keyframes neonPulse{
   0%,100%{
-    filter:drop-shadow(0 0 4px rgba(var(--neon),.8))
-           drop-shadow(0 0 18px rgba(var(--neon),.6))
-           drop-shadow(0 0 46px rgba(var(--neon),.38));
+    filter:drop-shadow(0 0 4px rgba(var(--neon),.64))
+           drop-shadow(0 0 18px rgba(var(--neon),.48))
+           drop-shadow(0 0 46px rgba(var(--neon),.3));
     border-top-color:rgba(var(--neon),1)}
   50%{
-    filter:drop-shadow(0 0 1px rgba(var(--neon),.1))
-           drop-shadow(0 0 4px rgba(var(--neon),.04))
+    filter:drop-shadow(0 0 1px rgba(var(--neon),.08))
+           drop-shadow(0 0 4px rgba(var(--neon),.03))
            drop-shadow(0 0 0 rgba(var(--neon),0));
     border-top-color:rgba(var(--neon),.3)}
 }
 @keyframes neonPulseMobile{
   0%,100%{
-    filter:drop-shadow(0 0 2px rgba(var(--neon),.8))
-           drop-shadow(0 0 9px rgba(var(--neon),.6))
-           drop-shadow(0 0 23px rgba(var(--neon),.38));
+    filter:drop-shadow(0 0 2px rgba(var(--neon),.64))
+           drop-shadow(0 0 9px rgba(var(--neon),.48))
+           drop-shadow(0 0 23px rgba(var(--neon),.3));
     border-top-color:rgba(var(--neon),1)}
   50%{
-    filter:drop-shadow(0 0 0.5px rgba(var(--neon),.1))
-           drop-shadow(0 0 2px rgba(var(--neon),.04))
+    filter:drop-shadow(0 0 0.5px rgba(var(--neon),.08))
+           drop-shadow(0 0 2px rgba(var(--neon),.03))
            drop-shadow(0 0 0 rgba(var(--neon),0));
     border-top-color:rgba(var(--neon),.3)}
 }
@@ -502,16 +502,27 @@ nav.scrolled .hamburger span{background:var(--black)}
 }
 @keyframes neonPulseTracks{
   0%,100%{
-    filter:drop-shadow(0 0 4px rgba(var(--neon),.9))
-           drop-shadow(0 0 20px rgba(var(--neon),.72))
-           drop-shadow(0 0 52px rgba(var(--neon),.48));
+    filter:drop-shadow(0 0 4px rgba(var(--neon),.72))
+           drop-shadow(0 0 20px rgba(var(--neon),.58))
+           drop-shadow(0 0 52px rgba(var(--neon),.38));
     border-top-color:rgba(var(--neon),1)}
   50%{
-    filter:drop-shadow(0 0 1px rgba(var(--neon),.1))
-           drop-shadow(0 0 4px rgba(var(--neon),.04))
+    filter:drop-shadow(0 0 1px rgba(var(--neon),.08))
+           drop-shadow(0 0 4px rgba(var(--neon),.03))
            drop-shadow(0 0 0 rgba(var(--neon),0));
     border-top-color:rgba(var(--neon),.3)}
 }
+/* Staggered pulse across the four #tracks cards, in reading order:
+   top-left -> top-right -> bottom-left -> bottom-right. Each card's ember
+   dot is offset the same amount so it stays in sync with its own card. */
+.pp-track-grid .pp-track-card:nth-child(1){animation-delay:0s !important}
+.pp-track-grid .pp-track-card:nth-child(1) .fire-status::before{animation-delay:0s}
+.pp-track-grid .pp-track-card:nth-child(2){animation-delay:1s !important}
+.pp-track-grid .pp-track-card:nth-child(2) .fire-status::before{animation-delay:1s}
+.pp-track-grid .pp-track-card:nth-child(3){animation-delay:2s !important}
+.pp-track-grid .pp-track-card:nth-child(3) .fire-status::before{animation-delay:2s}
+.pp-track-grid .pp-track-card:nth-child(4){animation-delay:3s !important}
+.pp-track-grid .pp-track-card:nth-child(4) .fire-status::before{animation-delay:3s}
 
 /* .spot fixed (not mouse-tracked) and permanently on for lit/arming; cnr always visible; bg-num at hover state */
 [data-status="lit"] .spot,[data-status="arming"] .spot{opacity:1;--mx:50%;--my:35%}
@@ -539,20 +550,20 @@ nav.scrolled .hamburger span{background:var(--black)}
     animation-name:neonPulseTracksCalm !important}
 }
 @keyframes neonPulseCalm{
-  0%,100%{filter:drop-shadow(0 0 4px rgba(var(--neon),.8))
-                 drop-shadow(0 0 18px rgba(var(--neon),.6))
-                 drop-shadow(0 0 46px rgba(var(--neon),.38))}
-  50%{filter:drop-shadow(0 0 4px rgba(var(--neon),.4))
-             drop-shadow(0 0 18px rgba(var(--neon),.3))
-             drop-shadow(0 0 46px rgba(var(--neon),.19))}
+  0%,100%{filter:drop-shadow(0 0 4px rgba(var(--neon),.64))
+                 drop-shadow(0 0 18px rgba(var(--neon),.48))
+                 drop-shadow(0 0 46px rgba(var(--neon),.3))}
+  50%{filter:drop-shadow(0 0 4px rgba(var(--neon),.32))
+             drop-shadow(0 0 18px rgba(var(--neon),.24))
+             drop-shadow(0 0 46px rgba(var(--neon),.15))}
 }
 @keyframes neonPulseTracksCalm{
-  0%,100%{filter:drop-shadow(0 0 4px rgba(var(--neon),.9))
-                 drop-shadow(0 0 20px rgba(var(--neon),.72))
-                 drop-shadow(0 0 52px rgba(var(--neon),.48))}
-  50%{filter:drop-shadow(0 0 4px rgba(var(--neon),.45))
-             drop-shadow(0 0 20px rgba(var(--neon),.36))
-             drop-shadow(0 0 52px rgba(var(--neon),.24))}
+  0%,100%{filter:drop-shadow(0 0 4px rgba(var(--neon),.72))
+                 drop-shadow(0 0 20px rgba(var(--neon),.58))
+                 drop-shadow(0 0 52px rgba(var(--neon),.38))}
+  50%{filter:drop-shadow(0 0 4px rgba(var(--neon),.36))
+             drop-shadow(0 0 20px rgba(var(--neon),.29))
+             drop-shadow(0 0 52px rgba(var(--neon),.19))}
 }
 @media(max-width:768px){
   [data-status="lit"],[data-status="arming"]{
