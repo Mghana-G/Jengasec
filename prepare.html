@@ -1,18 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>
+/* Resolve visual mode before first paint. Plain visits intentionally start in full mode. */
+const motionParam=new URLSearchParams(location.search).get('motion');
+if(motionParam==='full'||motionParam==='force'){
+  document.documentElement.classList.add('motion-full','force-motion');
+}else if(motionParam==='reduced'){
+  document.documentElement.classList.add('motion-reduced');
+}else{
+  document.documentElement.classList.add('motion-full','force-motion');
+}
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Prepare Your Team — JengaSec 2026</title>
+<title>Prepare Your Team | JengaSec 2026</title>
 <meta name="description" content="What to prepare before JengaSec 2026 registration opens: team requirements, tracks, proposal structure, format rules, and deadlines. Get ready before the platform goes live.">
 <meta name="author" content="Strathmore Cybersecurity Club">
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#007A3D">
 <link rel="icon" type="image/png" href="logo.png">
-<link rel="canonical" href="https://jengasec.com/prepare.html">
+<link rel="canonical" href="https://jengasec.com/prepare">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://jengasec.com/prepare.html">
-<meta property="og:title" content="Prepare Your Team — JengaSec 2026">
+<meta property="og:url" content="https://jengasec.com/prepare">
+<meta property="og:title" content="Prepare Your Team | JengaSec 2026">
 <meta property="og:description" content="What to prepare before JengaSec 2026 registration opens: team requirements, tracks, proposal structure, format rules, and deadlines.">
 <meta property="og:image" content="https://jengasec.com/Jengasec.jpg">
 <meta property="og:site_name" content="JengaSec">
@@ -31,7 +42,9 @@
   --black:#080C08;--white:#F8FAF8;--off:#EEF1EE;
   --muted:#5A6A5A;--border:#CDD8CD;--card:#FFFFFF;
   --dg:#0A2416;--mg:#0D3020;
+  --accent:var(--g);--accent-l:var(--gl);--accent-d:var(--gd);--accent-rgb:0,200,83;--accent-tint:rgba(0,200,80,0.10);
 }
+html[data-side="red"]{--accent:#B3000C;--accent-l:#FF3B47;--accent-d:#5E0008;--accent-rgb:255,59,71;--accent-tint:rgba(179,0,12,0.10);--dg:#240A0C;--mg:#30100F}
 html{scroll-behavior:smooth}
 html,body{overflow-x:hidden;max-width:100%}
 body{background:var(--white);color:var(--black);font-family:'DM Sans',sans-serif}
@@ -130,7 +143,8 @@ nav.scrolled .hamburger span{background:var(--black)}
 /* ============ MOBILE MENU ============ */
 .mmenu{display:none;position:fixed;inset:0;z-index:10000;
   background:rgba(8,12,8,0.98);flex-direction:column;
-  align-items:center;justify-content:center;gap:2rem;overflow:hidden}
+  align-items:center;justify-content:center;gap:2rem;overflow-y:auto;
+  -webkit-overflow-scrolling:touch;overscroll-behavior:contain}
 .mmenu.open{display:flex}
 .mmenu a{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;
   letter-spacing:0.1em;color:var(--white);text-decoration:none}
@@ -138,6 +152,13 @@ nav.scrolled .hamburger span{background:var(--black)}
 .mclose{position:absolute;top:1.5rem;right:5%;font-size:1.1rem;
   cursor:pointer;background:none;border:none;
   font-family:'Space Mono',monospace;color:rgba(255,255,255,0.35);letter-spacing:0.1em}
+body.menu-open{overflow:hidden}
+@media(max-width:768px){
+  #grain{inset:0;animation:none;opacity:0.018}
+  .mmenu{justify-content:flex-start;gap:1.35rem;padding:5.25rem 5% 2rem}
+  .mmenu a{font-size:clamp(1.75rem,8vw,2.2rem);line-height:1}
+  .mclose{position:fixed}
+}
 
 /* ============ GLITCH (identical to index.html, not a lookalike variant) ============ */
 .glitch{color:rgba(255,255,255,0.42);display:block;position:relative;cursor:default}
@@ -240,7 +261,7 @@ nav.scrolled .hamburger span{background:var(--black)}
 .hero-left{max-width:620px}
 .hero-right{display:flex;align-items:center;justify-content:center}
 @media(min-width:1024px){
-  .hero-content{grid-template-columns:620px 1fr;align-items:center;gap:3rem}
+  .hero-content{grid-template-columns:minmax(0,620px) minmax(0,420px);justify-content:space-between;align-items:center;gap:clamp(2rem,5vw,5rem)}
 }
 .hero-badge{display:inline-flex;align-items:center;gap:0.55rem;
   padding:0.4rem 1rem;margin-bottom:1.6rem;
@@ -263,8 +284,11 @@ nav.scrolled .hamburger span{background:var(--black)}
   color:rgba(255,255,255,0.62);max-width:560px;
   border-left:2px solid var(--gold);padding-left:1rem}
 .hero-ctas{display:flex;gap:1rem;margin-top:2rem;flex-wrap:wrap}
+.motion-toggle{padding:.85rem 1rem;border:1px solid rgba(232,176,32,.4);background:rgba(8,12,8,.38);color:var(--gold2);font:10px 'Space Mono',monospace;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:background .2s,border-color .2s,color .2s}
+.motion-toggle:hover,.motion-toggle:focus-visible{background:rgba(232,176,32,.1);border-color:var(--gold2);color:var(--white);outline:none}
+html.motion-reduced .motion-toggle{color:var(--gl);border-color:rgba(0,200,83,.45)}
 
-.prep-term{width:min(420px,100%);
+.prep-term{width:min(420px,100%);min-width:0;
   background:rgba(4,14,7,0.82);border:1px solid rgba(0,200,80,0.22);
   box-shadow:0 20px 60px rgba(0,0,0,0.5);
   font-family:'Space Mono',monospace;overflow:hidden;position:relative;z-index:3}
@@ -281,26 +305,27 @@ nav.scrolled .hamburger span{background:var(--black)}
   display:flex;align-items:center;gap:0.35rem}
 .term-live::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--gl);
   box-shadow:0 0 6px rgba(0,200,80,0.9);animation:pulse 1.4s ease infinite}
-.term-head,.term-body{position:relative;z-index:1}
+.term-head,.term-body{position:relative;z-index:1;min-width:0}
 .term-body{min-height:112px;padding:0.9rem 0.9rem;display:flex;flex-direction:column;gap:0.55rem;justify-content:center}
-.boot-line{min-height:1.4em;font-size:11px;letter-spacing:0.05em;color:rgba(0,200,80,0.85)}
+.boot-line{min-height:1.4em;font-size:11px;letter-spacing:0.05em;color:rgba(0,200,80,0.85);overflow-wrap:anywhere;word-break:break-word}
 .boot-line .ok{color:var(--gold2)}
 .term-boot-bar{margin:0.4rem 0.9rem 0.9rem;height:3px;background:rgba(0,200,80,0.12);position:relative;overflow:hidden;z-index:1}
 .term-boot-bar i{position:absolute;inset:0;transform-origin:left;transform:scaleX(0);
   background:linear-gradient(90deg,var(--g),var(--gl));transition:transform 0.3s linear}
 .term-boot-label{margin:0 0.9rem 0.75rem;font-size:9px;letter-spacing:0.14em;color:rgba(255,255,255,0.3);
   text-transform:uppercase;position:relative;z-index:1}
+.prep-term #readinessRain{position:absolute;inset:31px 0 0;width:100%;height:calc(100% - 31px);z-index:0;pointer-events:none;opacity:.18}
 
 @media(prefers-reduced-motion:reduce){
-  .hero-grid{animation:none}
-  .bdot,.badge-cursor,.term-live::before{animation:none}
-  .hero-beam{animation:none;opacity:0}
-  .hero-logo-wm{animation:none;filter:drop-shadow(0 0 24px rgba(0,200,83,.245))}
+  html:not(.force-motion) .hero-grid{animation:none}
+  html:not(.force-motion) .bdot,html:not(.force-motion) .badge-cursor,html:not(.force-motion) .term-live::before{animation:none}
+  html:not(.force-motion) .hero-beam{animation:none;opacity:0}
+  html:not(.force-motion) .hero-logo-wm{animation:none;filter:drop-shadow(0 0 24px rgba(0,200,83,.245))}
 }
 @media(max-width:768px){
   .hero{min-height:100svh;align-items:flex-start;padding-top:7rem}
   .hero-ctas{flex-direction:column}
-  .hero-ctas a{width:100%;text-align:center}
+  .hero-ctas a,.motion-toggle{width:100%;text-align:center}
   .hero-logo-wm{top:16%;right:auto;left:50%;transform:translateX(-50%);
     width:70vw;opacity:0.07;animation:none;filter:none}
 }
@@ -340,8 +365,8 @@ nav.scrolled .hamburger span{background:var(--black)}
 .slide-r{opacity:0;transform:translateX(44px);transition:opacity 0.7s cubic-bezier(0.22,1,0.36,1),transform 0.7s cubic-bezier(0.22,1,0.36,1)}
 .slide-l.visible,.slide-r.visible{opacity:1;transform:translateX(0)}
 @media(prefers-reduced-motion:reduce){
-  .fade-up,.slide-l,.slide-r,.sh-title,.sh-line{transition:none}
-  .slide-l,.slide-r{transform:translateY(0)}
+  html:not(.force-motion) .fade-up,html:not(.force-motion) .slide-l,html:not(.force-motion) .slide-r,html:not(.force-motion) .sh-title,html:not(.force-motion) .sh-line{transition:none}
+  html:not(.force-motion) .slide-l,html:not(.force-motion) .slide-r{transform:translateY(0)}
 }
 /* .slide-l.visible/.slide-r.visible above set transform:translateX(0) at
    specificity (0,2,0), higher than the neon cards' own resting
@@ -383,34 +408,37 @@ nav.scrolled .hamburger span{background:var(--black)}
 @media(max-width:768px){.pp-arena-grid{grid-template-columns:1fr}}
 
 /* ============ S3 TRACKS ============ */
-.pp-track-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;perspective:1200px}
-.pp-track-card{position:relative;background:linear-gradient(170deg,rgba(13,48,32,0.55),rgba(8,16,10,0.85));
+.pp-track-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.15rem;perspective:1200px;max-width:1180px;margin:0 auto}
+.pp-track-card{position:relative;background:transparent;
   border:1px solid rgba(255,255,255,0.08);border-top:3px solid var(--g);
-  padding:2rem;overflow:hidden;transform-style:preserve-3d;--mx:50%;--my:50%;
+  padding:0;overflow:visible;transform-style:preserve-3d;--mx:50%;--my:50%;
   transition:transform 0.35s,box-shadow 0.35s}
 /* idle breathing on the top border, identical mechanism to index's .how-card::after */
 .pp-track-card::after{content:'';position:absolute;top:-3px;left:0;right:0;height:3px;z-index:3;
   background:linear-gradient(90deg,transparent,rgba(0,200,80,0.9),transparent);
   background-size:200% 100%;opacity:0.55;animation:borderflow 4.5s linear infinite}
+#tracks .pp-track-card::after{animation:borderflow 4.5s linear infinite;opacity:.55}
 @keyframes borderflow{from{background-position:200% 0}to{background-position:-200% 0}}
-.pp-track-card .spot{position:absolute;inset:0;pointer-events:none;z-index:0;opacity:0;
+.pp-track-card .spot{position:absolute;inset:0;pointer-events:none;z-index:0;opacity:.28;
   background:radial-gradient(240px circle at var(--mx) var(--my),rgba(0,200,80,0.1),transparent 65%);
   transition:opacity 0.3s}
 .pp-track-red .spot{background:radial-gradient(240px circle at var(--mx) var(--my),rgba(179,0,12,0.08),transparent 65%)}
-.pp-track-card:hover .spot{opacity:1}
-.pp-track-bgnum{font-family:'Bebas Neue',sans-serif;font-size:6rem;
+@media(pointer:fine){.pp-track-card:hover .spot{opacity:1}}
+.pp-track-bgnum{font-family:'Bebas Neue',sans-serif;font-size:4.8rem;
   color:rgba(0,200,80,0.06);position:absolute;top:-0.5rem;right:0.5rem;
   line-height:1;pointer-events:none;z-index:0}
 .pp-track-red .pp-track-bgnum{color:rgba(255,60,70,0.08)}
-.pp-track-card:hover{transform:translateY(-4px)}
-.pp-track-card:hover .cnr{opacity:1;transform:translate(0,0)}
+@media(pointer:fine){
+  .pp-track-card:hover{transform:translateY(-4px)}
+  .pp-track-card:hover .cnr{opacity:1;transform:translate(0,0)}
+}
 .pp-track-red .cnr-tl,.pp-track-red .cnr-br{border-color:var(--red)}
 .pp-track-side{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.2em;
   text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:0.75rem;position:relative;z-index:1}
 .pp-track-red .pp-track-side{color:rgba(255,140,140,0.6)}
 .pp-track-name{font-family:'Bebas Neue',sans-serif;font-size:1.7rem;letter-spacing:0.03em;
   color:var(--white);margin-bottom:0.85rem;position:relative;z-index:1}
-.pp-track-desc{font-size:13.5px;line-height:1.8;color:rgba(255,255,255,0.55);margin-bottom:1.5rem;position:relative;z-index:1}
+.pp-track-desc{font-size:13px;line-height:1.65;color:rgba(255,255,255,0.55);margin-bottom:1rem;position:relative;z-index:1}
 .pp-track-foot{display:flex;flex-wrap:wrap;gap:0.6rem;align-items:center;position:relative;z-index:1}
 .pp-stamp{display:inline-block;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;
   text-transform:uppercase;padding:0.4rem 0.8rem;border:1px solid currentColor}
@@ -419,10 +447,19 @@ nav.scrolled .hamburger span{background:var(--black)}
 .pp-badge{display:inline-block;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.08em;
   color:var(--red);border:1px solid rgba(179,0,12,0.4);padding:0.4rem 0.8rem}
 .pp-badge-gold{color:var(--gold2);border-color:rgba(232,176,32,0.4)}
-@media(max-width:768px){.pp-track-grid{grid-template-columns:1fr}}
+/* ============ TRACK CARD LINKS (Part 3) ============ */
+.pp-track-link{display:block;min-height:100%;padding:2.25rem 2.2rem;text-decoration:none;color:inherit;position:relative;z-index:1;overflow:hidden;background:linear-gradient(170deg,rgba(13,48,32,0.55),rgba(8,16,10,0.85))}
+.pp-track-link:focus-visible{outline:2px solid var(--accent-l);outline-offset:3px}
+.pp-track-enter{display:block;margin-top:1.2rem;font-family:'Space Mono',monospace;font-size:10px;
+  letter-spacing:0.1em;text-transform:uppercase;color:var(--gl);position:relative;z-index:1;
+  text-align:right;transition:transform 0.25s}
+.pp-track-red .pp-track-enter{color:var(--red)}
+@media(pointer:fine){.pp-track-card:hover .pp-track-enter{transform:translateX(4px)}}
+@media(max-width:768px){.pp-track-grid{grid-template-columns:1fr}.pp-track-link{padding:2.25rem 2rem}}
 @media(prefers-reduced-motion:reduce){
-  .pp-track-card{transition:none}
-  .pp-track-card:hover{transform:none}
+  html:not(.force-motion) .pp-track-card{transition:none}
+  html:not(.force-motion) .pp-track-card:hover{transform:none}
+  html:not(.force-motion) .pp-track-card:hover .pp-track-enter{transform:none}
 }
 
 /* ============ NEON STATUS CARDS (shared identically across index/prepare/partner) ============ */
@@ -455,80 +492,31 @@ nav.scrolled .hamburger span{background:var(--black)}
   100%{opacity:1;transform:scale(1)}
 }
 
-/* Permanently-raised neon treatment for lit/arming cards.
-   Uses filter:drop-shadow, NOT box-shadow: .pp-track-card has overflow:hidden,
-   which clips box-shadow (that was why the old pulse never showed) but
-   never clips filter, and the tilt JS below only ever touches
-   card.style.transform, so it cannot cancel this either. */
-[data-status="lit"],[data-status="arming"]{
-  transform:translateY(-10px);
-  border-top-width:3px;border-top-style:solid;
-  animation:neonPulse 1.9s ease-in-out infinite !important;
-  will-change:filter;
-}
+/* One card surface owns transform, border and glow. Content and brackets stay inside it. */
 [data-status="lit"]{--neon:0,200,83;border-top-color:var(--gl)}
-[data-status="arming"]{--neon:179,0,12;border-top-color:var(--red);animation-duration:2.4s !important}
-@keyframes neonPulse{
-  0%,100%{
-    filter:drop-shadow(0 0 4px rgba(var(--neon),.64))
-           drop-shadow(0 0 18px rgba(var(--neon),.48))
-           drop-shadow(0 0 46px rgba(var(--neon),.3));
-    border-top-color:rgba(var(--neon),1)}
-  50%{
-    filter:drop-shadow(0 0 1px rgba(var(--neon),.08))
-           drop-shadow(0 0 4px rgba(var(--neon),.03))
-           drop-shadow(0 0 0 rgba(var(--neon),0));
-    border-top-color:rgba(var(--neon),.3)}
+[data-status="arming"]{--neon:179,0,12;border-top-color:var(--red)}
+/* ============ CHASE GLOW on #tracks ============ */
+@keyframes neonChase{
+  0%,22%{filter:drop-shadow(0 0 4px rgba(var(--neon),.9)) drop-shadow(0 0 18px rgba(var(--neon),.65)) drop-shadow(0 0 46px rgba(var(--neon),.35));border-top-color:rgba(var(--neon),1)}
+  30%,100%{filter:drop-shadow(0 0 1px rgba(var(--neon),.12)) drop-shadow(0 0 4px rgba(var(--neon),.04)) drop-shadow(0 0 0 rgba(var(--neon),0));border-top-color:rgba(var(--neon),.32)}
 }
-@keyframes neonPulseMobile{
-  0%,100%{
-    filter:drop-shadow(0 0 2px rgba(var(--neon),.64))
-           drop-shadow(0 0 9px rgba(var(--neon),.48))
-           drop-shadow(0 0 23px rgba(var(--neon),.3));
-    border-top-color:rgba(var(--neon),1)}
-  50%{
-    filter:drop-shadow(0 0 0.5px rgba(var(--neon),.08))
-           drop-shadow(0 0 2px rgba(var(--neon),.03))
-           drop-shadow(0 0 0 rgba(var(--neon),0));
-    border-top-color:rgba(var(--neon),.3)}
+@keyframes neonChaseMobile{
+  0%,22%{filter:drop-shadow(0 0 3px rgba(var(--neon),.9)) drop-shadow(0 0 12px rgba(var(--neon),.58)) drop-shadow(0 0 28px rgba(var(--neon),.28));border-top-color:rgba(var(--neon),1)}
+  30%,100%{filter:drop-shadow(0 0 1px rgba(var(--neon),.12)) drop-shadow(0 0 3px rgba(var(--neon),.04)) drop-shadow(0 0 0 rgba(var(--neon),0));border-top-color:rgba(var(--neon),.32)}
 }
-[data-status="lit"]:hover,[data-status="arming"]:hover{
-  transform:translateY(-16px);
-  animation-play-state:paused !important;
-}
-/* dark-section (#tracks) override: brighter 0%/100% peak since the section itself is dark */
-#tracks [data-status="lit"],#tracks [data-status="arming"]{
-  animation-name:neonPulseTracks !important;
-}
-@keyframes neonPulseTracks{
-  0%,100%{
-    filter:drop-shadow(0 0 4px rgba(var(--neon),.72))
-           drop-shadow(0 0 20px rgba(var(--neon),.58))
-           drop-shadow(0 0 52px rgba(var(--neon),.38));
-    border-top-color:rgba(var(--neon),1)}
-  50%{
-    filter:drop-shadow(0 0 1px rgba(var(--neon),.08))
-           drop-shadow(0 0 4px rgba(var(--neon),.03))
-           drop-shadow(0 0 0 rgba(var(--neon),0));
-    border-top-color:rgba(var(--neon),.3)}
-}
-/* Staggered pulse across the four #tracks cards, in reading order:
-   top-left -> top-right -> bottom-left -> bottom-right. Each card's ember
-   dot is offset the same amount so it stays in sync with its own card. */
-.pp-track-grid .pp-track-card:nth-child(1){animation-delay:0s !important}
-.pp-track-grid .pp-track-card:nth-child(1) .fire-status::before{animation-delay:0s}
-.pp-track-grid .pp-track-card:nth-child(2){animation-delay:1s !important}
-.pp-track-grid .pp-track-card:nth-child(2) .fire-status::before{animation-delay:1s}
-.pp-track-grid .pp-track-card:nth-child(3){animation-delay:2s !important}
-.pp-track-grid .pp-track-card:nth-child(3) .fire-status::before{animation-delay:2s}
-.pp-track-grid .pp-track-card:nth-child(4){animation-delay:3s !important}
-.pp-track-grid .pp-track-card:nth-child(4) .fire-status::before{animation-delay:3s}
+#tracks .pp-track-card{transform:translateY(-10px);border-top-width:3px;border-top-style:solid;animation:neonChase 5.2s linear infinite;will-change:filter}
+#tracks .pp-track-card:nth-child(1){animation-delay:0s}
+#tracks .pp-track-card:nth-child(2){animation-delay:-3.9s}
+#tracks .pp-track-card:nth-child(3){animation-delay:-2.6s}
+#tracks .pp-track-card:nth-child(4){animation-delay:-1.3s}
+@media(pointer:fine){#tracks .pp-track-card:hover,#tracks .pp-track-card:focus-within{animation-play-state:paused;filter:drop-shadow(0 0 4px rgba(var(--neon),.9)) drop-shadow(0 0 18px rgba(var(--neon),.65)) drop-shadow(0 0 46px rgba(var(--neon),.35));border-top-color:rgba(var(--neon),1)}}
 
 /* .spot fixed (not mouse-tracked) and permanently on for lit/arming; cnr always visible; bg-num at hover state */
 [data-status="lit"] .spot,[data-status="arming"] .spot{opacity:1;--mx:50%;--my:35%}
 [data-status="lit"] .spot{background:radial-gradient(240px circle at var(--mx) var(--my),rgba(0,200,80,0.10),transparent 65%)}
 [data-status="arming"] .spot{background:radial-gradient(240px circle at var(--mx) var(--my),rgba(179,0,12,0.08),transparent 65%)}
 [data-status="lit"] .cnr,[data-status="arming"] .cnr{opacity:1;transform:translate(0,0)}
+#tracks .cnr-br{bottom:12px;right:12px}
 [data-status="arming"] .cnr-tl,[data-status="arming"] .cnr-br{border-color:var(--red)}
 [data-status="lit"] .how-bg-num,[data-status="arming"] .how-bg-num,
 [data-status="lit"] .pp-track-bgnum,[data-status="arming"] .pp-track-bgnum{transform:translateY(-4px)}
@@ -541,44 +529,40 @@ nav.scrolled .hamburger span{background:var(--black)}
   background-size:200% 100%}
 
 @media(prefers-reduced-motion:reduce){
-  [data-status="lit"] .fire-status::before,[data-status="arming"] .fire-status::before{animation-duration:4s}
-  [data-status="lit"] .fire-status::before{opacity:.9}
-  [data-status="arming"] .fire-status::before{opacity:.7}
-  [data-status="lit"],[data-status="arming"]{
-    animation:neonPulseCalm 4s ease-in-out infinite !important}
-  #tracks [data-status="lit"],#tracks [data-status="arming"]{
-    animation-name:neonPulseTracksCalm !important}
+  html:not(.force-motion) [data-status="lit"] .fire-status::before,html:not(.force-motion) [data-status="arming"] .fire-status::before{animation-duration:4s}
+  html:not(.force-motion) [data-status="lit"] .fire-status::before{opacity:.9}
+  html:not(.force-motion) [data-status="arming"] .fire-status::before{opacity:.7}
+  /* Under reduced motion, #tracks uses the calm pulse in sync. */
+  html:not(.force-motion):not(.motion-full) #tracks .pp-track-card{animation:neonPulseCalm 4s ease-in-out infinite;animation-delay:0s}
 }
 @keyframes neonPulseCalm{
-  0%,100%{filter:drop-shadow(0 0 4px rgba(var(--neon),.64))
-                 drop-shadow(0 0 18px rgba(var(--neon),.48))
-                 drop-shadow(0 0 46px rgba(var(--neon),.3))}
-  50%{filter:drop-shadow(0 0 4px rgba(var(--neon),.32))
-             drop-shadow(0 0 18px rgba(var(--neon),.24))
-             drop-shadow(0 0 46px rgba(var(--neon),.15))}
-}
-@keyframes neonPulseTracksCalm{
-  0%,100%{filter:drop-shadow(0 0 4px rgba(var(--neon),.72))
-                 drop-shadow(0 0 20px rgba(var(--neon),.58))
-                 drop-shadow(0 0 52px rgba(var(--neon),.38))}
-  50%{filter:drop-shadow(0 0 4px rgba(var(--neon),.36))
-             drop-shadow(0 0 20px rgba(var(--neon),.29))
-             drop-shadow(0 0 52px rgba(var(--neon),.19))}
+  0%,100%{filter:drop-shadow(0 0 4px rgba(var(--neon),.6)) drop-shadow(0 0 18px rgba(var(--neon),.35));border-top-color:rgba(var(--neon),.82)}
+  50%{filter:drop-shadow(0 0 1px rgba(var(--neon),.12));border-top-color:rgba(var(--neon),.35)}
 }
 @media(max-width:768px){
-  [data-status="lit"],[data-status="arming"]{
-    transform:translateY(-4px);
-    animation-name:neonPulseMobile !important}
-  [data-status="lit"]:hover,[data-status="arming"]:hover{transform:translateY(-8px)}
+  #tracks .pp-track-card{
+    transform:translateY(-2px);
+    animation:neonChaseMobile 5.2s linear infinite;will-change:filter}
   .fire-status,.how-prep-tag,.pp-badge,.pp-stamp{font-size:10px;white-space:nowrap}
 }
+@media(max-width:768px) and (pointer:fine){#tracks .pp-track-card:hover,#tracks .pp-track-card:focus-within{transform:translateY(-2px)}}
+@media(max-width:768px) and (prefers-reduced-motion:reduce){
+  html:not(.force-motion):not(.motion-full) #tracks .pp-track-card{animation:neonPulseCalm 4s ease-in-out infinite;animation-delay:0s}
+}
+/* Explicit motion mode. The class is set before first paint and is also used by JS. */
+html.motion-reduced .hero-grid,html.motion-reduced .hero-beam,html.motion-reduced .hero-logo-wm,
+html.motion-reduced .term-sweep,html.motion-reduced .bdot,html.motion-reduced .badge-cursor,
+html.motion-reduced .term-live::before{animation:none !important}
+html.motion-reduced .hero-beam{opacity:0}
+html.motion-reduced #tracks .pp-track-card{animation:neonPulseCalm 4s ease-in-out infinite;animation-delay:0s}
+html.motion-reduced .pp-track-card{transition:none}
 
 /* ---- shared terminal scanline sweep (extracted from hero-beam, used on every terminal panel) ---- */
 .term-sweep{position:absolute;left:0;right:0;height:1px;z-index:2;pointer-events:none;
   background:var(--gl);opacity:0.08;box-shadow:0 0 6px rgba(0,200,83,0.3);
   animation:termSweepMove 7s linear infinite}
 @keyframes termSweepMove{0%{top:0%}100%{top:100%}}
-@media(prefers-reduced-motion:reduce){.term-sweep{animation:none;display:none}}
+@media(prefers-reduced-motion:reduce){html:not(.force-motion) .term-sweep{animation:none;display:none}}
 
 /* ---- shared digital rain canvas (inside terminal panels only) ---- */
 .term-rain{position:absolute;inset:0;z-index:0;pointer-events:none}
@@ -587,7 +571,7 @@ nav.scrolled .hamburger span{background:var(--black)}
 .pp-manifest-bar.lit,.pp-manifest-label.lit{animation:fireFlicker 3.2s ease-in-out infinite}
 .pp-manifest-bar.lit i{box-shadow:0 0 10px rgba(0,200,83,.7)}
 @media(prefers-reduced-motion:reduce){
-  .pp-manifest-bar.lit,.pp-manifest-label.lit{animation:none;opacity:.9}
+  html:not(.force-motion) .pp-manifest-bar.lit,html:not(.force-motion) .pp-manifest-label.lit{animation:none;opacity:.9}
 }
 
 /* ============ S4 ELIGIBILITY ============ */
@@ -637,7 +621,7 @@ nav.scrolled .hamburger span{background:var(--black)}
   display:flex;align-items:center;justify-content:center;color:var(--white);font-size:13px}
 .pp-check-input:focus-visible+.pp-check-box{outline:2px solid var(--gold2);outline-offset:2px}
 .pp-check-text{font-family:'Space Mono',monospace;font-size:12.5px;line-height:1.7;color:var(--black)}
-@media(prefers-reduced-motion:reduce){.pp-manifest-label.flash{animation:none}}
+@media(prefers-reduced-motion:reduce){html:not(.force-motion) .pp-manifest-label.flash{animation:none}}
 
 /* ============ S7 REGISTRATION TIMELINE (dark) ============ */
 .road{position:relative;max-width:820px;padding-left:2.2rem;z-index:1}
@@ -663,7 +647,7 @@ nav.scrolled .hamburger span{background:var(--black)}
 .pp-callout-reject p{font-family:'Space Mono',monospace;font-size:13px;line-height:1.9;color:rgba(255,255,255,0.75)}
 .pp-callout-reject strong{color:#FF8A90}
 .pp-reject-list{margin-top:1rem;padding-left:1.2rem;font-size:13px;line-height:1.9;color:rgba(255,255,255,0.55)}
-@media(prefers-reduced-motion:reduce){.road-line{transition:none}}
+@media(prefers-reduced-motion:reduce){html:not(.force-motion) .road-line{transition:none}}
 
 /* ============ S8 PROPOSAL LOADOUT ============ */
 .pp-callout-mono{max-width:820px;margin-bottom:2rem;padding:1.25rem 1.5rem;
@@ -853,17 +837,19 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,0.04);
         THE PLATFORM ISN'T LIVE YET.<br>
         <span class="glitch" id="pglitch" data-text="YOUR TEAM SHOULD BE.">YOUR TEAM SHOULD BE.</span>
       </h1>
-      <p class="prep-sub">Registration and proposal submission open soon. Everything on this page is what separates a team that registers in thirty minutes from a team that loses days. Read it now. Prepare now. Upload the moment we go live.</p>
+      <p class="prep-sub">Registration opens soon. Use this page to confirm your team, choose a side, understand selection, and enter the track page that tells you exactly what to prepare.</p>
 
-      <div class="hero-ctas">
-        <a href="#checklist" class="btn-green magnetic">What To Prepare</a>
-        <a href="#tracks" class="btn-ghost magnetic">Red Team Briefing</a>
+  <div class="hero-ctas">
+        <a href="#tracks" class="btn-green magnetic">Choose Your Track</a>
+        <a href="application-red.html" class="btn-ghost magnetic">Red Team Briefing</a>
+        <button class="motion-toggle" id="motionToggle" type="button" aria-label="Change visual effects mode"></button>
       </div>
     </div>
 
     <div class="hero-right">
       <aside class="prep-term" aria-label="Readiness sequence terminal">
         <div class="term-sweep" aria-hidden="true"></div>
+        <canvas id="readinessRain" aria-hidden="true"></canvas>
         <div class="term-head">
           <div class="term-dots"><span></span><span></span><span></span></div>
           <span class="term-title">readiness.sh</span>
@@ -882,37 +868,21 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,0.04);
   </div>
 </section>
 
-<!-- ============ S2 THE ARENA ============ -->
-<section class="sec" id="arena">
+<!-- ============ S2 ELIGIBILITY ============ -->
+<section class="sec sec-off" id="eligibility">
   <div class="sh">
-    <div class="sh-eye"><div class="sh-line"></div><span class="sh-label">// The_Arena</span></div>
-    <h2 class="sh-title">Two banks. Built by you.<br><span class="outline-g">Attacked by you.</span></h2>
+    <div class="sh-eye"><div class="sh-line"></div><span class="sh-label">// Eligibility</span></div>
+    <h2 class="sh-title">Teams of three to four.<br><span class="outline-g">Ages 18 to 25.</span></h2>
   </div>
-
-  <div class="pp-arena-layout">
-    <p class="pp-lead" style="margin-bottom:0">JengaSec builds two live copies of the same bank, JengaBank, out of software written by student teams. Each team owns one component. When the build is finished, other teams attack it, and an AI defence agent watches the whole enterprise and decides what to do about it. You do not build a bank. You build one service inside one, against a published interface contract, with a fixed list of security requirements and a fixed list of events it must emit. Four people can finish it.</p>
-
-    <div class="pp-arena-grid">
-      <div class="pp-arena-box fade-up">
-        <span class="cnr cnr-tl"></span><span class="cnr cnr-br"></span>
-        <div class="pp-arena-title">ENTERPRISE_A</div>
-        <ul class="pp-arena-list">
-          <li>7 to 9 application cells</li>
-          <li>2 to 3 AI defence cells</li>
-        </ul>
-      </div>
-      <div class="pp-arena-box fade-up" style="transition-delay:0.1s">
-        <span class="cnr cnr-tl"></span><span class="cnr cnr-br"></span>
-        <div class="pp-arena-title">ENTERPRISE_B</div>
-        <ul class="pp-arena-list">
-          <li>7 to 9 application cells</li>
-          <li>2 to 3 AI defence cells</li>
-        </ul>
-      </div>
-    </div>
+  <div class="pp-rule-list">
+    <div class="pp-rule-row fade-up"><span class="pp-rule-tick">&#10003;</span><p>Age 18 to 25 at the date of registration, verified from an identity document.</p></div>
+    <div class="pp-rule-row fade-up"><span class="pp-rule-tick">&#10003;</span><p>Open to young builders, not only registered students. If you are studying, register with your institutional email: where places are close, verified institutions are preferred.</p></div>
+    <div class="pp-rule-row fade-up"><span class="pp-rule-tick">&#10003;</span><p>Teams of three to four people, plus one optional reserve who may substitute once with organiser approval. Four is the intended size and every brief is scoped for it.</p></div>
+    <div class="pp-rule-row fade-up"><span class="pp-rule-tick">&#10003;</span><p>One person, one team, one side. Nobody may be on both a Blue and a Red team.</p></div>
+    <div class="pp-rule-row fade-up"><span class="pp-rule-tick">&#10003;</span><p>Teams may mix institutions, or have none. The captain's institution is recorded as the lead institution.</p></div>
+    <div class="pp-rule-row fade-up"><span class="pp-rule-tick">&#10003;</span><p>Mentors may advise. They may not write any part of a submission, and their involvement must be declared on the cover page.</p></div>
   </div>
-  <p class="pp-arena-note">Every brief is built twice, by two different teams, in two separate enterprises. The comparison between them is part of what is judged.</p>
-  <p class="pp-section-note">Full application briefs, with every security requirement a judge will check, are issued in the welcome pack when registration completes.</p>
+  <p class="fade-up" style="margin-top:2rem;font-family:'Space Mono',monospace;font-size:13px;line-height:1.8;color:var(--muted)">Meet these six and you are eligible for any track. The tracks decide the rest.</p>
 </section>
 
 <!-- ============ S3 TRACKS ============ -->
@@ -926,44 +896,54 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,0.04);
 
   <div class="pp-track-grid">
     <div class="pp-track-card pp-track-blue tilt slide-l" data-status="lit">
-      <div class="spot"></div>
       <span class="cnr cnr-tl"></span><span class="cnr cnr-br"></span>
+      <a href="application-blue.html" class="pp-track-link">
+      <div class="spot"></div>
       <div class="pp-track-bgnum">01</div>
       <div class="fire-status" aria-hidden="true"></div>
       <div class="pp-track-side">// Blue_Side</div>
       <h3 class="pp-track-name">Application Blue</h3>
       <p class="pp-track-desc">Build and secure one JengaBank application against its published brief.</p>
       <div class="pp-track-foot"><span class="pp-stamp pp-stamp-gold">PROPOSAL REQUIRED</span></div>
+      <span class="pp-track-enter">&gt; ENTER_TRACK &rarr;</span>
+      </a>
     </div>
 
     <div class="pp-track-card pp-track-blue tilt slide-r" style="transition-delay:0.08s" data-status="lit">
-      <div class="spot"></div>
       <span class="cnr cnr-tl"></span><span class="cnr cnr-br"></span>
+      <a href="ai-defence-blue.html" class="pp-track-link">
+      <div class="spot"></div>
       <div class="pp-track-bgnum">02</div>
       <div class="fire-status" aria-hidden="true"></div>
       <div class="pp-track-side">// Blue_Side</div>
       <h3 class="pp-track-name">AI Defence Blue</h3>
       <p class="pp-track-desc">Build an autonomous defence agent that reads the enterprise's telemetry, decides what is happening, and acts through a permitted-action gateway.</p>
       <div class="pp-track-foot"><span class="pp-stamp pp-stamp-gold">PROPOSAL REQUIRED</span></div>
+      <span class="pp-track-enter">&gt; ENTER_TRACK &rarr;</span>
+      </a>
     </div>
 
     <div class="pp-track-card pp-track-red tilt slide-l" style="transition-delay:0.16s" data-status="arming">
-      <div class="spot"></div>
       <span class="cnr cnr-tl"></span><span class="cnr cnr-br"></span>
+      <a href="application-red.html" class="pp-track-link">
+      <div class="spot"></div>
       <div class="pp-track-bgnum">03</div>
       <div class="fire-status" aria-hidden="true"></div>
       <div class="pp-track-side">// Red_Side</div>
-      <h3 class="pp-track-name">Application Red</h3>
+      <h3 class="pp-track-name">Morani Hunting Grounds</h3>
       <p class="pp-track-desc">Attack one assigned application cell within a scheduled window and report the findings to a professional standard.</p>
       <div class="pp-track-foot">
         <span class="pp-stamp pp-stamp-green">REGISTRATION ONLY. NO PROPOSAL</span>
         <span class="pp-badge">REG OPENS 21 SEP</span>
       </div>
+      <span class="pp-track-enter">&gt; ENTER_TRACK &rarr;</span>
+      </a>
     </div>
 
     <div class="pp-track-card pp-track-red tilt slide-r" style="transition-delay:0.24s" data-status="arming">
-      <div class="spot"></div>
       <span class="cnr cnr-tl"></span><span class="cnr cnr-br"></span>
+      <a href="ai-red.html" class="pp-track-link">
+      <div class="spot"></div>
       <div class="pp-track-bgnum">04</div>
       <div class="fire-status" aria-hidden="true"></div>
       <div class="pp-track-side">// Red_Side</div>
@@ -973,30 +953,16 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,0.04);
         <span class="pp-stamp pp-stamp-gold">PROPOSAL REQUIRED</span>
         <span class="pp-badge pp-badge-gold">OPENS WITH PROPOSAL TRACKS</span>
       </div>
+      <span class="pp-track-enter">&gt; ENTER_TRACK &rarr;</span>
+      </a>
     </div>
   </div>
 
   <p class="pp-section-note">The Cloud track is not offered in this edition. AI Red submits a proposal, alongside Application Blue and AI Defence Blue, as a safety requirement: an autonomous attacking agent needs a declared containment design and kill switch before it is allowed into the range at all.</p>
 </section>
 
-<!-- ============ S4 ELIGIBILITY ============ -->
-<section class="sec sec-off" id="eligibility">
-  <div class="sh">
-    <div class="sh-eye"><div class="sh-line"></div><span class="sh-label">// Eligibility</span></div>
-    <h2 class="sh-title">Teams of three to four.<br><span class="outline-g">Ages 18 to 25.</span></h2>
-  </div>
-  <div class="pp-rule-list">
-    <div class="pp-rule-row fade-up"><span class="pp-rule-tick">✓</span><p>Age 18 to 25 at the date of registration, verified from an identity document.</p></div>
-    <div class="pp-rule-row fade-up"><span class="pp-rule-tick">✓</span><p>Open to young builders, not only registered students. If you are studying, register with your institutional email: where places are close, verified institutions are preferred.</p></div>
-    <div class="pp-rule-row fade-up"><span class="pp-rule-tick">✓</span><p>Teams of three to four people, plus one optional reserve who may substitute once with organiser approval. Four is the intended size and every brief is scoped for it.</p></div>
-    <div class="pp-rule-row fade-up"><span class="pp-rule-tick">✓</span><p>One person, one team, one side. Nobody may be on both a Blue and a Red team.</p></div>
-    <div class="pp-rule-row fade-up"><span class="pp-rule-tick">✓</span><p>Teams may mix institutions, or have none. The captain's institution is recorded as the lead institution.</p></div>
-    <div class="pp-rule-row fade-up"><span class="pp-rule-tick">✓</span><p>Mentors may advise. They may not write any part of a submission, and their involvement must be declared on the cover page.</p></div>
-  </div>
-</section>
-
-<!-- ============ S5 SELECTION FUNNEL ============ -->
-<section class="sec sec-dark" id="funnel">
+<!-- ============ S4 SELECTION ============ -->
+<section class="sec sec-dark" id="selection">
   <div class="orb orb-au orb1" aria-hidden="true"></div>
   <div class="orb orb-g orb2" aria-hidden="true"></div>
   <div class="sh">
@@ -1021,7 +987,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,0.04);
   <div class="pp-funnel-support">
     <p>4 to 6 AI Defence teams advance in total across both enterprises.</p>
     <p>AI Red runs about three attacking teams for every defending team.</p>
-    <p>Application Red teams register and are assigned to a cell: they skip the proposal round.</p>
+    <p>Morani Hunting Grounds teams register and are assigned to a cell: they skip the proposal round.</p>
   </div>
 
   <div class="pp-callout pp-callout-gold fade-up">
@@ -1032,289 +998,8 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,0.04);
   </div>
 </section>
 
-<!-- ============ S6 CHECKLIST ============ -->
-<section class="sec" id="checklist">
-  <div class="sh">
-    <div class="sh-eye"><div class="sh-line"></div><span class="sh-label">// Prepare_Now</span></div>
-    <h2 class="sh-title">Ready in thirty minutes.<br><span class="outline-g">Or losing days.</span></h2>
-  </div>
-  <p class="pp-lead">A prepared team finishes registration in under thirty minutes. An unprepared one loses days. Have every item below ready before the platform opens.</p>
+<!-- ============ S5 FINAL WORD ============ -->
 
-  <div class="pp-manifest fade-up">
-    <div class="pp-manifest-head">
-      <span class="pp-manifest-label" id="readyLabel">READINESS :: 0/9</span>
-      <div class="pp-manifest-bar"><i id="readyBar"></i></div>
-    </div>
-    <div class="pp-manifest-list">
-      <label class="pp-check-row"><input type="checkbox" class="pp-check-input"><span class="pp-check-box"></span><span class="pp-check-text">Full legal name of every member, exactly as on their identity document.</span></label>
-      <label class="pp-check-row"><input type="checkbox" class="pp-check-input"><span class="pp-check-box"></span><span class="pp-check-text">Identity document per member showing date of birth. PDF, JPG or PNG, under 5 MB, photographed in good light with the whole document in frame.</span></label>
-      <label class="pp-check-row"><input type="checkbox" class="pp-check-input"><span class="pp-check-box"></span><span class="pp-check-text">Email per member, institutional if you have one.</span></label>
-      <label class="pp-check-row"><input type="checkbox" class="pp-check-input"><span class="pp-check-box"></span><span class="pp-check-text">GitHub or GitLab handle per member.</span></label>
-      <label class="pp-check-row"><input type="checkbox" class="pp-check-input"><span class="pp-check-box"></span><span class="pp-check-text">If enrolled: student number, institution, programme and year of study.</span></label>
-      <label class="pp-check-row"><input type="checkbox" class="pp-check-input"><span class="pp-check-box"></span><span class="pp-check-text">Captain and one deputy: phone number in international format, for example +254712345678.</span></label>
-      <label class="pp-check-row"><input type="checkbox" class="pp-check-input"><span class="pp-check-box"></span><span class="pp-check-text">Team name, three to forty characters.</span></label>
-      <label class="pp-check-row"><input type="checkbox" class="pp-check-input"><span class="pp-check-box"></span><span class="pp-check-text">Ranked track preferences for your side.</span></label>
-      <label class="pp-check-row"><input type="checkbox" class="pp-check-input"><span class="pp-check-box"></span><span class="pp-check-text">Skills declaration, 100 to 1500 characters, honestly describing what the team has built before. Overstating it earns you a brief you cannot complete.</span></label>
-    </div>
-  </div>
-</section>
-
-<!-- ============ S7 REGISTRATION SEQUENCE ============ -->
-<section class="sec sec-dark" id="registration">
-  <div class="orb orb-g orb1" aria-hidden="true"></div>
-  <div class="sh">
-    <div class="sh-eye"><div class="sh-line" style="background:var(--gl)"></div><span class="sh-label" style="color:var(--gl)">// When_We_Go_Live</span></div>
-    <h2 class="sh-title">The registration sequence.</h2>
-  </div>
-
-  <div class="road" id="regRoad">
-    <div class="road-line" aria-hidden="true"></div>
-    <div class="road-item">
-      <div class="road-dot"></div>
-      <div class="road-when">// Step 01</div>
-      <div class="road-what">Create account</div>
-      <p class="road-note">12+ character password, institutional email.</p>
-    </div>
-    <div class="road-item">
-      <div class="road-dot"></div>
-      <div class="road-when">// Step 02</div>
-      <div class="road-what">Verify email</div>
-      <p class="road-note">Single-use link, valid 24 hours.</p>
-    </div>
-    <div class="road-item">
-      <div class="road-dot"></div>
-      <div class="road-when">// Step 03</div>
-      <div class="road-what">Complete profile</div>
-      <p class="road-note">Upload identity document.</p>
-    </div>
-    <div class="road-item">
-      <div class="road-dot"></div>
-      <div class="road-when">// Step 04</div>
-      <div class="road-what">Accept the code of conduct</div>
-      <p class="road-note">Each member, individually.</p>
-    </div>
-    <div class="road-item">
-      <div class="road-dot"></div>
-      <div class="road-when">// Step 05</div>
-      <div class="road-what">Captain creates team, picks a side</div>
-      <p class="road-note">The side cannot change after submission.</p>
-    </div>
-    <div class="road-item">
-      <div class="road-dot"></div>
-      <div class="road-when">// Step 06</div>
-      <div class="road-what">Captain invites members</div>
-      <p class="road-note">Invites expire in 7 days.</p>
-    </div>
-    <div class="road-item">
-      <div class="road-dot"></div>
-      <div class="road-when">// Step 07</div>
-      <div class="road-what">Members accept</div>
-      <p class="road-note">The team is complete only when everyone has verified, uploaded ID, and accepted the code of conduct.</p>
-    </div>
-    <div class="road-item">
-      <div class="road-dot"></div>
-      <div class="road-when">// Step 08</div>
-      <div class="road-what">Captain ranks track preferences</div>
-    </div>
-    <div class="road-item">
-      <div class="road-dot"></div>
-      <div class="road-when">// Step 09</div>
-      <div class="road-what">Captain writes the skills declaration</div>
-    </div>
-    <div class="road-item">
-      <div class="road-dot"></div>
-      <div class="road-when">// Step 10</div>
-      <div class="road-what">Captain submits</div>
-      <p class="road-note">The record locks.</p>
-    </div>
-    <div class="road-item">
-      <div class="road-dot"></div>
-      <div class="road-when">// Step 11</div>
-      <div class="road-what">Review</div>
-      <p class="road-note">Within three working days.</p>
-    </div>
-    <div class="road-item">
-      <div class="road-dot"></div>
-      <div class="road-when">// Step 12</div>
-      <div class="road-what">Welcome pack issued</div>
-      <p class="road-note">Team ID, brief, repository, namespace, VPN credentials, deadlines.</p>
-    </div>
-  </div>
-
-  <div class="pp-callout-reject fade-up">
-    <p><strong>TOP REJECTION REASON ::</strong> a member is already on another team. Confirm with everyone before you invite them.</p>
-    <ul class="pp-reject-list">
-      <li>Missing or unreadable identity document.</li>
-      <li>Team size outside three to four, plus one reserve.</li>
-      <li>A member under 18 or over 25 at the date of registration.</li>
-      <li>Incomplete cover page, declaration of originality, or AI use statement.</li>
-      <li>Side switched after invites were already sent.</li>
-    </ul>
-  </div>
-</section>
-
-<!-- ============ S8 PROPOSAL LOADOUT ============ -->
-<section class="sec sec-off" id="loadout">
-  <div class="sh">
-    <div class="sh-eye"><div class="sh-line"></div><span class="sh-label">// What_You_Submit</span></div>
-    <h2 class="sh-title">Twelve sections.<br><span class="outline-g">A missing one scores zero.</span></h2>
-  </div>
-  <p class="pp-lead">A missing required section scores zero on its criterion. It is not averaged away, discounted, or inferred from elsewhere in the document. Start drafting these now: your proposal can be written before the platform exists.</p>
-
-  <div class="pp-callout-mono fade-up">
-    <p><strong>HEADINGS ARE NOT OPTIONAL ::</strong> Use the section numbers and titles below as your document headings, in order, exactly as written, for example 08 Threat Model. The platform reads headings to locate each section before a judge opens the file. A section under a different title, or merged into another, can be read as missing and scored as missing.</p>
-  </div>
-
-  <div class="pp-tabs">
-    <button class="pp-tab-btn active" data-tab="blue">BLUE_TEAM :: 12 SECTIONS</button>
-    <button class="pp-tab-btn" data-tab="red">AI_RED :: 15 SECTIONS</button>
-    <div class="pp-tab-underline" id="tabUnderline"></div>
-  </div>
-
-  <ul class="pp-loadout-list" id="panelBlue">
-    <li class="pp-loadout-row"><span class="pp-loadout-n">01</span><div class="pp-loadout-body"><div class="pp-loadout-name">Executive Summary</div><div class="pp-loadout-desc">One page.</div></div></li>
-    <li class="pp-loadout-row"><span class="pp-loadout-n">02</span><div class="pp-loadout-body"><div class="pp-loadout-name">Problem Statement</div><div class="pp-loadout-desc">Specific, in enterprise context, not "cyber attacks are increasing".</div></div></li>
-    <li class="pp-loadout-row"><span class="pp-loadout-n">03</span><div class="pp-loadout-body"><div class="pp-loadout-name">Objectives</div><div class="pp-loadout-desc">3 to 6, each verifiable.</div></div></li>
-    <li class="pp-loadout-row"><span class="pp-loadout-n">04</span><div class="pp-loadout-body"><div class="pp-loadout-name">Proposed System</div><div class="pp-loadout-desc">Flows and boundaries, including what it deliberately does not do.</div></div></li>
-    <li class="pp-loadout-row"><span class="pp-loadout-n">05</span><div class="pp-loadout-body"><div class="pp-loadout-name">System Significance</div><div class="pp-loadout-desc">Why this failing matters to JengaBank.</div></div></li>
-    <li class="pp-loadout-row"><span class="pp-loadout-n">06</span><div class="pp-loadout-body"><div class="pp-loadout-name">Functional Requirements</div><div class="pp-loadout-desc">Numbered, testable, with a compliance table mapping every mandatory capability and endpoint.</div></div></li>
-    <li class="pp-loadout-row"><span class="pp-loadout-n">07</span><div class="pp-loadout-body"><div class="pp-loadout-name">Non-functional Requirements</div><div class="pp-loadout-desc">Targets with numbers attached.</div></div></li>
-    <li class="pp-loadout-row"><span class="pp-loadout-n">08</span><div class="pp-loadout-body"><div class="pp-loadout-name">Threat Model<span class="pp-weight">20%</span></div><div class="pp-loadout-desc">Assets, trust boundaries, actors, attack surface, STRIDE or equivalent, risks accepted.</div></div></li>
-    <li class="pp-loadout-row"><span class="pp-loadout-n">09</span><div class="pp-loadout-body"><div class="pp-loadout-name">Security Objectives<span class="pp-weight">20%</span></div><div class="pp-loadout-desc">Each control traced to its threat and a framework reference.</div></div></li>
-    <li class="pp-loadout-row"><span class="pp-loadout-n">10</span><div class="pp-loadout-body"><div class="pp-loadout-name">Architecture Diagrams</div><div class="pp-loadout-desc">Component and data-flow, with trust boundaries marked, legible, captioned.</div></div></li>
-    <li class="pp-loadout-row"><span class="pp-loadout-n">11</span><div class="pp-loadout-body"><div class="pp-loadout-name">Technology Stack</div><div class="pp-loadout-desc">Justified, with security posture noted.</div></div></li>
-    <li class="pp-loadout-row"><span class="pp-loadout-n">12</span><div class="pp-loadout-body"><div class="pp-loadout-name">Development Timeline</div><div class="pp-loadout-desc">Week by week, named owners, includes testing and documentation time.</div></div></li>
-  </ul>
-
-  <ul class="pp-loadout-list" id="panelRed" hidden>
-    <li class="pp-loadout-row"><span class="pp-loadout-n">01</span><div class="pp-loadout-body"><div class="pp-loadout-name">Executive Summary</div></div></li>
-    <li class="pp-loadout-row"><span class="pp-loadout-n">02</span><div class="pp-loadout-body"><div class="pp-loadout-name">Target Understanding</div></div></li>
-    <li class="pp-loadout-row"><span class="pp-loadout-n">03</span><div class="pp-loadout-body"><div class="pp-loadout-name">Scope Statement</div></div></li>
-    <li class="pp-loadout-row"><span class="pp-loadout-n">04</span><div class="pp-loadout-body"><div class="pp-loadout-name">Rules of Engagement Acknowledgement</div><div class="pp-loadout-desc">Signed by every member.</div></div></li>
-    <li class="pp-loadout-row"><span class="pp-loadout-n">05</span><div class="pp-loadout-body"><div class="pp-loadout-name">Threat Actor Profile</div></div></li>
-    <li class="pp-loadout-row"><span class="pp-loadout-n">06</span><div class="pp-loadout-body"><div class="pp-loadout-name">Attack Hypotheses</div><div class="pp-loadout-desc">6 to 10.</div></div></li>
-    <li class="pp-loadout-row"><span class="pp-loadout-n">07</span><div class="pp-loadout-body"><div class="pp-loadout-name">Methodology</div><div class="pp-loadout-desc">Mapped to MITRE ATT&amp;CK.</div></div></li>
-    <li class="pp-loadout-row"><span class="pp-loadout-n">08</span><div class="pp-loadout-body"><div class="pp-loadout-name">Reconnaissance Plan</div></div></li>
-    <li class="pp-loadout-row"><span class="pp-loadout-n">09</span><div class="pp-loadout-body"><div class="pp-loadout-name">Planned Attack Chains</div><div class="pp-loadout-desc">At least 3.</div></div></li>
-    <li class="pp-loadout-row"><span class="pp-loadout-n">10</span><div class="pp-loadout-body"><div class="pp-loadout-name">Tooling</div><div class="pp-loadout-desc">With versions and safety limits.</div></div></li>
-    <li class="pp-loadout-row"><span class="pp-loadout-n">11</span><div class="pp-loadout-body"><div class="pp-loadout-name">Safety and Non-Destructive Measures</div></div></li>
-    <li class="pp-loadout-row"><span class="pp-loadout-n">12</span><div class="pp-loadout-body"><div class="pp-loadout-name">Evidence and Chain of Custody</div></div></li>
-    <li class="pp-loadout-row"><span class="pp-loadout-n">13</span><div class="pp-loadout-body"><div class="pp-loadout-name">Team Roles and Timeline</div></div></li>
-    <li class="pp-loadout-row"><span class="pp-loadout-n">14</span><div class="pp-loadout-body"><div class="pp-loadout-name">Reporting Plan</div><div class="pp-loadout-desc">With CVSS version stated.</div></div></li>
-    <li class="pp-loadout-row"><span class="pp-loadout-n">15</span><div class="pp-loadout-body"><div class="pp-loadout-name">Ethics Declaration</div></div></li>
-  </ul>
-  <p class="pp-loadout-note" id="redNote" hidden>Scored on preparation and professionalism rather than results. A Red team without an approved proposal does not receive range credentials.</p>
-
-  <div class="pp-chip-row">
-    <span class="pp-chip">+ COVER PAGE</span>
-    <span class="pp-chip">+ DECLARATION OF ORIGINALITY</span>
-    <span class="pp-chip">+ AI USE STATEMENT</span>
-  </div>
-  <p class="pp-loadout-note">Checked automatically on upload. Missing any of the three: returned as incomplete, not judged.<br>Cover page carries the team ID and the filename.</p>
-
-  <div style="overflow-x:auto;margin-top:2rem">
-    <table class="pp-table">
-      <thead><tr><th>Practice</th><th>Status</th></tr></thead>
-      <tbody>
-        <tr><td data-label="Practice">Editing and restructuring your own text</td><td data-label="Status"><span class="pp-yes">✓</span> Permitted, declared</td></tr>
-        <tr><td data-label="Practice">Diagrams and tables from your own content</td><td data-label="Status"><span class="pp-yes">✓</span> Permitted, declared</td></tr>
-        <tr><td data-label="Practice">Research assistance with human-verified facts</td><td data-label="Status"><span class="pp-yes">✓</span> Permitted, declared</td></tr>
-        <tr><td data-label="Practice">Generating the threat model or security design without team authorship</td><td data-label="Status"><span class="pp-no">✗</span> Not permitted</td></tr>
-        <tr><td data-label="Practice">Citations you have not read and verified</td><td data-label="Status"><span class="pp-no">✗</span> Not permitted, treated as fabrication</td></tr>
-        <tr><td data-label="Practice">Undeclared use of any kind</td><td data-label="Status"><span class="pp-no">✗</span> Rule breach</td></tr>
-      </tbody>
-    </table>
-  </div>
-</section>
-
-<!-- ============ S9 FORMAT RULES ============ -->
-<section class="sec sec-dark" id="format">
-  <div class="orb orb-au orb2" aria-hidden="true"></div>
-  <div class="sh">
-    <div class="sh-eye"><div class="sh-line" style="background:var(--gl)"></div><span class="sh-label" style="color:var(--gl)">// File_Discipline</span></div>
-    <h2 class="sh-title">The platform validates<br><span style="color:var(--gl)">everything at upload.</span></h2>
-  </div>
-  <p class="pp-lead" style="color:rgba(255,255,255,0.55)">A protected, scanned or malformed PDF does not reach a human at all. These rules exist so no team loses marks to a file-handling problem.</p>
-
-  <div class="pp-spec-grid">
-    <div class="pp-spec-card"><div class="pp-spec-k">File Type</div><div class="pp-spec-v">PDF only, text selectable</div></div>
-    <div class="pp-spec-card"><div class="pp-spec-k">Blue Length</div><div class="pp-spec-v">12 to 20 pages, excluding cover, contents, references, appendices</div></div>
-    <div class="pp-spec-card"><div class="pp-spec-k">AI Red Length</div><div class="pp-spec-v">8 to 14 pages, excluding cover, contents, references, appendices</div></div>
-    <div class="pp-spec-card"><div class="pp-spec-k">Page Setup</div><div class="pp-spec-v">A4, margins ≥ 2 cm, body ≥ 11 pt, spacing ≥ 1.15</div></div>
-    <div class="pp-spec-card"><div class="pp-spec-k">Max Size</div><div class="pp-spec-v">25 MB</div></div>
-    <div class="pp-spec-card"><div class="pp-spec-k">Protection</div><div class="pp-spec-v">No password, no encryption</div></div>
-    <div class="pp-spec-card"><div class="pp-spec-k">Language</div><div class="pp-spec-v">English</div></div>
-    <div class="pp-spec-card"><div class="pp-spec-k">Evidence ZIP</div><div class="pp-spec-v">Optional, ≤ 50 MB, not a substitute for content</div></div>
-  </div>
-
-  <div class="pp-filename fade-up">
-    <div class="pp-filename-line">JS26_&lt;ENTERPRISE&gt;_&lt;CELL&gt;_&lt;TEAMID&gt;_&lt;TYPE&gt;_v&lt;N&gt;.pdf</div>
-    <div class="pp-filename-ex">
-      <span class="pp-filename-code" id="filenameExample">JS26_ENTA_APP03_JS26-B-014_Proposal_v2.pdf</span>
-      <button class="pp-copy-btn" id="copyBtn">[COPY]</button>
-    </div>
-    <p class="pp-filename-note">The version number must increment with each upload. A repeated version number is a format breach.</p>
-  </div>
-</section>
-
-<!-- ============ S10 DEADLINES ============ -->
-<section class="sec" id="deadlines">
-  <div class="sh">
-    <div class="sh-eye"><div class="sh-line"></div><span class="sh-label">// The_Clock</span></div>
-    <h2 class="sh-title">The deadline is fixed.<br><span class="outline-g">Only its consequences are calibrated.</span></h2>
-  </div>
-
-  <div class="pp-deadline-list">
-    <div class="pp-deadline-row">All deadlines published in the platform in East Africa Time (UTC+3), enforced by the platform clock, not yours.</div>
-    <div class="pp-deadline-row">The window closes automatically. No organiser can accept a late file. No individual extensions for any team, for any reason.</div>
-    <div class="pp-deadline-row">Reminders at 7 days, 2 days, and 12 hours are a courtesy. Their absence is not a defence.</div>
-    <div class="pp-deadline-row">Upload as many versions as you wish. Only the latest is judged.</div>
-    <div class="pp-deadline-row">Platform faults: email within 30 minutes from the captain's registered address, with the file and the error.</div>
-  </div>
-
-  <div class="pp-callout-highlight fade-up">
-    <p>Upload a complete draft at least twenty-four hours early and improve it afterwards. An uploaded draft is a submission. An unuploaded perfect document is not.</p>
-  </div>
-
-  <div class="pp-never-grid">
-    <div class="pp-never-card fade-up">
-      <div class="pp-never-k">Late Submission</div>
-      <div class="pp-never-v">Not accepted, no score.</div>
-    </div>
-    <div class="pp-never-card fade-up" style="transition-delay:0.08s">
-      <div class="pp-never-k">Missing Declarations</div>
-      <div class="pp-never-v">Returned incomplete, not judged if uncorrected.</div>
-    </div>
-    <div class="pp-never-card fade-up" style="transition-delay:0.16s">
-      <div class="pp-never-k">Integrity Breaches</div>
-      <div class="pp-never-v">Plagiarism, fabricated citations or evidence, outside authorship. Zero and referral or disqualification.</div>
-    </div>
-  </div>
-
-  <details class="pp-acc">
-    <summary><span><span class="pfx">&gt;</span>full_deduction_schedule</span><span class="pp-acc-x">+</span></summary>
-    <div class="pp-acc-body">
-      <div style="overflow-x:auto">
-        <table class="pp-table">
-          <thead><tr><th>Breach</th><th>Consequence</th></tr></thead>
-          <tbody>
-            <tr><td data-label="Breach">Over page limit</td><td data-label="Consequence">Excess unread, plus 5% deduction</td></tr>
-            <tr><td data-label="Breach">Filename breach</td><td data-label="Consequence">2% deduction</td></tr>
-            <tr><td data-label="Breach">Wrong brief</td><td data-label="Consequence">Scored as submitted</td></tr>
-            <tr><td data-label="Breach">Confidentiality breach</td><td data-label="Consequence">Up to 25%, repeat is disqualification</td></tr>
-            <tr><td data-label="Breach">Uncited limited reuse</td><td data-label="Consequence">Up to 10% and a warning</td></tr>
-            <tr><td data-label="Breach">Substantial reuse</td><td data-label="Consequence">Zero</td></tr>
-            <tr><td data-label="Breach">False AI statement</td><td data-label="Consequence">Up to 20%, repeat grounds for disqualification</td></tr>
-            <tr><td data-label="Breach">Contacting a judge</td><td data-label="Consequence">Warning, repeat disqualification</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <p>Every deduction applies to the proposal score, not to eligibility, unless the row says otherwise. A team that loses marks for formatting can still be selected. A team that misses the deadline, omits a declaration, or fabricates evidence cannot.</p>
-    </div>
-  </details>
-</section>
-
-<!-- ============ S11 CTA ============ -->
 <section class="sec-cta" id="contact">
   <div class="orb orb-g orb2" aria-hidden="true"></div>
   <div class="pp-cta-inner">
@@ -1329,7 +1014,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,0.04);
       <span style="position:relative;z-index:1">&gt; ./prepare --team=4 --draft=tonight<span class="badge-cursor"></span></span>
     </div>
     <div class="pp-cta-btns">
-      <a href="index.html" class="btn-green magnetic">Back To Mission Brief</a>
+      <a href="#tracks" class="btn-green magnetic">Choose Your Track</a>
       <a href="index.html#contact" class="btn-ghost magnetic">Talk To Us</a>
     </div>
   </div>
@@ -1350,14 +1035,27 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,0.04);
 
 <script>
 'use strict';
-const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let reduceMotion = document.documentElement.classList.contains('motion-reduced')
+  && !document.documentElement.classList.contains('motion-full');
 const finePointer = window.matchMedia('(pointer: fine)').matches;
 const CH="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789./\\[]{}><_#@!";
 
+const motionToggle=document.getElementById('motionToggle');
+if(motionToggle){
+  motionToggle.textContent=reduceMotion?'ENABLE FULL EFFECTS':'USE REDUCED EFFECTS';
+  motionToggle.setAttribute('aria-pressed',String(!reduceMotion));
+  motionToggle.addEventListener('click',()=>{
+    const url=new URL(location.href);
+    url.searchParams.set('motion',reduceMotion?'full':'reduced');
+    location.href=url.href;
+  });
+}
+
+{const mode=new URLSearchParams(location.search).get('motion');if(mode)document.querySelectorAll('a[href$=".html"],a[href*=".html#"]').forEach(link=>{const u=new URL(link.href,location.href);if(u.origin===location.origin){u.searchParams.set('motion',mode);link.href=u.href;}});}
 if('scrollRestoration' in history)history.scrollRestoration='manual';
 if(!location.hash)window.scrollTo(0,0);
 
-/* ---------- shared: initRain(canvas) — subtle digital rain inside terminal panels only ---------- */
+/* ---------- shared: initRain(canvas) - subtle digital rain inside terminal panels only ---------- */
 /* Duplicated identically in index.html, prepare.html and partner.html. */
 function initRain(canvas){
   if(!canvas)return;
@@ -1413,6 +1111,7 @@ function initRain(canvas){
   window.addEventListener('resize',size,{passive:true});
 }
 initRain(document.getElementById('ctaRain'));
+initRain(document.getElementById('readinessRain'));
 
 /* ---------- hero background stack: parallax + full rain + particles (ported from index.html) ---------- */
 (function(){
@@ -1489,6 +1188,7 @@ initRain(document.getElementById('ctaRain'));
   const pcanvas=document.getElementById('particles');
   if(pcanvas&&!reduceMotion){
     const ctx=pcanvas.getContext('2d');
+    const mobileViewport=window.matchMedia('(max-width: 768px)').matches;
     let W,H,pts=[];
     let mouse={x:-9999,y:-9999};
     hero.addEventListener('mousemove',e=>{
@@ -1498,7 +1198,7 @@ initRain(document.getElementById('ctaRain'));
     hero.addEventListener('mouseleave',()=>{mouse.x=-9999;mouse.y=-9999;},{passive:true});
     function sizeCanvas(){W=pcanvas.width=pcanvas.offsetWidth;H=pcanvas.height=pcanvas.offsetHeight;}
     function seed(){
-      const n=Math.min(Math.floor(W*H/22000),70);
+      const n=Math.min(Math.floor(W*H/(mobileViewport?42000:22000)),mobileViewport?24:70);
       pts=Array.from({length:n},()=>({
         x:Math.random()*W,y:Math.random()*H,
         vx:(Math.random()-0.5)*0.22,vy:(Math.random()-0.5)*0.22,
@@ -1507,7 +1207,10 @@ initRain(document.getElementById('ctaRain'));
     }
     sizeCanvas();seed();
     addEventListener('resize',()=>{sizeCanvas();seed();},{passive:true});
-    function frame(){
+    let lastFrame=0;
+    function frame(now){
+      if(mobileViewport&&now-lastFrame<33){requestAnimationFrame(frame);return;}
+      lastFrame=now;
       if(heroVisible){
         ctx.clearRect(0,0,W,H);
         for(const p of pts){
@@ -1552,7 +1255,7 @@ initRain(document.getElementById('ctaRain'));
 
 /* ---------- shared: terminal line decode-typer (ports index.html's decode/type effect) ---------- */
 /* Duplicated identically in index.html (boot sequence), prepare.html and partner.html. */
-function terminalTypeLines(lineEls,lines,onDone){
+function terminalTypeLines(lineEls,lines,onProgress,onDone){
   let li=0;
   function typeNext(){
     if(li>=lineEls.length){if(onDone)onDone();return;}
@@ -1560,19 +1263,23 @@ function terminalTypeLines(lineEls,lines,onDone){
     const spec=lines[li];
     const text=spec.text,suffix=spec.suffix||'';
     let i=0;
-    const cursor=document.createElement('span');
-    cursor.className='badge-cursor';
+    function render(value,showCursor){
+      el.replaceChildren();
+      el.appendChild(document.createTextNode(value));
+      if(suffix&&!showCursor){const ok=document.createElement('span');ok.className='ok';ok.textContent=suffix;el.appendChild(ok);}
+      if(showCursor){const cursor=document.createElement('span');cursor.className='badge-cursor';el.appendChild(cursor);}
+    }
     function step(){
       const shown=text.split('').map((c,idx)=>{
         if(c===' ')return ' ';
         if(idx<i)return text[idx];
         return CH[Math.floor(Math.random()*CH.length)];
       }).join('');
-      el.innerHTML=shown+suffix;
-      el.appendChild(cursor);
+      render(shown,true);
       if(i>=text.length){
-        el.innerHTML=text+suffix;
+        render(text,false);
         li++;
+        if(onProgress)onProgress(li/lineEls.length);
         setTimeout(typeNext,260);
         return;
       }
@@ -1596,7 +1303,7 @@ if(finePointer){
     ring.style.left=rx+'px';ring.style.top=ry+'px';
     requestAnimationFrame(ringLoop);
   })();
-  document.querySelectorAll('a,button,.pp-track-card,summary,.pp-check-row,.pp-tab-btn').forEach(el=>{
+  document.querySelectorAll('a,button,.pp-track-card,.pp-track-link,summary,.pp-check-row').forEach(el=>{
     el.addEventListener('mouseenter',()=>ring.classList.add('hovering'));
     el.addEventListener('mouseleave',()=>ring.classList.remove('hovering'));
   });
@@ -1633,9 +1340,17 @@ if(document.documentElement.scrollTop>40)nav.classList.add('scrolled');
 
 /* ---------- mobile menu ---------- */
 const mm=document.getElementById('mm');
-document.getElementById('mb').onclick=()=>{mm.classList.add('open');mm.setAttribute('aria-hidden','false')};
+document.getElementById('mb').onclick=()=>{
+  mm.classList.add('open');
+  mm.setAttribute('aria-hidden','false');
+  document.body.classList.add('menu-open');
+};
 document.getElementById('mc').onclick=cm;
-function cm(){mm.classList.remove('open');mm.setAttribute('aria-hidden','true')}
+function cm(){
+  mm.classList.remove('open');
+  mm.setAttribute('aria-hidden','true');
+  document.body.classList.remove('menu-open');
+}
 
 /* ---------- nav wordmark "Sec" glitch on hover ---------- */
 const wmsec=document.getElementById('wmsec');
@@ -1700,28 +1415,42 @@ if(window.matchMedia('(pointer: fine)').matches && !reduceMotion){
   if(!term||!els.length)return;
   const lines=[
     {text:'> jengasec --arm --team=4',suffix:''},
-    {text:'> loading ENTRY_PROTOCOLS ........ ',suffix:'<span class="ok">[OK]</span>'},
-    {text:'> RED_REGISTRATION :: OPENS 21_SEP ',suffix:'<span class="ok">[ARMED]</span>'},
+    {text:'> loading ENTRY_PROTOCOLS ........ ',suffix:'[OK]'},
+    {text:'> RED_REGISTRATION :: OPENS 21_SEP ',suffix:'[ARMED]'},
     {text:'> proposal_window :: PENDING_ANNOUNCEMENT',suffix:''}
   ];
-  function finishBar(){
-    if(bbar)bbar.style.transform='scaleX(1)';
-    if(blabel)blabel.textContent='READINESS_PROTOCOL :: LOADED';
+  function renderStatic(el,spec){
+    el.replaceChildren();
+    el.appendChild(document.createTextNode(spec.text));
+    if(spec.suffix){const ok=document.createElement('span');ok.className='ok';ok.textContent=spec.suffix;el.appendChild(ok);}
+  }
+  function finishBar(progress){
+    if(bbar)bbar.style.transform='scaleX('+progress+')';
+    if(blabel)blabel.textContent=progress>=1?'READINESS_PROTOCOL :: LOADED':'READINESS_PROTOCOL :: '+Math.round(progress*100)+'%';
   }
   if(reduceMotion){
-    els.forEach((el,i)=>{el.innerHTML=lines[i].text+lines[i].suffix;});
-    finishBar();
+    els.forEach((el,i)=>renderStatic(el,lines[i]));
+    finishBar(1);
     return;
   }
   let fired=false;
+  function start(){
+    if(fired)return;
+    fired=true;
+    finishBar(0);
+    terminalTypeLines(els,lines,finishBar,()=>finishBar(1));
+  }
   const io=new IntersectionObserver(entries=>{
-    if(entries[0].isIntersecting&&!fired){
-      fired=true;
-      terminalTypeLines(els,lines,finishBar);
+    if(entries[0].isIntersecting){
+      start();
       io.disconnect();
     }
-  },{threshold:0.3});
+  },{threshold:0.05});
   io.observe(term);
+  setTimeout(()=>{
+    const r=term.getBoundingClientRect();
+    if(r.top<innerHeight&&r.bottom>0)start();
+  },500);
 })();
 
 /* ---------- entrance reveals ---------- */
@@ -1775,7 +1504,7 @@ document.querySelectorAll('.fade-up,.slide-l,.slide-r,.sh').forEach(e=>obs.obser
       },45);
     });
   }
-  const sec=document.getElementById('funnel');
+  const sec=document.getElementById('selection');
   const io=new IntersectionObserver(e=>{if(e[0].isIntersecting){run();io.disconnect();}},{threshold:0.3});
   if(sec)io.observe(sec);
 })();
@@ -1793,31 +1522,6 @@ document.querySelectorAll('.fade-up,.slide-l,.slide-r,.sh').forEach(e=>obs.obser
     }
   },{threshold:0.1});
   rObs.observe(road);
-})();
-
-/* ---------- proposal loadout tabs ---------- */
-(function(){
-  const tabs=[...document.querySelectorAll('.pp-tab-btn')];
-  const underline=document.getElementById('tabUnderline');
-  const panelBlue=document.getElementById('panelBlue');
-  const panelRed=document.getElementById('panelRed');
-  const redNote=document.getElementById('redNote');
-  if(!tabs.length)return;
-  function activate(tab){
-    tabs.forEach(t=>t.classList.toggle('active',t===tab));
-    const isBlue=tab.dataset.tab==='blue';
-    panelBlue.hidden=!isBlue;
-    panelRed.hidden=isBlue;
-    redNote.hidden=isBlue;
-    underline.style.width=tab.offsetWidth+'px';
-    underline.style.left=tab.offsetLeft+'px';
-  }
-  tabs.forEach(t=>t.addEventListener('click',()=>activate(t)));
-  activate(tabs[0]);
-  window.addEventListener('resize',()=>{
-    const active=tabs.find(t=>t.classList.contains('active'));
-    if(active)activate(active);
-  });
 })();
 
 /* ---------- copy filename ---------- */
