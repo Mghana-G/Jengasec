@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <html lang="en" data-side="red" class="no-js">
 <head>
-<script>document.documentElement.className=document.documentElement.className.replace('no-js','js');</script>
+<script>
+/* Resolve visual mode before first paint. */
+document.documentElement.className=document.documentElement.className.replace('no-js','js');
+const motionParam=new URLSearchParams(location.search).get('motion');
+if(motionParam==='reduced')document.documentElement.classList.add('motion-reduced');
+else document.documentElement.classList.add('motion-full','force-motion');
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>JengaSec 2026 x Hack The Box | Partnership &amp; Red Qualifier</title>
-<meta name="description" content="JengaSec 2026 has partnered with Hack The Box. Enter the Red side through an online qualifier on Monday 12 October. Every member RSVPs by Friday 9 October, 12:00 EAT.">
+<meta name="description" content="JengaSec 2026 has partnered with Hack The Box. Enter the Red side in teams of 4 through one 48-hour online qualifier opening Sunday 11 October. Every member RSVPs by Saturday 10 October, 12:00 EAT.">
 <meta name="author" content="Strathmore Cybersecurity Club">
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#B3000C">
@@ -14,19 +20,19 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://jengasec.com/tracks/application-red">
 <meta property="og:title" content="JengaSec 2026 x Hack The Box | Partnership &amp; Red Qualifier">
-<meta property="og:description" content="JengaSec 2026 has partnered with Hack The Box. Enter the Red side through an online qualifier on Monday 12 October. Every member RSVPs by Friday 9 October, 12:00 EAT.">
+<meta property="og:description" content="JengaSec 2026 has partnered with Hack The Box. Enter the Red side in teams of 4 through one 48-hour online qualifier opening Sunday 11 October. Every member RSVPs by Saturday 10 October, 12:00 EAT.">
 <meta property="og:image" content="https://jengasec.com/og-partnership.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="JengaSec 2026 x Hack The Box partnership. Red-side qualifier on Monday 12 October. RSVP by Friday 9 October, 12:00 EAT.">
+<meta property="og:image:alt" content="JengaSec 2026 x Hack The Box partnership. Red-side qualifier opens Sunday 11 October, 48 hours, teams of 4. RSVP by Saturday 10 October, 12:00 EAT.">
 <meta property="og:site_name" content="JengaSec">
 <meta property="og:locale" content="en_KE">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@sucybersec">
 <meta name="twitter:title" content="JengaSec 2026 x Hack The Box | Partnership &amp; Red Qualifier">
-<meta name="twitter:description" content="JengaSec 2026 has partnered with Hack The Box. Enter the Red side through an online qualifier on Monday 12 October. Every member RSVPs by Friday 9 October, 12:00 EAT.">
+<meta name="twitter:description" content="JengaSec 2026 has partnered with Hack The Box. Enter the Red side in teams of 4 through one 48-hour online qualifier opening Sunday 11 October. Every member RSVPs by Saturday 10 October, 12:00 EAT.">
 <meta name="twitter:image" content="https://jengasec.com/og-partnership.jpg">
-<meta name="twitter:image:alt" content="JengaSec 2026 x Hack The Box partnership. Red-side qualifier on Monday 12 October. RSVP by Friday 9 October, 12:00 EAT.">
+<meta name="twitter:image:alt" content="JengaSec 2026 x Hack The Box partnership. Red-side qualifier opens Sunday 11 October, 48 hours, teams of 4. RSVP by Saturday 10 October, 12:00 EAT.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -47,7 +53,7 @@ html{background:var(--black);scroll-padding-top:88px}
 html{scroll-behavior:smooth}
 body{background:var(--black);color:var(--black);font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.7}
 img{max-width:100%;height:auto}
-section[id]{scroll-margin-top:88px}
+
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 a,button,summary{-webkit-tap-highlight-color:transparent}
 :focus-visible{outline:2px solid var(--htb);outline-offset:4px}
@@ -281,10 +287,14 @@ body.menu-open{overflow:hidden}
 .gate-explain{font-size:14px;color:var(--muted-on-dark);margin-bottom:40px;font-family:'Space Mono',monospace}
 .gate-wrap{position:relative}
 .gate-track{list-style:none;display:grid;grid-template-columns:minmax(0,1fr);gap:16px;position:relative}
-.gate-rail{display:none}
+.gate-rail{display:block;position:absolute;left:21px;top:var(--gt-top,22px);height:var(--gt-h,0px);width:2px;z-index:1;pointer-events:none}
+.gate-rail .solid,.gate-rail .dash{display:none}
+.gate-rail .trace{position:absolute;inset:0;background:var(--htb);box-shadow:0 0 10px rgba(var(--htb-rgb),0.7);transform-origin:top}
+html.gate-armed .gate-rail .trace{transform:scaleY(0)}
+html.gate-armed.gate-run .gate-rail .trace{transform:scaleY(1);transition:transform 1.2s cubic-bezier(0.22,1,0.36,1)}
 .gate-step{position:relative;display:grid;grid-template-columns:44px minmax(0,1fr);column-gap:12px;align-items:start;min-width:0}
 .gs-node{width:44px;height:44px;border-radius:50%;background:var(--black);border:2px solid var(--htb);display:flex;align-items:center;justify-content:center;
-  font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:0.04em;color:var(--htb);position:relative;z-index:1}
+  font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:0.04em;color:var(--htb);position:relative;z-index:2}
 .gate-step.s1 .gs-node{border-color:var(--htb);color:var(--htb);box-shadow:0 0 18px rgba(var(--htb-rgb),0.35)}
 .gate-step.s4 .gs-node{border-color:#8FA096;color:var(--muted-on-dark);border-style:dashed}
 .gs-lock{width:22px;height:22px}
@@ -296,6 +306,8 @@ body.menu-open{overflow:hidden}
 .gs-tag{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--htb);margin-bottom:0.5rem}
 .gs-title{font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:1.6rem;letter-spacing:0.03em;line-height:1.1;color:var(--white);margin-bottom:0.6rem}
 .gs-desc{font-size:15px;line-height:1.7;color:var(--text-on-dark)}
+.gs-desc+.gs-desc{margin-top:0.6rem}
+.gs-desc strong{color:var(--white);font-weight:600}
 .gs-desc code{font-family:'Space Mono',monospace;font-size:13px;color:var(--white);overflow-wrap:anywhere}
 .gate-condition{display:inline-block;margin-bottom:0.75rem;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;letter-spacing:0.06em;color:var(--htb);
   border:1px dashed rgba(159,239,0,0.7);padding:0.2rem 0.55rem}
@@ -311,13 +323,14 @@ body.menu-open{overflow:hidden}
   .gs-node{width:56px;height:56px;font-size:1.6rem}
   .gs-lock{width:26px;height:26px}
   .gs-card{margin-top:16px;width:100%;padding:20px}
-  .gate-rail{display:block;position:absolute;top:27px;left:calc((100% - 72px)/8);right:calc((100% - 72px)/8);height:2px;z-index:0}
+  .gate-rail{top:27px;left:calc((100% - 72px)/8);right:calc((100% - 72px)/8);height:2px;width:auto;z-index:0}
+  .gate-rail .solid,.gate-rail .dash{display:block}
   .gate-rail .solid{position:absolute;left:0;top:0;height:2px;width:66.667%;background:rgba(255,255,255,0.25)}
   .gate-rail .dash{position:absolute;right:0;top:0;width:33.333%;border-top:2px dashed #8FA096}
-  .gate-rail .trace{position:absolute;left:0;top:0;height:2px;width:66.667%;background:var(--htb);box-shadow:0 0 10px rgba(var(--htb-rgb),0.7);transform-origin:left}
+  .gate-rail .trace{inset:auto;left:0;top:0;height:2px;width:66.667%;transform-origin:left}
+  html.gate-armed .gate-rail .trace{transform:scaleX(0)}
+  html.gate-armed.gate-run .gate-rail .trace{transform:scaleX(1);transition:transform 0.9s cubic-bezier(0.22,1,0.36,1)}
 }
-html.gate-armed .gate-rail .trace{transform:scaleX(0)}
-html.gate-armed.gate-run .gate-rail .trace{transform:scaleX(1);transition:transform 0.9s cubic-bezier(0.22,1,0.36,1)}
 .gate-unlock-demo{display:flex;flex-wrap:wrap;align-items:center;gap:12px 16px;margin:40px 0 0;padding:16px 20px;border:1px solid rgba(255,255,255,0.14);background:rgba(255,255,255,0.03);max-width:560px}
 .gud-lock{width:34px;height:34px;color:var(--muted-on-dark);flex-shrink:0}
 .gud-open{color:var(--htb)}
@@ -351,7 +364,7 @@ html.gate-armed.gate-run .gud-open{opacity:1;transition:opacity 0.35s ease-out 0
 .q-after p+p{margin-top:0.6rem}
 .q-after code{font-family:'Space Mono',monospace;font-size:14px;color:var(--white);overflow-wrap:anywhere}
 
-/* ============ BEFORE FRIDAY ============ */
+/* ============ BEFORE SATURDAY NOON ============ */
 .prep-list{list-style:none;counter-reset:prep;display:grid;grid-template-columns:minmax(0,1fr);gap:0}
 @media(min-width:1024px){.prep-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:0 48px}}
 .prep-list li{counter-increment:prep;display:flex;gap:16px;align-items:flex-start;padding:16px 0;border-bottom:1px solid var(--border);font-size:16px;line-height:1.7}
@@ -433,19 +446,21 @@ html.gate-armed.gate-run .gud-open{opacity:1;transition:opacity 0.35s ease-out 0
 .cta-contact a{color:var(--white);text-underline-offset:4px}
 
 /* ============ RAIL + STICKY ============ */
-.mission-rail{position:fixed;right:16px;top:50%;transform:translateY(-50%);z-index:9990;display:none;width:128px;
-  background:rgba(8,12,8,0.94);border:1px solid rgba(255,255,255,0.18);padding:6px 0}
-.mission-rail a{display:flex;align-items:center;min-height:44px;padding:0 10px;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:0.06em;
-  color:var(--muted-on-dark);text-decoration:none;white-space:nowrap;border-left:3px solid transparent}
-.mission-rail a:hover{color:#fff}
-.mission-rail a[aria-current="location"]{color:#fff;border-left-color:var(--accent-l);background:rgba(var(--accent-rgb),0.12)}
-@media(min-width:1200px){.mission-rail{display:block}}
+.mission-rail{position:fixed;right:1.5rem;top:50%;transform:translateY(-50%);z-index:9990;display:none;flex-direction:column;gap:0.6rem}
+.mission-rail a{display:block;padding:0.15rem 0;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.14em;text-align:right;
+  color:rgba(255,255,255,0.3);text-decoration:none;white-space:nowrap;transition:color 0.25s}
+.mission-rail a:hover,.mission-rail a[aria-current="location"]{color:var(--accent-l)}
+.mission-rail[data-tone="g"] a:hover,.mission-rail[data-tone="g"] a[aria-current="location"]{color:var(--htb)}
+.mission-rail[data-tone="light"] a{color:rgba(8,12,8,0.38)}
+.mission-rail[data-tone="light"] a:hover,.mission-rail[data-tone="light"] a[aria-current="location"]{color:var(--red)}
+@media(min-width:1200px){.mission-rail{display:flex}}
 .mobile-rsvp{position:fixed;left:0;right:0;bottom:0;z-index:9995;display:none;background:var(--htb-bg);border-top:1px solid var(--htb);
   padding:10px 16px calc(10px + env(safe-area-inset-bottom));align-items:center;gap:12px 16px;flex-wrap:wrap}
 .mobile-rsvp.on{display:flex}
 .mobile-rsvp .mr-text{flex:1 1 auto;font-family:'Space Mono',monospace;font-size:12px;line-height:1.5;color:var(--text-on-dark)}
 .mobile-rsvp .mr-text strong{display:block;color:var(--htb)}
-.mobile-rsvp .btn-primary{flex:0 0 auto;white-space:nowrap;padding:0 16px}
+.mobile-rsvp .btn-primary{flex:0 0 auto;white-space:nowrap;padding:0 12px;font-size:12px;letter-spacing:0.04em}
+@media(min-width:340px){.mobile-rsvp{flex-wrap:nowrap}.mobile-rsvp .mr-text{min-width:0}}
 @media(min-width:769px){.mobile-rsvp{display:none!important}}
 @media(max-width:768px){
   body.mrsvp-on{padding-bottom:var(--mrsvp-h,calc(76px + env(safe-area-inset-bottom)))}
@@ -484,7 +499,7 @@ body.cursor-on #cur-dot,body.cursor-on #cur-ring{display:block}
 @keyframes orbf2{0%,100%{transform:translate(0,0)}50%{transform:translate(-50px,-55px)}}
 .sec-dark,.sec-cta{position:relative;overflow:hidden}
 .sec>.page-shell,.sec-cta>.page-shell{position:relative;z-index:1}
-@media(max-width:768px){.orb{display:none}}
+@media(max-width:768px){.orb{filter:blur(50px);opacity:0.32}.orb1{width:252px;height:252px}.orb2{width:204px;height:204px}}
 
 /* hero motion layers */
 .hero-img{inset:-4%;will-change:transform;transition:transform 0.18s ease-out}
@@ -502,6 +517,9 @@ body.cursor-on #cur-dot,body.cursor-on #cur-ring{display:block}
   50%{filter:hue-rotate(-115deg) saturate(1.15) drop-shadow(0 0 24px rgba(var(--htb-rgb),0.12))}
 }
 .bdot{animation:pulse 2s ease infinite}
+.badge-cursor{display:inline-block;width:6px;height:11px;background:var(--htb);margin-left:4px;animation:blink 0.9s step-end infinite;vertical-align:middle}
+.cta-term .badge-cursor{background:var(--accent-l)}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
 .term-live::before{animation:pulse 1.4s ease infinite}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.3;transform:scale(1.5)}}
 
@@ -561,6 +579,11 @@ body.cursor-on #cur-dot,body.cursor-on #cur-ring{display:block}
 .fade-up{transition:opacity 0.65s,transform 0.65s}
 html.rv-on .fade-up{opacity:0;transform:translateY(24px)}
 html.rv-on .fade-up.visible{opacity:1;transform:translateY(0)}
+.slide-l,.slide-r{transition:opacity 0.7s cubic-bezier(0.22,1,0.36,1),transform 0.7s cubic-bezier(0.22,1,0.36,1)}
+html.rv-on .slide-l{opacity:0;transform:translateX(-44px)}
+html.rv-on .slide-r{opacity:0;transform:translateX(44px)}
+html.rv-on .slide-l.visible,html.rv-on .slide-r.visible{opacity:1;transform:translateX(0)}
+@media(max-width:768px){html.rv-on .slide-l,html.rv-on .slide-r{transform:translateY(24px)}html.rv-on .slide-l.visible,html.rv-on .slide-r.visible{transform:translateY(0)}}
 html.rv-on .sh-line{width:0;transition:width 0.6s cubic-bezier(0.22,1,0.36,1) 0.15s}
 html.rv-on .sh.visible .sh-line{width:16px}
 html.rv-on .sh-title{clip-path:inset(0 100% 0 0);transition:clip-path 0.85s cubic-bezier(0.22,1,0.36,1) 0.1s}
@@ -570,22 +593,37 @@ html.rv-on .sh.visible .sh-title{clip-path:inset(0 0% 0 0)}
 .sh.visible::after{animation:shsweep 0.85s cubic-bezier(0.22,1,0.36,1) 0.1s 1}
 @keyframes shsweep{0%{left:0;opacity:1}90%{opacity:1}100%{left:min(100%,560px);opacity:0}}
 
-/* ============ REDUCED MOTION: the one accessibility rule. Loops and movement stop, content shows its final state ============ */
+/* ============ REDUCED MOTION ============
+   The site forces full motion by default (html.force-motion). The OS setting only applies when motion is not forced.
+   ?motion=reduced adds html.motion-reduced and stops everything, with all content in its final state. */
 @media(prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto!important}
-  *,*::before,*::after{animation:none!important;transition:none!important}
-  .fade-up{opacity:1!important;transform:none!important}
-  .sh-title{clip-path:none!important}
-  .sh-line{width:16px!important}
-  .glitch::before,.glitch::after{display:none!important}
-  #cur-dot,#cur-ring{display:none!important}
-  body.cursor-on,body.cursor-on a,body.cursor-on button,body.cursor-on summary{cursor:auto!important}
-  .term-sweep,.hero-beam{display:none!important}
-  .gate-rail .trace{transform:none!important}
-  .gud-open{opacity:1!important}
-  .magnetic{transform:none!important}
-  .hero-img{transform:none!important}
+  html:not(.force-motion){scroll-behavior:auto!important}
+  html:not(.force-motion) *,html:not(.force-motion) *::before,html:not(.force-motion) *::after{animation:none!important;transition:none!important}
+  html:not(.force-motion) .fade-up,html:not(.force-motion) .slide-l,html:not(.force-motion) .slide-r{opacity:1!important;transform:none!important}
+  html:not(.force-motion) .sh-title{clip-path:none!important}
+  html:not(.force-motion) .sh-line{width:16px!important}
+  html:not(.force-motion) .glitch::before,html:not(.force-motion) .glitch::after{display:none!important}
+  html:not(.force-motion) #cur-dot,html:not(.force-motion) #cur-ring{display:none!important}
+  html:not(.force-motion) body.cursor-on,html:not(.force-motion) body.cursor-on a,html:not(.force-motion) body.cursor-on button,html:not(.force-motion) body.cursor-on summary{cursor:auto!important}
+  html:not(.force-motion) .term-sweep,html:not(.force-motion) .hero-beam,html:not(.force-motion) .badge-cursor{display:none!important}
+  html:not(.force-motion) .gate-rail .trace{transform:none!important}
+  html:not(.force-motion) .gud-open{opacity:1!important}
+  html:not(.force-motion) .magnetic{transform:none!important}
+  html:not(.force-motion) .hero-img{transform:none!important}
 }
+html.motion-reduced{scroll-behavior:auto!important}
+html.motion-reduced *,html.motion-reduced *::before,html.motion-reduced *::after{animation:none!important;transition:none!important}
+html.motion-reduced .fade-up,html.motion-reduced .slide-l,html.motion-reduced .slide-r{opacity:1!important;transform:none!important}
+html.motion-reduced .sh-title{clip-path:none!important}
+html.motion-reduced .sh-line{width:16px!important}
+html.motion-reduced .glitch::before,html.motion-reduced .glitch::after{display:none!important}
+html.motion-reduced #cur-dot,html.motion-reduced #cur-ring{display:none!important}
+html.motion-reduced body.cursor-on,html.motion-reduced body.cursor-on a,html.motion-reduced body.cursor-on button,html.motion-reduced body.cursor-on summary{cursor:auto!important}
+html.motion-reduced .term-sweep,html.motion-reduced .hero-beam,html.motion-reduced .badge-cursor{display:none!important}
+html.motion-reduced .gate-rail .trace{transform:none!important}
+html.motion-reduced .gud-open{opacity:1!important}
+html.motion-reduced .magnetic{transform:none!important}
+html.motion-reduced .hero-img{transform:none!important}
 @media(min-width:1200px){.hero{padding-left:48px;padding-right:160px}}
 @media(max-width:768px){.hero{min-height:0;padding:88px 16px 48px;align-items:flex-start}}
 </style>
@@ -621,13 +659,13 @@ html.rv-on .sh.visible .sh-title{clip-path:inset(0 0% 0 0)}
     Jenga<span class="wm-sec" id="wmsec">Sec</span>
   </a>
   <ul class="nav-links" id="navlinks">
-    <li><a href="/">Home</a></li>
-    <li><a href="/#how">How It Works</a></li>
-    <li><a href="/#road">Timeline</a></li>
-    <li><a href="/#speakers">Speakers</a></li>
-    <li><a href="/#numbers">Numbers</a></li>
-    <li><a href="/#faq">FAQ</a></li>
-    <li><a href="https://jengasec.com/prepare">Prepare</a></li>
+    <li><a href="/" data-txt="Home">Home</a></li>
+    <li><a href="/#how" data-txt="How It Works">How It Works</a></li>
+    <li><a href="/#road" data-txt="Timeline">Timeline</a></li>
+    <li><a href="/#speakers" data-txt="Speakers">Speakers</a></li>
+    <li><a href="/#numbers" data-txt="Numbers">Numbers</a></li>
+    <li><a href="/#faq" data-txt="FAQ">FAQ</a></li>
+    <li><a href="https://jengasec.com/prepare" data-txt="Prepare">Prepare</a></li>
   </ul>
   <a href="/#contact" class="nav-cta magnetic">Talk To Us</a>
   <button class="hamburger" id="mb" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mm">
@@ -668,13 +706,13 @@ html.rv-on .sh.visible .sh-title{clip-path:inset(0 0% 0 0)}
         </div>
         <span class="partner-tag">Partner</span>
       </div>
-      <div class="hero-badge"><span class="bdot" aria-hidden="true"></span>// JENGASEC_2026 :: RED_SIDE</div>
+      <div class="hero-badge"><span class="bdot" aria-hidden="true"></span>// JENGASEC_2026 :: RED_SIDE<span class="badge-cursor" aria-hidden="true"></span></div>
       <h1 class="prep-h1" id="hero-title">
         <span class="line1">JengaSec <span class="x-t">x</span> <span class="htb-t">Hack The Box.</span></span>
         <span class="glitch line2" id="pglitch" data-text="The hunt starts here.">The hunt starts here.</span>
       </h1>
-      <p class="prep-sub">Hack The Box has partnered with JengaSec 2026. Enter the Red side through one online qualifier on Monday 12 October.</p>
-      <p class="hero-deadline"><strong>RSVP by Friday 9 October, 12:00 EAT.</strong>Every team member RSVPs individually.</p>
+      <p class="prep-sub">Hack The Box has partnered with JengaSec 2026. Enter the Red side in a team of 4 through one 48-hour online qualifier, opening Sunday 11 October.</p>
+      <p class="hero-deadline"><strong>RSVP by Saturday 10 October, 12:00 EAT.</strong>Every team member RSVPs individually.</p>
       <div class="hero-ctas">
         <a href="https://www.meetup.com/hack-the-box-meetup-kenya/" class="btn-primary block-m magnetic" data-rsvp id="heroRsvp">RSVP on Meetup</a>
         <p class="cta-help">Opens the Hack The Box Kenya Meetup community. Find the JengaSec qualifier event. Every member RSVPs individually.</p>
@@ -682,7 +720,8 @@ html.rv-on .sh.visible .sh-title{clip-path:inset(0 0% 0 0)}
       <div class="hero-links"><a href="#gate" class="btn-secondary-text">How entry works</a></div>
       <div class="signal-row" role="list" aria-label="Qualifier status">
         <span class="fire-chip is-lit" role="listitem"><span class="sig sig-lit" aria-hidden="true"></span>RSVP_OPEN</span>
-        <span class="fire-chip" role="listitem"><span class="sig sig-ring" aria-hidden="true"></span>MON_12_OCT</span>
+        <span class="fire-chip" role="listitem"><span class="sig sig-ring" aria-hidden="true"></span>Teams of 4</span>
+        <span class="fire-chip" role="listitem"><span class="sig sig-ring" aria-hidden="true"></span>SUN_11_OCT :: 48H</span>
         <span class="fire-chip" role="listitem"><span class="sig sig-ring" aria-hidden="true"></span>ONLINE</span>
       </div>
     </div>
@@ -698,9 +737,11 @@ html.rv-on .sh.visible .sh-title{clip-path:inset(0 0% 0 0)}
         </div>
         <dl class="term-body">
           <div class="boot-line g"><dt>partner:</dt><dd>HACK_THE_BOX :: PARTNER</dd></div>
-          <div class="boot-line g"><dt>qualifier:</dt><dd>HTB_ENTERPRISE</dd></div>
+          <div class="boot-line g"><dt>qualifier:</dt><dd>SUN_11_OCT :: 48H</dd></div>
+          <div class="boot-line g"><dt>platform:</dt><dd>HTB_ENTERPRISE</dd></div>
+          <div class="boot-line"><dt>team_size:</dt><dd>4</dd></div>
           <div class="boot-line"><dt>rsvp:</dt><dd>OPEN</dd></div>
-          <div class="boot-line y"><dt>closes:</dt><dd>FRI_09_OCT_12:00_EAT</dd></div>
+          <div class="boot-line y"><dt>rsvp_closes:</dt><dd>SAT_10_OCT_12:00_EAT</dd></div>
           <div class="boot-line"><dt>registration:</dt><dd>LOCKED_UNTIL_QUALIFIED</dd></div>
           <div class="boot-line"><dt>hunt:</dt><dd>14-16_OCT_2026</dd></div>
         </dl>
@@ -718,8 +759,8 @@ html.rv-on .sh.visible .sh-title{clip-path:inset(0 0% 0 0)}
       <div class="sh-eye"><div class="sh-line"></div><span class="sh-label">// The_Partnership</span></div>
       <h2 class="sh-title" id="partnership-title">A global training ground.<br><span class="hl-htb">A Kenyan proving ground.</span></h2>
     </div>
-    <p class="pt-statement fade-up">Hack The Box has partnered with JengaSec 2026. The Red-side qualifier runs on Hack The Box Enterprise with the Hack The Box Kenya Meetup community.</p>
-    <p class="pt-about fade-up">Hack The Box is a cybersecurity upskilling platform with hands-on hacking labs used by individuals, universities and companies. Hack The Box Enterprise is its platform for teams.</p>
+    <p class="pt-statement slide-l">Hack The Box has partnered with JengaSec 2026. The Red-side qualifier runs on Hack The Box Enterprise with the Hack The Box Kenya Meetup community.</p>
+    <p class="pt-about slide-r">Hack The Box is a cybersecurity upskilling platform with hands-on hacking labs used by individuals, universities and companies. Hack The Box Enterprise is its platform for teams.</p>
 
     <div class="pt-grid fade-up">
       <article class="pt-card">
@@ -766,7 +807,8 @@ html.rv-on .sh.visible .sh-title{clip-path:inset(0 0% 0 0)}
           <div class="gs-card">
             <div class="gs-tag">// Step_01</div>
             <h3 class="gs-title">RSVP on Meetup</h3>
-            <p class="gs-desc">Every member RSVPs individually on the Hack The Box Kenya Meetup event before Friday 9 October, 12:00 EAT.</p>
+            <p class="gs-desc">Your Meetup RSVP is your registration for the qualifier. It is the official record Hack The Box uses for the event, so every member of the team RSVPs individually.</p>
+            <p class="gs-desc"><strong>RSVP closes Saturday 10 October, 12:00 EAT.</strong> Every team is onboarded onto Hack The Box Enterprise and given a dedicated lab before the start. That takes time, so late RSVPs may not be accommodated.</p>
             <div class="gs-status"><span class="sig sig-lit" aria-hidden="true"></span><span>RSVP_OPEN</span></div>
           </div>
         </li>
@@ -775,7 +817,7 @@ html.rv-on .sh.visible .sh-title{clip-path:inset(0 0% 0 0)}
           <div class="gs-card">
             <div class="gs-tag">// Step_02</div>
             <h3 class="gs-title">Get onboarded</h3>
-            <p class="gs-desc">Every member needs an active Hack The Box Enterprise account. Access details and start time are sent at onboarding.</p>
+            <p class="gs-desc">Every member needs an active Hack The Box Enterprise account. Access details and the exact start time are sent at onboarding.</p>
             <div class="gs-status"><span class="sig sig-ring" aria-hidden="true"></span><span>REQUIRED_BEFORE_START</span></div>
           </div>
         </li>
@@ -784,8 +826,8 @@ html.rv-on .sh.visible .sh-title{clip-path:inset(0 0% 0 0)}
           <div class="gs-card">
             <div class="gs-tag">// Step_03</div>
             <h3 class="gs-title">Hunt the qualifier</h3>
-            <p class="gs-desc">Monday 12 October 2026. One online CTF, 24 hours, played as a team. The qualifying mark is published at onboarding.</p>
-            <div class="gs-status"><span class="sig sig-ring" aria-hidden="true"></span><span>MON_12_OCT &middot; 24_HOURS</span></div>
+            <p class="gs-desc">Opens Sunday 11 October 2026. One online CTF on Hack The Box Enterprise, 48 hours, played as a team of 4. The qualifying mark is published at onboarding.</p>
+            <div class="gs-status"><span class="sig sig-ring" aria-hidden="true"></span><span>SUN_11_OCT &middot; 48_HOURS</span></div>
           </div>
         </li>
         <li class="gate-step s4">
@@ -794,21 +836,21 @@ html.rv-on .sh.visible .sh-title{clip-path:inset(0 0% 0 0)}
             <div class="gs-tag">// Step_04</div>
             <span class="gate-condition">Only if your team qualifies</span>
             <h3 class="gs-title">Qualify, then register</h3>
-            <p class="gs-desc">Qualifying teams receive registration access by email once results are confirmed. Then register at <code>jengasec.com/accounts/register/</code> for all three days.</p>
+            <p class="gs-desc">Qualifying teams receive registration access by email once results are confirmed. Then register at <code>jengasec.com/accounts/register/</code> before the event on 14 October.</p>
             <div class="gs-status"><span class="sig sig-muted" aria-hidden="true"></span><span>LOCKED_UNTIL_QUALIFIED</span></div>
           </div>
         </li>
       </ol>
     </div>
 
-    <figure class="gate-unlock-demo">
+    <figure class="gate-unlock-demo slide-l">
       <svg class="gud-lock" focusable="false" aria-hidden="true"><use href="#lock-closed"/></svg>
       <span class="gud-arrow" aria-hidden="true">&rarr;</span>
       <svg class="gud-lock gud-open" focusable="false" aria-hidden="true"><use href="#lock-open"/></svg>
       <figcaption><strong>On qualifying</strong>An illustration of the rule. This page cannot read your team's status.</figcaption>
     </figure>
 
-    <div class="gate-foot">
+    <div class="gate-foot slide-r">
       <a href="https://www.meetup.com/hack-the-box-meetup-kenya/" class="btn-primary block-m magnetic" data-rsvp>RSVP on Meetup</a>
       <p>Teams that do not qualify cannot register for the Red side. Ilmurran, this is the only road in.</p>
     </div>
@@ -820,46 +862,48 @@ html.rv-on .sh.visible .sh-title{clip-path:inset(0 0% 0 0)}
   <div class="page-shell">
     <div class="sh">
       <div class="sh-eye"><div class="sh-line"></div><span class="sh-label">// The_Qualifier</span></div>
-      <h2 class="sh-title" id="qualifier-title">One CTF. Twenty-four hours.<br><span class="hl-htb">Online on Hack The Box.</span></h2>
+      <h2 class="sh-title" id="qualifier-title">One CTF. Forty-eight hours.<br><span class="hl-htb">Online on Hack The Box.</span></h2>
     </div>
+    <p class="lead">Just finished a CTF this month? Good. You are warmed up.</p>
     <ul class="q-pills">
-      <li>Teams of 3 to 4</li>
+      <li>Teams of 4</li>
       <li>Every member aged 18 to 25</li>
       <li>Free entry</li>
     </ul>
     <dl class="q-grid fade-up">
-      <div class="q-row"><dt>// Date</dt><dd>Monday 12 October 2026</dd></div>
-      <div class="q-row"><dt>// Duration</dt><dd>24 hours</dd></div>
-      <div class="q-row"><dt>// Format</dt><dd>One CTF on Hack The Box, 100% online.</dd></div>
+      <div class="q-row"><dt>// Opens</dt><dd>Sunday 11 October 2026. The exact start time is sent at onboarding.</dd></div>
+      <div class="q-row"><dt>// Duration</dt><dd>48 hours</dd></div>
+      <div class="q-row"><dt>// Format</dt><dd>One CTF on Hack The Box Enterprise, 100% online.</dd></div>
       <div class="q-row"><dt>// Hosted_By</dt><dd>Hack The Box Kenya Meetup x JengaSec.</dd></div>
-      <div class="q-row"><dt>// Team_Play</dt><dd>Teams play together. Every member RSVPs individually.</dd></div>
+      <div class="q-row"><dt>// Team_Play</dt><dd>Teams of 4 play together. Every member is aged 18 to 25.</dd></div>
       <div class="q-row"><dt>// Accounts</dt><dd>Every member needs an active Hack The Box Enterprise account.</dd></div>
       <div class="q-row"><dt>// Onboarding</dt><dd>Everyone is onboarded before the start. Access details and start time are sent at onboarding.</dd></div>
       <div class="q-row"><dt>// Qualifying_Mark</dt><dd>Published at onboarding.</dd></div>
-      <div class="q-row deadline wide"><dt>// RSVP_Deadline</dt><dd>Friday 9 October, 12:00 EAT. Late RSVPs may not be accommodated.</dd></div>
+      <div class="q-row wide"><dt>// Registration</dt><dd>Your Meetup RSVP is your registration for the qualifier. It is the official record Hack The Box uses for the event, so every member of the team RSVPs individually.</dd></div>
+      <div class="q-row deadline wide"><dt>// RSVP_Deadline</dt><dd>Saturday 10 October, 12:00 EAT, at least 12 hours before the CTF opens. Every team is onboarded onto Hack The Box Enterprise and given a dedicated lab before the start. That takes time, so late RSVPs may not be accommodated.</dd></div>
     </dl>
-    <div class="q-after fade-up">
-      <p>Qualifying teams receive JengaSec registration access by email once results are confirmed. They then register at <code>jengasec.com/accounts/register/</code>. That registration gives the team access to all three days of JengaSec 2026, 14 to 16 October at Strathmore University, Nairobi.</p>
+    <div class="q-after slide-l">
+      <p>Qualifying teams receive JengaSec registration access by email once results are confirmed. They then register at <code>jengasec.com/accounts/register/</code> before the event on 14 October. That registration gives the team access to all three days of JengaSec 2026, 14 to 16 October at Strathmore University, Nairobi.</p>
       <p>Teams that do not qualify cannot register for the Red side.</p>
     </div>
   </div>
 </section>
 
-<!-- ============ BEFORE FRIDAY ============ -->
+<!-- ============ BEFORE SATURDAY NOON ============ -->
 <section class="sec sec-light" id="report" aria-labelledby="report-title">
   <div class="page-shell">
     <div class="sh">
-      <div class="sh-eye"><div class="sh-line"></div><span class="sh-label">// Before_Friday</span></div>
-      <h2 class="sh-title" id="report-title">Before Friday noon.<br><span class="hl">Every member ready.</span></h2>
+      <div class="sh-eye"><div class="sh-line"></div><span class="sh-label">// Before_Saturday_Noon</span></div>
+      <h2 class="sh-title" id="report-title">Before Saturday noon.<br><span class="hl">Every member ready.</span></h2>
     </div>
     <ol class="prep-list fade-up">
       <li>Every member RSVPs individually on the Hack The Box Kenya Meetup event.</li>
       <li>Every member has an active Hack The Box Enterprise account.</li>
       <li>Use the same name and email on Meetup, Hack The Box and JengaSec so the team can be matched.</li>
-      <li>Agree a team of 3 to 4, with every member aged 18 to 25.</li>
+      <li>Agree a team of 4, with every member aged 18 to 25.</li>
       <li>Decide who writes the reports. A finding nobody can reproduce from the report scores nothing.</li>
     </ol>
-    <div class="callout">RSVP closes Friday 9 October, 12:00 EAT. Late RSVPs may not be accommodated.</div>
+    <div class="callout">RSVP closes Saturday 10 October, 12:00 EAT. Every team is onboarded onto Hack The Box Enterprise and given a dedicated lab before the start. That takes time, so late RSVPs may not be accommodated.</div>
     <a href="https://www.meetup.com/hack-the-box-meetup-kenya/" class="btn-primary block-m magnetic" data-rsvp>RSVP on Meetup</a>
   </div>
 </section>
@@ -903,7 +947,7 @@ html.rv-on .sh.visible .sh-title{clip-path:inset(0 0% 0 0)}
       </div>
     </div>
 
-    <div class="roe fade-up">
+    <div class="roe slide-r">
       <span class="roe-label">// Rules_Of_Engagement</span>
       <ul>
         <li>Stay in scope.</li>
@@ -1175,12 +1219,12 @@ html.rv-on .sh.visible .sh-title{clip-path:inset(0 0% 0 0)}
       </div>
       <div class="sh">
         <div class="sh-eye"><div class="sh-line" style="background:var(--accent-l)"></div><span class="sh-label" style="color:var(--muted-on-dark)">// Final_Word</span></div>
-        <h2 class="sh-title cta-title" id="cta-title">Friday 9 October, 12:00 EAT.<br><span class="hl-red">Every member RSVPs.</span></h2>
+        <h2 class="sh-title cta-title" id="cta-title">Saturday 10 October, 12:00 EAT.<br><span class="hl-red">Every member RSVPs.</span></h2>
       </div>
       <div class="cta-term" aria-hidden="true">
         <canvas class="term-rain" id="ctaRain" aria-hidden="true"></canvas>
         <div class="term-sweep"></div>
-        <span style="position:relative;z-index:2">&gt; ./rsvp --meetup=htb-kenya --each-member</span>
+        <span style="position:relative;z-index:2">&gt; ./rsvp --meetup=htb-kenya --team=4<span class="badge-cursor"></span></span>
       </div>
       <div class="cta-btns">
         <a href="https://www.meetup.com/hack-the-box-meetup-kenya/" class="btn-primary block-m magnetic" data-rsvp>RSVP on Meetup</a>
@@ -1197,14 +1241,14 @@ html.rv-on .sh.visible .sh-title{clip-path:inset(0 0% 0 0)}
   <a href="#partnership" data-sec="partnership">01 PARTNER</a>
   <a href="#gate" data-sec="gate">02 GATE</a>
   <a href="#qualifier" data-sec="qualifier">03 QUALIFIER</a>
-  <a href="#report" data-sec="report">04 FRIDAY</a>
+  <a href="#report" data-sec="report">04 SATURDAY</a>
   <a href="#rules" data-sec="rules">05 HUNT</a>
   <a href="#brief" data-sec="brief">06 TARGETS</a>
   <a href="#ready" data-sec="ready">07 QUALIFIED</a>
 </nav>
 
 <div class="mobile-rsvp" id="mrsvp" hidden inert>
-  <p class="mr-text"><strong>RSVP closes</strong>Fri 9 Oct, 12:00 EAT</p>
+  <p class="mr-text"><strong>RSVP closes</strong>Sat 10 Oct, 12:00 EAT</p>
   <a href="https://www.meetup.com/hack-the-box-meetup-kenya/" class="btn-primary">RSVP on Meetup</a>
 </div>
 
@@ -1223,16 +1267,18 @@ html.rv-on .sh.visible .sh-title{clip-path:inset(0 0% 0 0)}
 (function(){
 'use strict';
 var root=document.documentElement,body=document.body;
-var mqRM=window.matchMedia('(prefers-reduced-motion: reduce)');
 var mqFine=window.matchMedia('(pointer: fine)');
 var mqMobile=window.matchMedia('(max-width: 768px)');
 var mqDesk=window.matchMedia('(min-width: 1024px)');
 var CH='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789./\\[]{}><_#@!';
-var rmHooks=[];
-function RM(){return mqRM.matches}
+/* Motion is forced on by default, like the rest of the site. Only ?motion=reduced turns it off. */
+var REDUCED=root.classList.contains('motion-reduced');
+function RM(){return REDUCED}
 function on(mq,fn){if(mq.addEventListener)mq.addEventListener('change',fn);else if(mq.addListener)mq.addListener(fn);}
-function onRM(fn){rmHooks.push(fn)}
-on(mqRM,function(){rmHooks.forEach(function(h){h(RM())})});
+if(motionParam)document.querySelectorAll('a[href]').forEach(function(l){
+  var raw=l.getAttribute('href');if(!raw||raw.charAt(0)==='#'||/^mailto:/.test(raw))return;
+  var u=new URL(l.href,location.href);if(u.origin===location.origin){u.searchParams.set('motion',motionParam);l.href=u.href;}
+});
 
 /* ---------- terminal rain (hero terminal in HTB green, final terminal in red) ---------- */
 function initRain(canvas,rgb){
@@ -1241,7 +1287,7 @@ function initRain(canvas,rgb){
   function size(){
     var box=canvas.parentElement;
     rw=canvas.width=box.clientWidth||1;rh=canvas.height=box.clientHeight||1;
-    var spacing=18+Math.random()*4,cols=Math.max(1,Math.floor(rw/spacing));
+    var spacing=(18+Math.random()*4)*(mqMobile.matches?2:1),cols=Math.max(1,Math.floor(rw/spacing));
     drops=[];for(var i=0;i<cols;i++)drops.push({x:Math.round((i+0.5)*(rw/cols)),y:Math.random()*-40,speed:2+Math.random()*2,chars:[]});
   }
   function drawFrame(){
@@ -1273,7 +1319,7 @@ function initRain(canvas,rgb){
   else inView=true;
   document.addEventListener('visibilitychange',sync);
   window.addEventListener('resize',function(){size();if(RM())drawStatic();},{passive:true});
-  onRM(sync);sync();
+  sync();
 }
 initRain(document.getElementById('termRain'),'159,239,0');
 initRain(document.getElementById('ctaRain'),'255,59,71');
@@ -1324,7 +1370,7 @@ initRain(document.getElementById('ctaRain'),'255,59,71');
   if('IntersectionObserver' in window)new IntersectionObserver(function(e){inView=e[0].isIntersecting;sync();},{threshold:0}).observe(hero);
   document.addEventListener('visibilitychange',sync);
   var rt;window.addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(function(){size();sync();},150);},{passive:true});
-  onRM(sync);sync();
+  sync();
 })();
 
 /* ---------- hero parallax (mouse + scroll), desktop and tablet ---------- */
@@ -1341,7 +1387,7 @@ initRain(document.getElementById('ctaRain'),'255,59,71');
     var r=hero.getBoundingClientRect();px=((e.clientX-r.left)/r.width-0.5)*14;py=((e.clientY-r.top)/r.height-0.5)*10;req();
   },{passive:true});
   window.addEventListener('scroll',function(){sy=Math.min(window.scrollY*0.12,80);req();},{passive:true});
-  onRM(req);on(mqMobile,req);
+  on(mqMobile,req);
 })();
 
 /* ---------- custom cursor (fine pointers) ---------- */
@@ -1359,15 +1405,15 @@ initRain(document.getElementById('ctaRain'),'255,59,71');
   var sel='a,button,summary,.rules-card,.pt-card';
   document.addEventListener('mouseover',function(e){if(active&&e.target.closest&&e.target.closest(sel))ring.classList.add('hovering');});
   document.addEventListener('mouseout',function(e){if(e.target.closest&&e.target.closest(sel))ring.classList.remove('hovering');});
-  on(mqFine,sync);onRM(sync);sync();
+  on(mqFine,sync);sync();
 })();
 
 /* ---------- nav: wordmark glitch + link scramble on hover ---------- */
 (function(){
   var wm=document.getElementById('wmsec'),wordmark=document.getElementById('wordmark');
   if(wm&&wordmark)wordmark.addEventListener('mouseenter',function(){if(RM())return;wm.classList.remove('wm-glitch');void wm.offsetWidth;wm.classList.add('wm-glitch');});
-  document.querySelectorAll('#navlinks a').forEach(function(a){
-    var txt=a.textContent.trim(),siv=0;
+  document.querySelectorAll('#navlinks a[data-txt]').forEach(function(a){
+    var txt=a.dataset.txt,siv=0;
     a.addEventListener('mouseenter',function(){
       if(RM())return;
       var i=0;clearInterval(siv);
@@ -1457,13 +1503,15 @@ function updateRail(){
   var cur=-1;
   for(var i=railSecs.length-1;i>=0;i--){if(railSecs[i]&&railSecs[i].getBoundingClientRect().top<=window.innerHeight*0.4){cur=i;break;}}
   railLinks.forEach(function(a,i){if(i===cur)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');});
+  var cs=cur>=0?railSecs[cur]:null,rail=document.getElementById('missionRail');
+  if(rail)rail.setAttribute('data-tone',cs&&(cs.classList.contains('sec-light')||cs.classList.contains('sec-white'))?'light':(cur<3?'g':'r'));
 }
 
 /* ---------- entrance reveals (fade-up, section heads); content is visible without JS ---------- */
 if('IntersectionObserver' in window){
   root.classList.add('rv-on');
   var rvo=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');rvo.unobserve(e.target);}});},{threshold:0.07});
-  document.querySelectorAll('.fade-up,.sh').forEach(function(el){rvo.observe(el);});
+  document.querySelectorAll('.fade-up,.slide-l,.slide-r,.sh').forEach(function(el){rvo.observe(el);});
 }
 
 /* ---------- the gate: one decorative trace, then a captioned lock illustration ---------- */
@@ -1471,11 +1519,17 @@ if('IntersectionObserver' in window){
   var wrap=document.getElementById('gateWrap');
   if(!wrap||!('IntersectionObserver' in window))return;
   var done=false;
-  function arm(){
-    if(done)return;
-    if(mqDesk.matches&&!RM())root.classList.add('gate-armed');else root.classList.remove('gate-armed','gate-run');
+  var nodes=wrap.querySelectorAll('.gs-node');
+  function measure(){
+    /* narrow screens: the trace runs down the stacked steps, from node 1 to node 3 */
+    if(mqDesk.matches||nodes.length<3){wrap.style.removeProperty('--gt-top');wrap.style.removeProperty('--gt-h');return;}
+    var w=wrap.getBoundingClientRect(),a=nodes[0].getBoundingClientRect(),c=nodes[2].getBoundingClientRect();
+    wrap.style.setProperty('--gt-top',(a.top+a.height/2-w.top)+'px');
+    wrap.style.setProperty('--gt-h',(c.top+c.height/2-(a.top+a.height/2))+'px');
   }
-  arm();onRM(arm);on(mqDesk,arm);
+  measure();
+  if('ResizeObserver' in window)new ResizeObserver(measure).observe(wrap);else window.addEventListener('resize',measure,{passive:true});
+  if(!RM())root.classList.add('gate-armed');
   var io=new IntersectionObserver(function(e){
     if(e[0].isIntersecting&&!done){
       done=true;io.disconnect();
