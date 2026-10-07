@@ -364,16 +364,15 @@ html.gate-armed.gate-run .gud-open{opacity:1;transition:opacity 0.35s ease-out 0
 .q-after p+p{margin-top:0.6rem}
 .q-after code{font-family:'Space Mono',monospace;font-size:14px;color:var(--white);overflow-wrap:anywhere}
 
-/* ============ BEFORE SATURDAY NOON ============ */
+/* before Saturday noon: checklist inside the Qualifier */
+.q-prep{margin-top:40px;scroll-margin-top:16px}
+.q-prep-title{font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(1.6rem,3vw,2.25rem);line-height:1.1;letter-spacing:0.03em;color:var(--white);margin-bottom:8px}
+.q-prep .btn-primary{margin-top:24px}
 .prep-list{list-style:none;counter-reset:prep;display:grid;grid-template-columns:minmax(0,1fr);gap:0}
 @media(min-width:1024px){.prep-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:0 48px}}
-.prep-list li{counter-increment:prep;display:flex;gap:16px;align-items:flex-start;padding:16px 0;border-bottom:1px solid var(--border);font-size:16px;line-height:1.7}
+.prep-list li{counter-increment:prep;display:flex;gap:16px;align-items:flex-start;padding:16px 0;border-bottom:1px solid rgba(255,255,255,0.14);font-size:16px;line-height:1.7;color:var(--text-on-dark)}
 .prep-list li::before{content:counter(prep);flex-shrink:0;width:32px;height:32px;border:1.5px solid var(--htb);background:var(--htb-bg);color:var(--htb);display:flex;align-items:center;
   justify-content:center;font-family:'Space Mono',monospace;font-weight:700;font-size:14px}
-.callout{max-width:68ch;padding:20px 24px;font-size:16px;line-height:1.7;margin:32px 0 24px;border-left:3px solid var(--htb);background:var(--htb-bg);color:var(--text-on-dark)}
-#report .sh-label{color:var(--htb-bg)}
-#report .sh-line{background:var(--htb)}
-#report .hl{color:var(--htb-bg)}
 
 /* ============ HUNT ============ */
 .sec-hunt{background:var(--dg);overflow:hidden}
@@ -589,7 +588,7 @@ html.rv-on .sh.visible .sh-line{width:16px}
 html.rv-on .sh-title{clip-path:inset(0 100% 0 0);transition:clip-path 0.85s cubic-bezier(0.22,1,0.36,1) 0.1s}
 html.rv-on .sh.visible .sh-title{clip-path:inset(0 0% 0 0)}
 .sh::after{content:'';position:absolute;top:0;bottom:0;width:3px;left:0;background:linear-gradient(to bottom,transparent,var(--accent-l),transparent);opacity:0;pointer-events:none}
-.sec-htb .sh::after,.sec-gate .sh::after,.sec-qual .sh::after,#report .sh::after{background:linear-gradient(to bottom,transparent,var(--htb),transparent)}
+.sec-htb .sh::after,.sec-gate .sh::after,.sec-qual .sh::after{background:linear-gradient(to bottom,transparent,var(--htb),transparent)}
 .sh.visible::after{animation:shsweep 0.85s cubic-bezier(0.22,1,0.36,1) 0.1s 1}
 @keyframes shsweep{0%{left:0;opacity:1}90%{opacity:1}100%{left:min(100%,560px);opacity:0}}
 
@@ -882,29 +881,21 @@ html.motion-reduced .hero-img{transform:none!important}
       <div class="q-row wide"><dt>// Registration</dt><dd>Your Meetup RSVP is your registration for the qualifier. It is the official record Hack The Box uses for the event, so every member of the team RSVPs individually.</dd></div>
       <div class="q-row deadline wide"><dt>// RSVP_Deadline</dt><dd>Saturday 10 October, 12:00 EAT, at least 12 hours before the CTF opens. Every team is onboarded onto Hack The Box Enterprise and given a dedicated lab before the start. That takes time, so late RSVPs may not be accommodated.</dd></div>
     </dl>
+    <div class="q-prep" id="report">
+      <h3 class="q-prep-title">Before Saturday noon. <span class="hl-htb">Every member ready.</span></h3>
+      <ol class="prep-list fade-up">
+        <li>Every member RSVPs individually on the Hack The Box Kenya Meetup event.</li>
+        <li>Every member has an active Hack The Box Enterprise account.</li>
+        <li>Use the same name and email on Meetup, Hack The Box and JengaSec so the team can be matched.</li>
+        <li>Agree a team of 4, with every member aged 18 to 25.</li>
+        <li>Decide who writes the reports. A finding nobody can reproduce from the report scores nothing.</li>
+      </ol>
+      <a href="https://www.meetup.com/hack-the-box-meetup-kenya/" class="btn-primary block-m magnetic" data-rsvp>RSVP on Meetup</a>
+    </div>
     <div class="q-after slide-l">
       <p>Qualifying teams receive JengaSec registration access by email once results are confirmed. They then register at <code>jengasec.com/accounts/register/</code> before the event on 14 October. That registration gives the team access to all three days of JengaSec 2026, 14 to 16 October at Strathmore University, Nairobi.</p>
       <p>Teams that do not qualify cannot register for the Red side.</p>
     </div>
-  </div>
-</section>
-
-<!-- ============ BEFORE SATURDAY NOON ============ -->
-<section class="sec sec-light" id="report" aria-labelledby="report-title">
-  <div class="page-shell">
-    <div class="sh">
-      <div class="sh-eye"><div class="sh-line"></div><span class="sh-label">// Before_Saturday_Noon</span></div>
-      <h2 class="sh-title" id="report-title">Before Saturday noon.<br><span class="hl">Every member ready.</span></h2>
-    </div>
-    <ol class="prep-list fade-up">
-      <li>Every member RSVPs individually on the Hack The Box Kenya Meetup event.</li>
-      <li>Every member has an active Hack The Box Enterprise account.</li>
-      <li>Use the same name and email on Meetup, Hack The Box and JengaSec so the team can be matched.</li>
-      <li>Agree a team of 4, with every member aged 18 to 25.</li>
-      <li>Decide who writes the reports. A finding nobody can reproduce from the report scores nothing.</li>
-    </ol>
-    <div class="callout">RSVP closes Saturday 10 October, 12:00 EAT. Every team is onboarded onto Hack The Box Enterprise and given a dedicated lab before the start. That takes time, so late RSVPs may not be accommodated.</div>
-    <a href="https://www.meetup.com/hack-the-box-meetup-kenya/" class="btn-primary block-m magnetic" data-rsvp>RSVP on Meetup</a>
   </div>
 </section>
 
@@ -1241,10 +1232,9 @@ html.motion-reduced .hero-img{transform:none!important}
   <a href="#partnership" data-sec="partnership">01 PARTNER</a>
   <a href="#gate" data-sec="gate">02 GATE</a>
   <a href="#qualifier" data-sec="qualifier">03 QUALIFIER</a>
-  <a href="#report" data-sec="report">04 SATURDAY</a>
-  <a href="#rules" data-sec="rules">05 HUNT</a>
-  <a href="#brief" data-sec="brief">06 TARGETS</a>
-  <a href="#ready" data-sec="ready">07 QUALIFIED</a>
+  <a href="#rules" data-sec="rules">04 HUNT</a>
+  <a href="#brief" data-sec="brief">05 TARGETS</a>
+  <a href="#ready" data-sec="ready">06 QUALIFIED</a>
 </nav>
 
 <div class="mobile-rsvp" id="mrsvp" hidden inert>
